@@ -1,15 +1,21 @@
 package de.eventuell.views;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 import de.eventuell.exceptions.LoginFailedException;
+import de.eventuell.models.User;
 import de.eventuell.services.UserServiceMock;
 import de.eventuell.services.Interfaces.IUserService;
+import de.eventuell.session.UserSession;
 
 @ManagedBean
 @RequestScoped
 public class LoginView {
+	
+	@ManagedProperty(value = "#{userSession}")
+	private UserSession userSession;
 	
 	private IUserService userService;
 	private String eMail;
@@ -20,16 +26,13 @@ public class LoginView {
 	}
 
 	public String login() {
-		// login über den UserService
+		User user;
 		try {
-			userService.login(this.eMail, this.password);
+			user = userService.login(this.eMail, this.password);
 		} catch (LoginFailedException e) {
-			System.out.println(" --> Login Failed");
 			return "login.jsf";
 		}
-		// wenn erfolgreich user durch das Userobjekt ersetzen
-		// beim scheitern die E-Mail im anonymen user setzen damit die im Login angezeigt werden kann
-		System.out.println("Login");
+		userSession.setUser(user);
 		return "index.html";
 	}
 	
@@ -50,4 +53,12 @@ public class LoginView {
 		this.password = password;
 	}
 
+	public UserSession getUserSession() {
+		return userSession;
+	}
+
+	public void setUserSession(UserSession userSession) {
+		this.userSession = userSession;
+	}
+	
 }
