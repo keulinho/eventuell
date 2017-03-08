@@ -11,3 +11,9 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /bin/
+
+# stupid files depending on OS and PC
+.classpath
+.gradle/3.3/*
+.project
+.settings/*
