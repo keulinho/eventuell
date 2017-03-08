@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.User;
-import de.eventuell.services.Interfaces.IUserService;
+import de.eventuell.services.interfaces.IUserService;
 
 @ApplicationScoped
 @ManagedBean(name="UserService")

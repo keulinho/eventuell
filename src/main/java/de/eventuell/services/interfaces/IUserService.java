@@ -1,4 +1,4 @@
-package de.eventuell.services.Interfaces;
+package de.eventuell.services.interfaces;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.User;

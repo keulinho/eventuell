@@ -7,7 +7,7 @@ import javax.faces.bean.RequestScoped;
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.User;
 import de.eventuell.services.UserServiceMock;
-import de.eventuell.services.Interfaces.IUserService;
+import de.eventuell.services.interfaces.IUserService;
 import de.eventuell.session.UserSession;
 
 @ManagedBean
