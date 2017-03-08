@@ -2,18 +2,76 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
-    <h:body>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<f:metadata>
+	<f:viewAction action="#{indexView.getAllActualEvents}" />
+</f:metadata>
+<h:body>
 
-    	<ui:composition template="base.xhtml">
-			<ui:define name="content">
-    			<h2>Willkommen bei Eventuell</h2>
-    			<l>Liste aller anstehenden Events:</l>
-    		</ui:define>
-    	</ui:composition>
+	<ui:composition template="base.xhtml">
+		<ui:define name="content">
+			<h2>Willkommen bei Eventuell</h2>
+			<l>Liste aller anstehenden Events:</l>
+			<h:dataTable
+				value="#{indexView.actualEvents}" var="event"
+				class="table table-bordered table-hover">
 
-    </h:body>
+				<h:column rendered="false">
+					<!-- column header -->
+					<f:facet name="header">ID</f:facet>
+					<!-- row record -->
+    				#{event.eventID}
+    			</h:column>
+
+				<h:column>
+					<!-- column header -->
+					<f:facet name="header">Titel</f:facet>
+					<!-- row record -->
+					<h:form>
+					<h:link value="#{event.title}" outcome="event">
+        				<f:param name="id" value="#{event.eventID}" />
+    				</h:link>
+					</h:form>
+					
+    				
+    				
+    			</h:column>
+
+				<h:column>
+					<f:facet name="header">Bechreibung</f:facet>
+    				#{event.description}
+    			</h:column>
+
+				<h:column>
+					<f:facet name="header">Stadt</f:facet>
+    				#{event.city}
+    			</h:column>
+
+				<h:column>
+					<f:facet name="header">Ort</f:facet>
+    				#{event.location}
+    			</h:column>
+
+				<h:column>
+					<f:facet name="header">Datum</f:facet>
+					<h:outputText value="#{event.startDateTime}" pattern="dd.MM.YYYY">
+						<f:converter converterId="localDateTimeConverterID" />
+					</h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Uhrzeit</f:facet>
+					<h:outputText value="#{event.startDateTime}" pattern="HH:mm">
+						<f:converter converterId="localDateTimeConverterID" />
+					</h:outputText>
+				</h:column>
+
+			</h:dataTable>
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
 
 </html>
