@@ -27,7 +27,12 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.jsf"><b>Event</b>uell</a>
+			<!-- 			<a class="navbar-brand" href="index.jsf"><b>Event</b>uell</a> -->
+			<h:form>
+				<h:commandLink action="#{indexView.removeSearch}">
+					<span class="navbar-brand"><b>Event</b>uell</span>
+				</h:commandLink>
+			</h:form>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
@@ -37,19 +42,23 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				<li><a href="#">Login</a></li>
 			</ul>
 			<h:form class="navbar-form navbar-left" id="search" name="search">
-<!-- 				<div class="form-group"> -->
-					<h:inputText type="text" id="searchString" name="searchString" value="#{indexView.searchText}" placeholder="Suche"/>
-<!-- 				</div> -->
-				<h:commandButton value="Suchen"
-                     action="#{indexView.search}" />
+				<!-- 				<div class="form-group"> -->
+				<h:inputText type="text" id="searchString" name="searchString"
+					value="#{indexView.searchText}" placeholder="Suche" />
+				<!-- 				</div> -->
+				<h:commandButton value="Suchen" action="#{indexView.search}" />
 			</h:form>
 		</div>
 
 		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container-fluid --> </nav>
-	<div id="main">
-		<ui:insert name="content" />
+	<div class="container-fluid">
+		<div class="row">
+			<div id="main" class="content col-md-12">
+				<ui:insert name="content" />
+			</div>
+		</div>
 	</div>
 	<!-- Lot of html here -->
 </h:body>

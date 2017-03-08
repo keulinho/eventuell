@@ -14,12 +14,36 @@
 	<ui:composition template="base.xhtml">
 		<ui:define name="content">
 			<div class="jumbotron">
-				<h1><b>Event</b>uell...</h1>
-				<p>...finden sie bei uns eine geniale Veranstaltung</p>
+				<h1>
+					<b>Event</b>uell...
+				</h1>
+				<span>...finden sie bei uns eine geniale Veranstaltung</span>
 			</div>
-			<h2></h2>
+			<c:if test="#{not empty indexView.searchText}">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="panel panel-default col-md-6">
+							<div class="panel-heading">
+								<h3 class="panel-title">Suchterm:</h3>
+							</div>
+							<div class="panel-body">
+								<h:form>
+									<h:commandLink action="#{indexView.removeSearch}">
+										<button class="btn btn-primary" type="button">
+											#{indexView.searchText} <span class="badge">X</span>
+										</button>
+									</h:commandLink>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</c:if>
 			<c:if test="#{not empty indexView.actualEvents}">
-				<l>Liste aller anstehenden Events:</l>
+				<h3>
+					<span class="label label-default">Bevorstehende Events:</span>
+				</h3>
 				<h:dataTable value="#{indexView.actualEvents}" var="event"
 					class="table table-bordered table-hover">
 

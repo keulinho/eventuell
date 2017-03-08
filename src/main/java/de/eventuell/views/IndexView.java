@@ -36,7 +36,6 @@ public class IndexView {
 
 	public String search() {
 		actualEvents = eventService.searchAllActualEvents(searchText);
-		searchText = "";
 		return "index.jsf";
 	}
 	public List<Event> getActualEvents() {
@@ -48,6 +47,12 @@ public class IndexView {
 	
 	public void getAllActualEvents() {
 		actualEvents = eventService.getAllActualEvents();
+	}
+	
+	public String removeSearch() {
+		searchText="";
+		getAllActualEvents();
+		return "index.jsf";
 	}
 	
 }
