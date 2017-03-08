@@ -11,7 +11,6 @@ public class UserSession {
 	private User user;
 	
 	public UserSession() {
-		user = new User();
 	}
 	
 	// Getter und Setter
