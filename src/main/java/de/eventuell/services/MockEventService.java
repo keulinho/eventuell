@@ -35,6 +35,16 @@ public class MockEventService implements IEventService{
 		e.setStatus(EventStatus.PUBLISHED);
 		e.setTitle("Die Kassierer Konzert Münster");
 		allEvents.add(e);
+		Event e2 = new Event();
+		e2.setEventID(2);
+		e2.setCity("Münster");
+		e2.setDescription("Hammer Konzert");
+		e2.setLocation("Halle Münsterland");
+		e2.setMaxTickets(2000);
+		e2.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
+		e2.setStatus(EventStatus.PUBLISHED);
+		e2.setTitle("Test");
+		allEvents.add(e2);
 	}
 	
 
@@ -56,7 +66,7 @@ public class MockEventService implements IEventService{
 	}
 
 	public List<Event> searchAllActualEvents(String searchString) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Event> events = getAllActualEvents();
+		return events.stream().filter(e -> (e.getTitle()+e.getDescription()+e.getCity()+e.getLocation()).toUpperCase().contains(searchString.toUpperCase())).collect(Collectors.toList());
 	}
 }
