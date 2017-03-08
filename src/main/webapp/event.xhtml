@@ -2,43 +2,59 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
-    <h:body>
-private int eventID;
-	private String title;
-	private String description;
-	private int maxTickets;
-	private LocalDateTime startDateTime;
-	private String location;
-	private String city;
-	private User creator;
-	private EventStatus status;
-    	<ui:composition template="base.xhtml">
-			<ui:define name="content">
-				<div class="container-fluid"> 
-					<div class="row">
-						<div class="col-md-12">Titel</div>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<f:metadata>
+	<f:viewAction action="#{eventDetailView.getCurrentEvent}" />
+</f:metadata>
+<h:body>
+	<ui:composition template="base.xhtml">
+		<ui:define name="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<h1>#{eventDetailView.currentEvent.title}</h1>
 					</div>
-					<div class></div>
-					<div class="row">
-						<div class="col-md-2">Datum: </div>
-						<div class="col-md-4">Datum aus der DB holen</div>
-						<div class="col-md-2">Stadt: </div>
-						<div class="col-md-4">city aus der DB holen</div>
+				</div>
+				<div class="row">
+					<h2>Details</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-2">Datum:</div>
+					<div class="col-md-2">
+						<h:outputText
+							value="#{eventDetailView.currentEvent.startDateTime}"
+							pattern="dd.MM.YYYY">
+							<f:converter converterId="localDateTimeConverterID" />
+						</h:outputText>
 					</div>
-					<div class="row">
-						<div class="col-md-2">Startzeit: </div>
-						<div class="col-md-4">startDateTime aus der DB holen</div>
-						<div class="col-md-2">Veranstaltungsort: </div>
-						<div class="col-md-4">location aus der DB holen</div>
+					<div class="col-md-2">Stadt:</div>
+					<div class="col-md-2">#{eventDetailView.currentEvent.city}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">Startzeit:</div>
+					<div class="col-md-2">
+						<h:outputText
+							value="#{eventDetailView.currentEvent.startDateTime}"
+							pattern="HH:mm">
+							<f:converter converterId="localDateTimeConverterID" />
+						</h:outputText>
 					</div>
-    			</div>
-					
-    			
-    			
-    		</ui:define>
-    	</ui:composition>
-    </h:body>
+					<div class="col-md-2">Veranstaltungsort:</div>
+					<div class="col-md-2">#{eventDetailView.currentEvent.location}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">Beschreibung:</div>
+					<div class="col-md-2">#{eventDetailView.currentEvent.description}</div>
+				</div>
+			<!-- 	<h:form>
+					<h:commandButton value="Reservieren" action=""></h:commandButton></h:form> -->
+			</div>
+
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>

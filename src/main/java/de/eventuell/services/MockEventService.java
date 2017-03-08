@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.FaceletContext;
 
 import de.eventuell.models.Event;
 import de.eventuell.models.EventStatus;
@@ -41,9 +44,15 @@ public class MockEventService implements IEventService{
 		return allEvents.stream().filter(e -> e.getStatus()==EventStatus.PUBLISHED && e.isAgo()==false).collect(Collectors.toList());
 	}
 
-	public Event getEventByID(int eventID) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override
+	public Event getEventByID(int eventID) {		
+		Event currentEvent = null;
+		for (Event event : allEvents) {
+			if (event.getEventID() == eventID) {
+				currentEvent = event;
+			}
+		}
+		return currentEvent;
 	}
 
 	public List<Event> searchAllActualEvents(String searchString) {
