@@ -6,7 +6,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String password;
-	private boolean isAdmin;
+	private boolean manager;
 	
 	
 	public int getUserID() {
@@ -38,11 +38,11 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	} 	
+	public boolean getManager() {
+		return manager;
 	}
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setManager(boolean manager) {
+		this.manager = manager;
 	}
 }

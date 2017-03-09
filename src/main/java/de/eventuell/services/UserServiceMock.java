@@ -24,18 +24,18 @@ public class UserServiceMock implements IUserService {
 		admin.setFirstName("Sudo");
 		admin.setLastName("Admin");
 		admin.setEmail("admin@admin.gws");
-		admin.setAdmin(true);
+		admin.setManager(true);
 		admin.setPassword("admin");
 		admin.setUserID(1);
 		users.add(admin);
 	}
 
-	public User register(String firstName, String lastName, String password, String mail, boolean isAdmin) {
+	public User register(String firstName, String lastName, String password, String mail, boolean isManager) {
 		User user = new User();
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.setEmail(mail);
-		user.setAdmin(isAdmin);
+		user.setManager(isManager);
 		user.setPassword(password);
 		user.setUserID(counter++);
 		return user;

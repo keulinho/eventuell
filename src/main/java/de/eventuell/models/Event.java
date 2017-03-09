@@ -9,10 +9,25 @@ public class Event {
 	private int maxTickets;
 	private LocalDateTime startDateTime;
 	private String location;
+	private String zipCode;
 	private String city;
 	private User creator;
 	private EventStatus status;
+	private String streetNumber;
 	
+	
+	public String getZipCode() {
+		return zipCode;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+	public String getStreetNumber() {
+		return streetNumber;
+	}
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
+	}
 	public int getEventID() {
 		return eventID;
 	}
