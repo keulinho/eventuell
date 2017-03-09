@@ -33,7 +33,7 @@ public class LoginView {
 			return "login.jsf";
 		}
 		userSession.setUser(user);
-		return "index.html";
+		return "index.jsf";
 	}
 	
 	// Getter und Setter
