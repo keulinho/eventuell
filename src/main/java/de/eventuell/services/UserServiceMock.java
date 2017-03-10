@@ -38,6 +38,7 @@ public class UserServiceMock implements IUserService {
 		user.setManager(isManager);
 		user.setPassword(password);
 		user.setUserID(counter++);
+		users.add(user);
 		return user;
 	}
 
