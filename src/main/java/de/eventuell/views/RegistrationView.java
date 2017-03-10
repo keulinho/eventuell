@@ -40,10 +40,10 @@ public class RegistrationView {
 		if (checkPasswdEquality()) {
 			User user = userService.register(firstName, name, passwd1, eMail, manager);
 			userSession.setUser(user);
-			return "index";
+			return "index.jsf?faces-redirect=true";
 		} else {
 			// TODO: Fehlermeldung und message am Form
-			return "register";
+			return "register.jsf";
 		}
 	}
 	
