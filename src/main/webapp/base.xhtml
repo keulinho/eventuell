@@ -43,11 +43,11 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<h:form class="navbar-form navbar-left" id="search" name="search">
-				<!-- 				<div class="form-group"> -->
-				<h:inputText type="text" id="searchString" name="searchString"
-					value="#{indexView.searchText}" placeholder="Suche" />
-				<!-- 				</div> -->
-				<h:commandButton value="Suchen" action="#{indexView.search}" />
+				<div class="form-group">
+					<h:inputText type="text" id="searchString" name="searchString" class="form-control"
+						value="#{indexView.searchText}" placeholder="Suche" />
+				</div>
+				<h:commandButton value="Suchen" class="btn btn-default" action="#{indexView.search}" />
 			</h:form>
 			<ul class="nav navbar-nav navbar-left">
 			<li><h:link value="Home" outcome="index"></h:link></li>
@@ -59,12 +59,14 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						rendered="#{userSession.user eq null}"></h:link></li>
 				<li><h:link value="registrieren" outcome="registration"
 						rendered="#{userSession.user eq null}"></h:link></li>
-				<li><h:link rendered="#{userSession.user ne null}">
-						<h:form>
-							<h:commandButton value="logout" action="#{logoutView.logout}"
-								type="submit" class="btn btn-info" />
-						</h:form>
-					</h:link></li>
+			</ul>
+			<h:form class="navbar-form navbar-right" rendered="#{userSession.user ne null}">
+				<h:commandButton value="logout" action="#{logoutView.logout}"
+					type="submit" class="btn btn-info" />
+			</h:form>
+			<ul class="nav navbar-nav navbar-right">
+				<li><h:link value="einstellungen" coutcome="einstellungen"
+						rendered="#{userSession.user ne null}"></h:link></li>
 			</ul>
 		</div>
 
