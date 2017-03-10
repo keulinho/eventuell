@@ -57,7 +57,7 @@ public class IndexView {
 	public String removeSearch() {
 		searchText="";
 		getAllActualEvents();
-		return "index.jsf";
+		return "index.jsf?faces-redirect=true";
 	}
 	
 }

@@ -47,15 +47,17 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				<!-- 				</div> -->
 				<h:commandButton value="Suchen" action="#{indexView.search}" />
 			</h:form>
+			<ul class="nav navbar-nav navbar-left">
+			<li><h:link value="Home" outcome="index"></h:link></li>
+				<li><h:link value="Managerbereich" outcome="managerIndex"
+						rendered="#{userSession.user.manager eq true}"></h:link></li>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<h:link value="login" outcome="login" rendered="#{userSession.user eq null}"></h:link>
-				</li>
-				<li>
-					<h:link value="registrieren" outcome="registration" rendered="#{userSession.user eq null}"></h:link>
-				</li>
-				<li>
-					<h:link rendered="#{userSession.user ne null}">
+				<li><h:link value="login" outcome="login"
+						rendered="#{userSession.user eq null}"></h:link></li>
+				<li><h:link value="registrieren" outcome="registration"
+						rendered="#{userSession.user eq null}"></h:link></li>
+				<li><h:link rendered="#{userSession.user ne null}">
 						<h:form>
 							<h:commandButton value="logout" action="#{logoutView.logout}"
 								type="submit" class="btn btn-info" />

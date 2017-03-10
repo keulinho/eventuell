@@ -10,7 +10,18 @@
 
 	<ui:composition template="base.xhtml">
 		<ui:define name="content">
-			<ui:include src="/userIndex.xhtml" />
+			<c:if test="#{userSession.user.manager}">
+				<ui:include src="/adminIndex.xhtml" />
+			</c:if>
+			<c:if test="#{not userSession.user.manager}">
+				<div class="alert alert-danger" role="alert">
+					<span>Sie sind nicht als Manager eingeloggt und haben aus diesem Grund keinen Zugriff auf diese Seite.</span>
+					<h:form>
+							<h:commandButton value="Zum Login" action="login?faces-redirect=true"
+								type="submit" class="btn btn-info" />
+						</h:form>
+				</div>
+			</c:if>
 		</ui:define>
 	</ui:composition>
 

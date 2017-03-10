@@ -19,7 +19,7 @@ public class LogoutView {
 	
 	public String logout() {
 		userSession.clearSession();
-		return "login.jsf";
+		return "login.jsf?faces-redirect=true";
 	}
 
 	public UserSession getUserSession() {
