@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.faces.bean.ApplicationScoped;
@@ -87,5 +88,13 @@ public class MockEventService implements IEventService {
 			return null;
 		}
 
+	}
+
+	@Override
+	public void addEvent(Event e) {
+		double i = Math.random()*100000000;
+		System.out.println((int)i);
+		e.setEventID((int)i);
+		allEvents.add(e);
 	}
 }

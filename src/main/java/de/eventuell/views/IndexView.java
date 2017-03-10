@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 import de.eventuell.exceptions.LoginFailedException;
@@ -16,14 +17,30 @@ import de.eventuell.services.interfaces.IEventService;
 public class IndexView {
 	private List<Event> actualEvents;
 	private String searchText;
+	@ManagedProperty(value = "#{mockEventService}")
 	private IEventService eventService;
 	
 	
 	public IndexView() throws LoginFailedException {
-		eventService=new MockEventService();
 	}
 
 	
+	
+	
+	public IEventService getEventService() {
+		return eventService;
+	}
+
+
+
+
+	public void setEventService(IEventService eventService) {
+		this.eventService = eventService;
+	}
+
+
+
+
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
 	}
