@@ -2,30 +2,32 @@
 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 <head>
-	<title>EVENTuell - Login</title>
 </head>
 <body>
 	<ui:composition template="base.xhtml">
-		<ui:define name="title">
+		<ui:define name="head">
 			<title>EVENTuell - Login</title>
+			<h:outputStylesheet name="css/login-style.css" />
 		</ui:define>
 		<ui:define name="content">
 			<div class="container-fluid">
 			    <div class="row">
 			        <div class="col-md-4">
-						<h:form>	
+						<form jsf:id="form">
+							<h:messages globalOnly="true" layout="table" errorClass="message-error"></h:messages>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Email address</label>
-								<h:inputText value="#{loginView.eMail}" type="email" class="form-control" placeholder="Email" />
+								<input jsf:value="#{loginView.eMail}" type="email" class="form-control" placeholder="Email" />
 							</div>
 							<div class="form-group">
 								<label for="exampleInputPassword1">Password</label>
-							    <h:inputSecret value="#{loginView.password}"  type="password" class="form-control" placeholder="Password" />
+							    <input jsf:value="#{loginView.password}"  type="password" class="form-control" placeholder="Password" />
 							</div>
-							<h:commandButton value="Login"  action="#{loginView.login}" type="submit" class="btn btn-default"/>
-						</h:form>
+							<input value="Login"  jsf:action="#{loginView.login}" type="submit" class="btn btn-default"/>
+						</form>
 			        </div>
 			    </div>
 			</div>
