@@ -18,7 +18,7 @@ public class LogoutView {
 	}
 	
 	public String logout() {
-		userSession.removeUser();
+		userSession.clearSession();
 		return "login.jsf";
 	}
 

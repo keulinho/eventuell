@@ -17,12 +17,13 @@ public class LoginView {
 	@ManagedProperty(value = "#{userSession}")
 	private UserSession userSession;
 	
+	@ManagedProperty(value = "#{userService}")
 	private IUserService userService;
 	private String eMail;
 	private String password;
 	
 	public LoginView () {
-		userService = new UserServiceMock();
+		// userService = new UserServiceMock();
 	}
 
 	public String login() {
@@ -33,7 +34,7 @@ public class LoginView {
 			return "login.jsf";
 		}
 		userSession.setUser(user);
-		return "index.jsf";
+		return "index.jsf?faces-redirect=true";
 	}
 	
 	// Getter und Setter
@@ -59,6 +60,14 @@ public class LoginView {
 
 	public void setUserSession(UserSession userSession) {
 		this.userSession = userSession;
+	}
+
+	public IUserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(IUserService userService) {
+		this.userService = userService;
 	}
 	
 }
