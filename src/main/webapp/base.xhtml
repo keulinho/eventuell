@@ -55,17 +55,17 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						rendered="#{userSession.user.manager eq true}"></h:link></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><h:link value="login" outcome="login"
+				<li><h:link value="login" outcome="Login"
 						rendered="#{userSession.user eq null}"></h:link></li>
 				<li><h:link value="registrieren" outcome="registration"
 						rendered="#{userSession.user eq null}"></h:link></li>
 			</ul>
 			<h:form class="navbar-form navbar-right" rendered="#{userSession.user ne null}">
-				<h:commandButton value="logout" action="#{logoutView.logout}"
+				<h:commandButton value="Logout" action="#{logoutView.logout}"
 					type="submit" class="btn btn-info" />
 			</h:form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><h:link value="einstellungen" coutcome="einstellungen"
+				<li><h:link value="einstellungen" coutcome="Einstellungen"
 						rendered="#{userSession.user ne null}"></h:link></li>
 			</ul>
 		</div>
