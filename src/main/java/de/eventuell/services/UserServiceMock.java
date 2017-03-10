@@ -10,7 +10,7 @@ import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IUserService;
 
 @ApplicationScoped
-@ManagedBean(name="UserService")
+@ManagedBean(name="userService")
 public class UserServiceMock implements IUserService {
 // Dummy UserService bis wir in der Vorlesung weiter sind
 	
