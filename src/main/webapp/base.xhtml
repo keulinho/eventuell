@@ -50,7 +50,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					<h:link value="login" outcome="login" rendered="#{userSession.user eq null}"></h:link>
 				</li>
 				<li>
-					<h:link value="registrieren" outcome="login" rendered="#{userSession.user eq null}"></h:link>
+					<h:link value="registrieren" outcome="registration" rendered="#{userSession.user eq null}"></h:link>
 				</li>
 				<li>
 					<h:link rendered="#{userSession.user ne null}">
