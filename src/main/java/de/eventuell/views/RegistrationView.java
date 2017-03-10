@@ -30,20 +30,13 @@ public class RegistrationView {
 	}
 	
 	public String register() {
-		System.out.println(firstName);
-		System.out.println(name);
-		System.out.println(eMail);
-		System.out.println(manager);
-		System.out.println(passwd1);
-		System.out.println(passwd2);
-		System.out.println("--> Registrierung");
-		if (checkPasswdEquality()) {
+		System.out.println("--> Registrierung: " + firstName + ", " + name + ", " + eMail + ", " + manager + ", " + passwd1 + ", " + passwd2);
+		if (passwd1.length() < 8 || firstName.isEmpty() || name.isEmpty() || eMail.isEmpty() || !isValidEmailAddress(eMail) || !checkPasswdEquality()) {
+			return "register.jsf";
+		} else {
 			User user = userService.register(firstName, name, passwd1, eMail, manager);
 			userSession.setUser(user);
 			return "index.jsf?faces-redirect=true";
-		} else {
-			// TODO: Fehlermeldung und message am Form
-			return "register.jsf";
 		}
 	}
 	
@@ -52,6 +45,13 @@ public class RegistrationView {
 			return true;
 		else
 			return false;
+	}
+	
+	private boolean isValidEmailAddress(String email) {
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
 	}
 	
 	// getter und setter
