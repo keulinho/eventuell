@@ -1,6 +1,7 @@
 package de.eventuell.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Event {
 	private int eventID;
@@ -14,8 +15,15 @@ public class Event {
 	private User creator;
 	private EventStatus status;
 	private String streetNumber;
+	private List<Booking> bookings;
 	
 	
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
 	public String getZipCode() {
 		return zipCode;
 	}

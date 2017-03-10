@@ -8,13 +8,15 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <h:head>
 	<ui:insert name="title" />
 	<meta charset="UTF-8"></meta>
-	<h:outputScript name="js/jquery-3.1.1.min.js" />
+
 	<h:outputStylesheet
 		name="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" />
 	<h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css" />
-	<h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js" />
+
 </h:head>
 <h:body>
+	<h:outputScript name="js/jquery-3.1.1.min.js" />
+	<h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js" />
 	<!-- Lot of html here -->
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
@@ -46,20 +48,17 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				<h:commandButton value="Suchen" action="#{indexView.search}" />
 			</h:form>
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<h:link value="login" outcome="login" rendered="#{userSession.user eq null}"></h:link>
-				</li>
-				<li>
-					<h:link value="registrieren" outcome="login" rendered="#{userSession.user eq null}"></h:link>
-				</li>
-				<li>
-					<h:link rendered="#{userSession.user ne null}">
+				<li><h:link value="login" outcome="login"
+						rendered="#{userSession.user eq null}"></h:link></li>
+				<li><h:link value="registrieren" outcome="login"
+						rendered="#{userSession.user eq null}"></h:link></li>
+				<li><h:link rendered="#{userSession.user ne null}">
 						<h:form>
-							<h:commandButton value="logout" action="#{logoutView.logout}" type="submit" class="btn btn-info"/>
+							<h:commandButton value="logout" action="#{logoutView.logout}"
+								type="submit" class="btn btn-info" />
 						</h:form>
-					</h:link>
-				</li>
-			</ul>	
+					</h:link></li>
+			</ul>
 		</div>
 
 		<!-- /.navbar-collapse -->
