@@ -66,7 +66,9 @@
 									<div class="panel panel-success">
 										<div class="panel-heading" data-toggle="collapse"
 											data-target="#demo#{event.eventID}">
-											<h3 class="panel-title">Reservierungen <span class="caret"></span></h3>
+											<h3 class="panel-title">
+												Reservierungen <span class="caret"></span>
+											</h3>
 										</div>
 
 										<div class="panel-body collapse" id="demo#{event.eventID}">
@@ -106,8 +108,79 @@
 			</div>
 			<div id="new-event" class="tab-pane fade">
 				<h3>Neue Veranstaltung erstellen</h3>
-				<p>Sed ut perspiciatis unde omnis iste natus error sit
-					voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+				<div class="panel panel-primary">
+					<div class="panel-heading">Veranstaltung erfassen</div>
+					<div class="panel-body">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="title" class="col-md-3 control-label">Titel:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="title"
+										placeholder="Titel" required="true"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="description" class="col-md-3 control-label">Beschreibung</label>
+								<div class="col-md-9">
+									<textarea class="form-control" id="description"
+										placeholder="Beschreibung" required="true"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="location" class="col-md-3 control-label">Veranstaltungsort:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="location"
+										placeholder="Veranstaltungsort" required="true"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="city" class="col-md-3 control-label">Stadt:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="city"
+										placeholder="Stadt" required="true"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="zip-code" class="col-md-3 control-label">PLZ:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="zip-code"
+										placeholder="Postleitzahl" required="true"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="street-number" class="col-md-3 control-label">Straße und Hausnummer:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="street-number"
+										placeholder="Straße und Hausnummer" required="true"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="date" class="col-md-3 control-label" required="true">Datum:</label>
+								<div class="col-md-3">
+									<input type="date" class="form-control" id="date" required="true"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="time" class="col-md-3 control-label" required="true">Zeit:</label>
+								<div class="col-md-3">
+									<input type="time" class="form-control" id="time" required="true"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="number" class="col-md-3 control-label">Verfügbare Tickets:</label>
+								<div class="col-md-3">
+									<input type="number" placeholder="Anzahl Tickets" class="form-control" id="number" required="true"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-offset-3 col-md-9">
+									<h:commandButton action="#{managerIndexView.createEvent}" type="submit" class="btn btn-primary" value="Veranstaltung erstellen"></h:commandButton>
+									<h:commandButton action="#{managerIndexView.createEvent}" type="submit" class="btn btn-default" value="Veranstaltung veröffentlichen"></h:commandButton>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 			<div id="past-events" class="tab-pane fade">
 				<h3>Vergangene Veranstaltungen</h3>
