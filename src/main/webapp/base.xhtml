@@ -4,17 +4,21 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
 <h:head>
-	<ui:insert name="title" />
+	<ui:insert name="head" />
 	<meta charset="UTF-8"></meta>
-	<h:outputScript name="js/jquery-3.1.1.min.js" />
+
 	<h:outputStylesheet
-		name="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" />
-	<h:outputStylesheet name="bootstrap-3.3.7-dist/css/bootstrap.min.css" />
-	<h:outputScript name="bootstrap-3.3.7-dist/js/bootstrap.min.js" />
+		name="vendor/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" />
+	<h:outputStylesheet name="vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+
 </h:head>
 <h:body>
+	<h:outputScript name="vendor/js/jquery-3.1.1.min.js" />
+	<h:outputScript name="vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
 	<!-- Lot of html here -->
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
@@ -27,29 +31,54 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.jsf"><b>Event</b>uell</a>
+			<!-- 			<a class="navbar-brand" href="index.jsf"><b>Event</b>uell</a> -->
+			<h:form>
+				<h:commandLink action="#{indexView.removeSearch}">
+					<span class="navbar-brand"><b>Event</b>uell</span>
+				</h:commandLink>
+			</h:form>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="#">Login</a></li>
-			</ul>
 			<h:form class="navbar-form navbar-left" id="search" name="search">
-<!-- 				<div class="form-group"> -->
-					<h:inputText type="text" id="searchString" name="searchString" value="#{indexView.searchText}" placeholder="Suche"/>
-<!-- 				</div> -->
-				<h:commandButton value="Suchen"
-                     action="#{indexView.search}" />
+				<div class="form-group">
+					<h:inputText type="text" id="searchString" name="searchString" class="form-control"
+						value="#{indexView.searchText}" placeholder="Suche" />
+				</div>
+				<h:commandButton value="Suchen" class="btn btn-default" action="#{indexView.search}" />
 			</h:form>
+			<ul class="nav navbar-nav navbar-left">
+			<li><h:link value="Home" outcome="index"></h:link></li>
+				<li><h:link value="Managerbereich" outcome="managerIndex"
+						rendered="#{userSession.user.manager eq true}"></h:link></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><h:link value="login" outcome="Login"
+						rendered="#{userSession.user eq null}"></h:link></li>
+				<li><h:link value="registrieren" outcome="registration"
+						rendered="#{userSession.user eq null}"></h:link></li>
+			</ul>
+			<h:form class="navbar-form navbar-right" rendered="#{userSession.user ne null}">
+				<h:commandButton value="Logout" action="#{logoutView.logout}"
+					type="submit" class="btn btn-info" />
+			</h:form>
+			<ul class="nav navbar-nav navbar-right">
+				<li><h:link value="einstellungen" coutcome="Einstellungen"
+						rendered="#{userSession.user ne null}"></h:link></li>
+			</ul>
 		</div>
 
 		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container-fluid --> </nav>
-	<div id="main">
-		<ui:insert name="content" />
+	<div class="container-fluid">
+		<div class="row">
+			<div id="main" class="content col-md-12">
+				<ui:insert name="content" />
+			</div>
+		</div>
 	</div>
 	<!-- Lot of html here -->
 </h:body>

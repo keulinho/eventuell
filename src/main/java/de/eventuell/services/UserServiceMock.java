@@ -10,7 +10,7 @@ import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IUserService;
 
 @ApplicationScoped
-@ManagedBean(name="UserService")
+@ManagedBean(name="userService")
 public class UserServiceMock implements IUserService {
 // Dummy UserService bis wir in der Vorlesung weiter sind
 	
@@ -24,20 +24,37 @@ public class UserServiceMock implements IUserService {
 		admin.setFirstName("Sudo");
 		admin.setLastName("Admin");
 		admin.setEmail("admin@admin.gws");
-		admin.setAdmin(true);
+		admin.setManager(true);
 		admin.setPassword("admin");
 		admin.setUserID(1);
 		users.add(admin);
+		User admin2 = new User();
+		admin2.setFirstName("Sudo");
+		admin2.setLastName("Admin");
+		admin2.setEmail("admin@admin.de");
+		admin2.setManager(true);
+		admin2.setPassword("admin");
+		admin2.setUserID(2);
+		users.add(admin2);
+		User u = new User();
+		u.setFirstName("Sudo");
+		u.setLastName("Admin");
+		u.setEmail("test@test.de");
+		u.setManager(false);
+		u.setPassword("test");
+		u.setUserID(3);
+		users.add(u);
 	}
 
-	public User register(String firstName, String lastName, String password, String mail, boolean isAdmin) {
+	public User register(String firstName, String lastName, String password, String mail, boolean isManager) {
 		User user = new User();
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.setEmail(mail);
-		user.setAdmin(isAdmin);
+		user.setManager(isManager);
 		user.setPassword(password);
 		user.setUserID(counter++);
+		users.add(user);
 		return user;
 	}
 

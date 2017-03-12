@@ -1,0 +1,6 @@
+tr.message-error {
+	border: 1px solid #a94442;
+	border-radius: 0.5px;
+	color: #a94442;
+	padding: 0.5em;
+}

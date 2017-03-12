@@ -18,8 +18,8 @@ public class LogoutView {
 	}
 	
 	public String logout() {
-		userSession.removeUser();
-		return "login.jsf";
+		userSession.clearSession();
+		return "login.jsf?faces-redirect=true";
 	}
 
 	public UserSession getUserSession() {

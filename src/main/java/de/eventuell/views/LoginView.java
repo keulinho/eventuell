@@ -1,12 +1,13 @@
 package de.eventuell.views;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.User;
-import de.eventuell.services.UserServiceMock;
 import de.eventuell.services.interfaces.IUserService;
 import de.eventuell.session.UserSession;
 
@@ -17,12 +18,13 @@ public class LoginView {
 	@ManagedProperty(value = "#{userSession}")
 	private UserSession userSession;
 	
+	@ManagedProperty(value = "#{userService}")
 	private IUserService userService;
 	private String eMail;
 	private String password;
 	
 	public LoginView () {
-		userService = new UserServiceMock();
+		// userService = new UserServiceMock();
 	}
 
 	public String login() {
@@ -30,10 +32,13 @@ public class LoginView {
 		try {
 			user = userService.login(this.eMail, this.password);
 		} catch (LoginFailedException e) {
+			System.out.println("----> Login Failed, but where is the message?");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail und Paswort sind nicht gültig!", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return "login.jsf";
 		}
 		userSession.setUser(user);
-		return "index.html";
+		return "index.jsf?faces-redirect=true";
 	}
 	
 	// Getter und Setter
@@ -59,6 +64,14 @@ public class LoginView {
 
 	public void setUserSession(UserSession userSession) {
 		this.userSession = userSession;
+	}
+
+	public IUserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(IUserService userService) {
+		this.userService = userService;
 	}
 	
 }

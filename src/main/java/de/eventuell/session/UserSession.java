@@ -22,7 +22,11 @@ public class UserSession {
 		this.user = user;
 	}
 	
-	public void removeUser(){
+	public void clearSession() {
+		this.removeUser();
+	}
+	
+	private void removeUser(){
 		this.user = null;
 	}
 

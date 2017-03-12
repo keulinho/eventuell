@@ -1,18 +1,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 <head>
-	<title>EVENTuell - Login</title>
 </head>
 <body>
-	<h1>Herzlich Willkommen bei HeisserScheißduWixxer</h1>
-	<h2>Login:</h2>
-	<h:form>
-		<h:inputText value="#{loginView.eMail}" />
-		<h:inputSecret value="#{loginView.password}" />
-		<h:commandButton value="Login"  action="#{loginView.login}"/>
-	</h:form>
-	
+	<ui:composition template="base.xhtml">
+		<ui:define name="head">
+			<title>EVENTuell - Login</title>
+			<h:outputStylesheet name="css/login-style.css" />
+		</ui:define>
+		<ui:define name="content">
+			<div class="container-fluid">
+			    <div class="row">
+			        <div class="col-md-4">
+						<form jsf:id="form">
+							<h:messages globalOnly="true" layout="table" errorClass="message-error"></h:messages>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Email Adresse</label>
+								<input jsf:value="#{loginView.eMail}" type="email" class="form-control" placeholder="Email" />
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Passwort</label>
+							    <input jsf:value="#{loginView.password}"  type="password" class="form-control" placeholder="Password" />
+							</div>
+							<input value="Login"  jsf:action="#{loginView.login}" type="submit" class="btn btn-default"/>
+						</form>
+			        </div>
+			    </div>
+			</div>
+		</ui:define>
+	</ui:composition>
 </body>
 </html>
