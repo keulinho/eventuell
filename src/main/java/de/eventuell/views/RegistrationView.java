@@ -30,7 +30,6 @@ public class RegistrationView {
 	}
 	
 	public String register() {
-		System.out.println("--> Registrierung: " + firstName + ", " + name + ", " + eMail + ", " + manager + ", " + passwd1 + ", " + passwd2);
 		if (passwd1.length() < 6 || firstName.isEmpty() || name.isEmpty() || eMail.isEmpty() || !isValidEmailAddress(eMail) || !checkPasswdEquality()) {
 			return "register.jsf";
 		} else {
