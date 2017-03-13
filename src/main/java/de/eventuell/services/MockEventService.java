@@ -18,7 +18,7 @@ import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IEventService;
 import de.eventuell.services.interfaces.IUserService;
 
-@ManagedBean
+@ManagedBean(name = "mockEventService")
 @ApplicationScoped
 public class MockEventService implements IEventService {
 
@@ -28,13 +28,13 @@ public class MockEventService implements IEventService {
 		allEvents = new LinkedList<Event>();
 		Event e = new Event();
 		e.setEventID(1);
-		e.setCity("Münster");
+		e.setCity("Mï¿½nster");
 		e.setDescription("Hammer Konzert");
-		e.setLocation("Halle Münsterland");
+		e.setLocation("Halle Mï¿½nsterland");
 		e.setMaxTickets(2000);
 		e.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
 		e.setStatus(EventStatus.PUBLISHED);
-		e.setTitle("Die Kassierer Konzert Münster");
+		e.setTitle("Die Kassierer Konzert Mï¿½nster");
 		IUserService us = new UserServiceMock();
 		e.setCreator(us.login("admin@admin.gws","admin"));
 		Booking b = new Booking();
@@ -49,9 +49,9 @@ public class MockEventService implements IEventService {
 
 		Event e2 = new Event();
 		e2.setEventID(2);
-		e2.setCity("Münster");
+		e2.setCity("Mï¿½nster");
 		e2.setDescription("Hammer Konzert");
-		e2.setLocation("Halle Münsterland");
+		e2.setLocation("Halle Mï¿½nsterland");
 		e2.setMaxTickets(2000);
 		e2.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
 		e2.setStatus(EventStatus.PUBLISHED);
