@@ -9,6 +9,19 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 <h:body>
+	<script>
+	// Javascript to enable link to tab
+	var hash = document.location.hash;
+	var prefix = "tab_";
+	if (hash) {
+	    $('.nav-tabs a[href="'+hash.replace(prefix,"")+'"]').tab('show');
+	} 
+
+	// Change hash for page-reload
+	$('.nav-tabs a').on('shown', function (e) {
+	    window.location.hash = e.target.hash.replace("#", "#" + prefix);
+	});
+	</script>
 	<div class="container">
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#actual-events">Bevorstehende
@@ -114,72 +127,89 @@
 					<div class="panel-heading">Veranstaltung erfassen</div>
 					<div class="panel-body">
 						<form class="form-horizontal" jsf:id="create-form">
+							<h:messages class="alert alert-danger col-md-9 col-md-offset-3"
+								globalOnly="true" layout="table" errorClass="message-error"></h:messages>
 							<div class="form-group">
 								<label for="title" class="col-md-3 control-label">Titel:</label>
 								<div class="col-md-9">
-									<input type="text" class="form-control" id="title"
-										placeholder="Titel" required="true" jsf:value="#{managerIndexView.title}"></input>
+									<input type="text" class="form-control" id="title" required="true"
+										placeholder="Titel" jsf:value="#{managerIndexView.title}"></input>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="description" class="col-md-3 control-label">Beschreibung</label>
 								<div class="col-md-9">
 									<textarea class="form-control" id="description"
-										placeholder="Beschreibung" required="true" jsf:value="#{managerIndexView.description}"></textarea>
+										placeholder="Beschreibung" required="true"
+										jsf:value="#{managerIndexView.description}"></textarea>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="location" class="col-md-3 control-label">Veranstaltungsort:</label>
 								<div class="col-md-9">
 									<input type="text" class="form-control" id="location"
-										placeholder="Veranstaltungsort" required="true" jsf:value="#{managerIndexView.location}"></input>
+										placeholder="Veranstaltungsort" required="true"
+										jsf:value="#{managerIndexView.location}"></input>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="city" class="col-md-3 control-label">Stadt:</label>
 								<div class="col-md-9">
 									<input type="text" class="form-control" id="city"
-										placeholder="Stadt" required="true" jsf:value="#{managerIndexView.city}"></input>
+										placeholder="Stadt" required="true"
+										jsf:value="#{managerIndexView.city}"></input>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="zip-code" class="col-md-3 control-label">PLZ:</label>
 								<div class="col-md-9">
 									<input type="text" class="form-control" id="zip-code"
-										placeholder="Postleitzahl" required="true" jsf:value="#{managerIndexView.zipCode}"></input>
+										placeholder="Postleitzahl" required="true"
+										jsf:value="#{managerIndexView.zipCode}"></input>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="street-number" class="col-md-3 control-label">Straße und Hausnummer:</label>
+								<label for="street-number" class="col-md-3 control-label">Straße
+									und Hausnummer:</label>
 								<div class="col-md-9">
 									<input type="text" class="form-control" id="street-number"
-										placeholder="Straße und Hausnummer" required="true" jsf:value="#{managerIndexView.streetNumber}"></input>
+										placeholder="Straße und Hausnummer" required="true"
+										jsf:value="#{managerIndexView.streetNumber}"></input>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="date" class="col-md-3 control-label" required="true" >Datum:</label>
+								<label for="date" class="col-md-3 control-label" required="true">Datum:</label>
 								<div class="col-md-3">
-									<input type="date" class="form-control" id="date" required="true" jsf:value="#{managerIndexView.startDate}">
+									<input type="date" class="form-control" id="date"
+										required="true" jsf:value="#{managerIndexView.startDate}">
 									</input>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="time" class="col-md-3 control-label" required="true" >Zeit:</label>
+								<label for="time" class="col-md-3 control-label" required="true">Zeit:</label>
 								<div class="col-md-3">
-									<input type="time" class="form-control" id="time" required="true" jsf:value="#{managerIndexView.startTime}">
+									<input type="time" class="form-control" id="time"
+										required="true" jsf:value="#{managerIndexView.startTime}">
 									</input>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="number" class="col-md-3 control-label">Verfügbare Tickets:</label>
+								<label for="number" class="col-md-3 control-label">Verfügbare
+									Tickets:</label>
 								<div class="col-md-3">
-									<input type="number" placeholder="Anzahl Tickets" class="form-control" id="number" required="true" jsf:value="#{managerIndexView.maxTickets}"></input>
+									<input type="number" placeholder="Anzahl Tickets"
+										class="form-control" id="number" required="true"
+										jsf:value="#{managerIndexView.maxTickets}" min="1"></input>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-md-offset-3 col-md-9">
-									<input type="submit" jsf:action="#{managerIndexView.createEvent}" class="btn btn-primary" value="Veranstaltung erstellen"></input>
-									<input type="submit" jsf:action="#{managerIndexView.publishEvent}" class="btn btn-default" value="Veranstaltung veröffentlichen"></input>
+									<input type="submit"
+										jsf:action="#{managerIndexView.createEvent}"
+										class="btn btn-primary" value="Veranstaltung erstellen"></input>
+									<input type="submit"
+										jsf:action="#{managerIndexView.publishEvent}"
+										class="btn btn-default" value="Veranstaltung veröffentlichen"></input>
 								</div>
 							</div>
 						</form>

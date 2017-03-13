@@ -6,10 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
+import de.eventuell.exceptions.EventCreationFailedException;
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Event;
 import de.eventuell.models.EventStatus;
@@ -144,32 +147,56 @@ public class ManagerIndexView {
 	}
 	
 	public String createEvent() {
-		Event e = createEventFromVariables();
-		eventService.addEvent(e);
-		return "managerIndex.jsf?faces-redirect=true";
+		Event e;
+		try {
+			e = createEventFromVariables();
+			eventService.addEvent(e);
+			return "managerIndex.jsf?faces-redirect=true#tab_not-published";
+		} catch (EventCreationFailedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Event konnte nicht angelegt werden. Bitte Füllen Sie alle Felder aus!", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "managerIndex.jsf?#tab_new-event";
+		}
 	}
 
-	private Event createEventFromVariables() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
-		LocalDateTime dateTime = LocalDateTime.parse(startDate+startTime, formatter);
-		Event e = new Event();
-		e.setTitle(title);
-		e.setCity(city);
-		e.setDescription(description);
-		e.setLocation(location);
-		e.setMaxTickets(maxTickets);
-		e.setStartDateTime(dateTime);
-		e.setStatus(EventStatus.CREATED);
-		e.setStreetNumber(streetNumber);
-		e.setZipCode(zipCode);
-		e.setCreator(session.getUser());
-		return e;
+	private Event createEventFromVariables() throws EventCreationFailedException {
+		if (!(title.isEmpty()||city.isEmpty()||startDate.isEmpty()||startTime.isEmpty()||description.isEmpty()||location.isEmpty()||maxTickets<1||streetNumber.isEmpty()||zipCode.isEmpty()))
+		{
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
+			LocalDateTime dateTime = LocalDateTime.parse(startDate+startTime, formatter);
+			Event e = new Event();
+			e.setTitle(title);
+			e.setCity(city);
+			e.setDescription(description);
+			e.setLocation(location);
+			e.setMaxTickets(maxTickets);
+			e.setStartDateTime(dateTime);
+			e.setStatus(EventStatus.CREATED);
+			e.setStreetNumber(streetNumber);
+			e.setZipCode(zipCode);
+			e.setCreator(session.getUser());
+			return e;
+		} else {
+			throw new EventCreationFailedException();
+		}
 	}
 	
 	public String publishEvent() {
-		Event e = createEventFromVariables();
-		e.setStatus(EventStatus.PUBLISHED);
-		eventService.addEvent(e);
-		return "managerIndex.jsf?faces-redirect=true";
+		Event e;
+		try {
+			e = createEventFromVariables();
+			e.setStatus(EventStatus.PUBLISHED);
+			eventService.addEvent(e);
+			return "managerIndex.jsf?faces-redirect=true";
+		} catch (EventCreationFailedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Event konnte nicht angelegt werden. Bitte Füllen Sie alle Felder aus!", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "managerIndex.jsf?#tab_new-event";
+		}
+		
 	}
 }

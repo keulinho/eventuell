@@ -24,22 +24,9 @@ public class IndexView {
 	public IndexView() throws LoginFailedException {
 	}
 
-	
-	
-	
 	public IEventService getEventService() {
 		return eventService;
 	}
-
-
-
-
-	public void setEventService(IEventService eventService) {
-		this.eventService = eventService;
-	}
-
-
-
 
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
@@ -57,7 +44,7 @@ public class IndexView {
 	public List<Event> getActualEvents() {
 		return actualEvents;
 	}
-	public void setEventService(MockEventService eventService) {
+	public void setEventService(IEventService eventService) {
 		this.eventService = eventService;
 	}
 	

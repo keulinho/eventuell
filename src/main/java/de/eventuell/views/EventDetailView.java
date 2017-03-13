@@ -25,9 +25,10 @@ public class EventDetailView implements IBookingService{
 		try {
 			eventService = new MockEventService();
 		} catch (LoginFailedException e1) {
-			// TODO Fehlerseite für Loginfehler anzeigen
+			// TODO Fehlerseite fï¿½r Loginfehler anzeigen
 			e1.printStackTrace();
 		}	
+
 		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = urlParameter.get("id");
 		try {
