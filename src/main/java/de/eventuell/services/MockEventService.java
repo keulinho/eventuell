@@ -59,6 +59,7 @@ public class MockEventService implements IEventService{
 		e2.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
 		e2.setStatus(EventStatus.PUBLISHED);
 		e2.setTitle("Test");
+		e2.setCreator(us.login("admin@admin.gws","admin"));
 		allEvents.add(e2);
 	}
 	
@@ -89,15 +90,20 @@ public class MockEventService implements IEventService{
 
 	@Override
 	public List<Event> getAllActualEventsByActiveManager(User u) {
-		// TODO Auto-generated method stub
-		return null;
+		if (u.getManager()) {
+			List<Event> events = getAllActualEvents();
+			return events.stream().filter(e -> e.getCreator().getUserID() == u.getUserID())
+					.collect(Collectors.toList());
+		} else {
+			return null;
+		}
 	}
-
-
 
 	@Override
 	public void addEvent(Event e) {
-		// TODO Auto-generated method stub
-		
+		double i = Math.random()*100000000;
+		System.out.println((int)i);
+		e.setEventID((int)i);
+		allEvents.add(e);
 	}
 }
