@@ -4,7 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
 <f:metadata>
 	<f:viewAction action="#{eventDetailView.getCurrentEvent}" />
 </f:metadata>
@@ -84,30 +86,18 @@
 											<tbody>
 												<tr>
 													<td>Standard</td>
-													<td>#{eventDetailView.currentEvent.price}</td>
-													<td>Anzahl <!--<h:inputText value=></h:inputText>-->
-													</td>
-													<td>Gesamtpreis</td>
-													<td>
-														<h:form>
+													<td id="pricePerTicket"
+														data-price="#{eventDetailView.currentEvent.price}">#{eventDetailView.currentEvent.price}</td>
+													<td><input id="amount" type="number" min="1"
+														jsf:value="#{eventDetailView.amount}"
+														onchange="calculate()"></input></td>
+													<td id="overallPrice"></td>
+													<td><h:form>
 															<h:commandButton value="Reservieren"
-																action="#{eventDetailView.conductBooking()}"></h:commandButton>
-														</h:form>
-													</td>
+																action="#{eventDetailView.conductBooking}"></h:commandButton>
+														</h:form></td>
 												</tr>
-												<tr>
-													<td>Premium</td>
-													<td>#{eventDetailView.currentEvent.price}</td>
-													<td>Anzahl <!--<h:inputText value=></h:inputText>-->
-													</td>
-													<td>Gesamtpreis</td>
-													<td>
-														<h:form>
-															<h:commandButton value="Reservieren"
-																action="#{eventDetailView.conductBooking()}"></h:commandButton>
-														</h:form>
-													</td>
-												</tr>
+
 											</tbody>
 										</table>
 									</div>
@@ -118,6 +108,19 @@
 				</ul>
 			</div>
 		</ui:define>
+		<ui:define name="js">
+			<script>
+				function calculate() {
+					var pricePerTicket = document.getElementById('pricePerTicket').dataset.price;
+					var amount = document.getElementById('amount').value;
+					var overallPrice = document.getElementById('overallPrice');
+					var myResult = pricePerTicket * amount;
+					overallPrice.innerHTML = myResult;
+				}
+			</script>
+		</ui:define>
 	</ui:composition>
+
+
 </h:body>
 </html>

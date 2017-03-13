@@ -21,6 +21,10 @@ public class EventDetailView implements IBookingService{
 	private Event currentEvent;
 	private IEventService eventService;
 	
+	private int amount;
+	private double pricePerTicket;
+	private double overallPrice;
+	
 	public EventDetailView(){
 		try {
 			eventService = new MockEventService();
@@ -38,6 +42,37 @@ public class EventDetailView implements IBookingService{
 			currentEvent = null;
 		}	
 	}
+
+	
+	public IEventService getEventService() {
+		return eventService;
+	}
+
+
+	public void setEventService(IEventService eventService) {
+		this.eventService = eventService;
+	}
+
+
+	public int getAmount() {
+		return amount;
+	}
+
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+
+	public double getPricePerTicket() {
+		return pricePerTicket;
+	}
+
+
+	public void setPricePerTicket(double pricePerTicket) {
+		this.pricePerTicket = pricePerTicket;
+	}
+
 
 	public Event getCurrentEvent() {
 		return currentEvent;
@@ -65,6 +100,10 @@ public class EventDetailView implements IBookingService{
 		return null;
 	}
 	
+	public double calculateOverallPrice(){
+		overallPrice = 0.0;
+		return overallPrice;
+	}
 
 	
 }
