@@ -9,18 +9,17 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import de.eventuell.exceptions.EventCreationFailedException;
-import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Event;
 import de.eventuell.models.EventStatus;
 import de.eventuell.services.interfaces.IEventService;
 import de.eventuell.session.UserSession;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ManagerIndexView {
 	private List<Event> actualEvents;
 	@ManagedProperty(value = "#{mockEventService}")
@@ -30,13 +29,32 @@ public class ManagerIndexView {
 	private String title;
 	private String description;
 	private int maxTickets;
+	private double price;
 	private String startDate;
 	private String startTime;
 	private String location;
 	private String zipCode;
 	private String city;
 	private String streetNumber;
+	private String hash;
 	
+	
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public UserSession getSession() {
 		return session;
 	}
@@ -153,16 +171,16 @@ public class ManagerIndexView {
 			eventService.addEvent(e);
 			return "managerIndex.jsf?faces-redirect=true#tab_not-published";
 		} catch (EventCreationFailedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Event konnte nicht angelegt werden. Bitte Füllen Sie alle Felder aus!", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "managerIndex.jsf?#tab_new-event";
+			hash = "tab-new-event";
+			return "managerIndex.jsf";
 		}
 	}
 
 	private Event createEventFromVariables() throws EventCreationFailedException {
-		if (!(title.isEmpty()||city.isEmpty()||startDate.isEmpty()||startTime.isEmpty()||description.isEmpty()||location.isEmpty()||maxTickets<1||streetNumber.isEmpty()||zipCode.isEmpty()))
+		if (!(title.isEmpty()||city.isEmpty()||startDate.isEmpty()||startTime.isEmpty()||description.isEmpty()||location.isEmpty()||maxTickets<1||streetNumber.isEmpty()||zipCode.isEmpty()||price<1.0))
 		{
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
 			LocalDateTime dateTime = LocalDateTime.parse(startDate+startTime, formatter);
@@ -176,6 +194,7 @@ public class ManagerIndexView {
 			e.setStatus(EventStatus.CREATED);
 			e.setStreetNumber(streetNumber);
 			e.setZipCode(zipCode);
+			e.setPrice(price);
 			e.setCreator(session.getUser());
 			return e;
 		} else {
@@ -191,11 +210,11 @@ public class ManagerIndexView {
 			eventService.addEvent(e);
 			return "managerIndex.jsf?faces-redirect=true";
 		} catch (EventCreationFailedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Event konnte nicht angelegt werden. Bitte Füllen Sie alle Felder aus!", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "managerIndex.jsf?#tab_new-event";
+			hash = "tab-new-event";
+			return "managerIndex.jsf";
 		}
 		
 	}

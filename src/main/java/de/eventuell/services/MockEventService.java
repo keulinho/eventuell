@@ -5,6 +5,7 @@ import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.faces.bean.ApplicationScoped;
@@ -22,11 +23,10 @@ import de.eventuell.services.interfaces.IUserService;
 
 @ManagedBean(name = "mockEventService")
 @ApplicationScoped
-public class MockEventService implements IEventService{
-	
+public class MockEventService implements IEventService {
+
 	private List<Event> allEvents;
-	
-	
+
 	public MockEventService() throws LoginFailedException {
 		allEvents = new LinkedList<Event>();
 		Event e = new Event();
@@ -40,6 +40,7 @@ public class MockEventService implements IEventService{
 		e.setTitle("Die Kassierer Konzert M�nster");
 		IUserService us = new UserServiceMock();
 		e.setCreator(us.login("admin@admin.gws","admin"));
+		e.setPrice(14560.50);
 		Booking b = new Booking();
 		b.setAmount(10);
 		b.setBookingCode(1);
@@ -48,8 +49,8 @@ public class MockEventService implements IEventService{
 		List<Booking> bs = new LinkedList<Booking>();
 		bs.add(b);
 		e.setBookings(bs);
-		e.setTitle("Die Kassierer Konzert M�nster");
 		allEvents.add(e);
+
 		Event e2 = new Event();
 		e2.setEventID(2);
 		e2.setCity("M�nster");
@@ -59,15 +60,15 @@ public class MockEventService implements IEventService{
 		e2.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
 		e2.setStatus(EventStatus.PUBLISHED);
 		e2.setTitle("Test");
+		e2.setPrice(145.55);
 		e2.setCreator(us.login("admin@admin.gws","admin"));
 		allEvents.add(e2);
 	}
-	
-
 
 	public List<Event> getAllActualEvents() {
-		
-		return allEvents.stream().filter(e -> e.getStatus()==EventStatus.PUBLISHED && e.isAgo()==false).collect(Collectors.toList());
+
+		return allEvents.stream().filter(e -> e.getStatus() == EventStatus.PUBLISHED && e.isAgo() == false)
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -83,10 +84,9 @@ public class MockEventService implements IEventService{
 
 	public List<Event> searchAllActualEvents(String searchString) {
 		List<Event> events = getAllActualEvents();
-		return events.stream().filter(e -> (e.getTitle()+e.getDescription()+e.getCity()+e.getLocation()).toUpperCase().contains(searchString.toUpperCase())).collect(Collectors.toList());
+		return events.stream().filter(e -> (e.getTitle() + e.getDescription() + e.getCity() + e.getLocation())
+				.toUpperCase().contains(searchString.toUpperCase())).collect(Collectors.toList());
 	}
-
-
 
 	@Override
 	public List<Event> getAllActualEventsByActiveManager(User u) {
@@ -102,8 +102,8 @@ public class MockEventService implements IEventService{
 	@Override
 	public void addEvent(Event e) {
 		double i = Math.random()*100000000;
-		System.out.println((int)i);
 		e.setEventID((int)i);
 		allEvents.add(e);
 	}
+
 }

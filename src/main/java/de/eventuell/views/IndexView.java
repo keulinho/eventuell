@@ -5,15 +5,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Event;
-import de.eventuell.services.MockEventService;
 import de.eventuell.services.interfaces.IEventService;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class IndexView {
 	private List<Event> actualEvents;
 	private String searchText;

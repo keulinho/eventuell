@@ -9,29 +9,27 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 <h:body>
-	<script>
-	// Javascript to enable link to tab
-	var hash = document.location.hash;
-	var prefix = "tab_";
-	if (hash) {
-	    $('.nav-tabs a[href="'+hash.replace(prefix,"")+'"]').tab('show');
-	} 
-
-	// Change hash for page-reload
-	$('.nav-tabs a').on('shown', function (e) {
-	    window.location.hash = e.target.hash.replace("#", "#" + prefix);
-	});
-	</script>
+<h:outputScript target="body" >
+$( document ).ready(function() {
+	
+    var id = "#{managerIndexView.hash}";
+    if (id==="") {
+    	id = "tab-actual-event"
+    } 
+    $("#"+id).tab('show');
+});
+    
+</h:outputScript>
 	<div class="container">
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#actual-events">Bevorstehende
+			<li > <a id="tab-actual-event" data-toggle="tab" href="#actual-events">Bevorstehende
 					Veranstaltungen</a></li>
-			<li><a data-toggle="tab" href="#not-published">Nicht
+			<li ><a id="tab-not-published" data-toggle="tab" href="#not-published">Nicht
 					veröffentlichte Veranstaltungen</a></li>
-			<li><a data-toggle="tab" href="#new-event">Neue
+			<li ><a data-toggle="tab" id="tab-new-event" href="#new-event">Neue
 					Veranstaltung erstellen <span class="badge">+</span>
 			</a></li>
-			<li><a data-toggle="tab" href="#past-events">Vergangene
+			<li ><a data-toggle="tab" id="tab-past-events" href="#past-events">Vergangene
 					Veranstaltungen</a></li>
 		</ul>
 		<div class="tab-content">
@@ -75,6 +73,18 @@
 													<div class="col-md-8">#{event.zipCode} #{event.city},
 														#{event.streetNumber}</div>
 												</div>
+												<div class="row">
+													<div class="col-md-4">Maximal Verfügbare Tickets:</div>
+													<div class="col-md-8">#{event.maxTickets}</div>
+												</div>
+												<div class="row">
+													<div class="col-md-4">Ticketpreis:</div>
+													<div class="col-md-8">
+													<h:outputText value="#{event.price}">
+													<f:convertNumber type="number" minFractionDigits="2"/>
+													</h:outputText>
+													€</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -82,7 +92,7 @@
 										<div class="panel-heading" data-toggle="collapse"
 											data-target="#demo#{event.eventID}">
 											<h3 class="panel-title">
-												Reservierungen <span class="caret"></span>
+												<span class="caret"></span> Reservierungen
 											</h3>
 										</div>
 
@@ -132,7 +142,7 @@
 							<div class="form-group">
 								<label for="title" class="col-md-3 control-label">Titel:</label>
 								<div class="col-md-9">
-									<input type="text" class="form-control" id="title" 
+									<input type="text" class="form-control" id="title" required="true"
 										placeholder="Titel" jsf:value="#{managerIndexView.title}"></input>
 								</div>
 							</div>
@@ -201,6 +211,16 @@
 										class="form-control" id="number" required="true"
 										jsf:value="#{managerIndexView.maxTickets}" min="1"></input>
 								</div>
+
+							</div>
+							<div class="form-group">
+								<label for="price" class="col-md-3 control-label">Preis in €:</label>
+								<div class="col-md-3">
+									<input placeholder="Preis" type="number"
+										class="form-control" id="price" required="true" jsf:value="#{managerIndexView.price}" min="1" step="0.01">	
+									</input>
+								</div>
+
 							</div>
 							<div class="form-group">
 								<div class="col-md-offset-3 col-md-9">

@@ -16,8 +16,14 @@ public class Event {
 	private EventStatus status;
 	private String streetNumber;
 	private List<Booking> bookings;
+	private double price;
 	
-	
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
 	public List<Booking> getBookings() {
 		return bookings;
 	}
