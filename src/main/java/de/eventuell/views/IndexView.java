@@ -18,7 +18,7 @@ public class IndexView {
 	private List<Event> actualEvents;
 	private String searchText;
 	@ManagedProperty(value = "#{mockEventService}")
-	private MockEventService eventService;
+	private IEventService eventService;
 	
 	
 	public IndexView() throws LoginFailedException {
@@ -44,7 +44,7 @@ public class IndexView {
 	public List<Event> getActualEvents() {
 		return actualEvents;
 	}
-	public void setEventService(MockEventService eventService) {
+	public void setEventService(IEventService eventService) {
 		this.eventService = eventService;
 	}
 	

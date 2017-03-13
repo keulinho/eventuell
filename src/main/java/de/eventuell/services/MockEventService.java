@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.FaceletContext;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Booking;
@@ -20,10 +22,11 @@ import de.eventuell.services.interfaces.IUserService;
 
 @ManagedBean(name = "mockEventService")
 @ApplicationScoped
-public class MockEventService implements IEventService {
-
+public class MockEventService implements IEventService{
+	
 	private List<Event> allEvents;
-
+	
+	
 	public MockEventService() throws LoginFailedException {
 		allEvents = new LinkedList<Event>();
 		Event e = new Event();
@@ -45,8 +48,8 @@ public class MockEventService implements IEventService {
 		List<Booking> bs = new LinkedList<Booking>();
 		bs.add(b);
 		e.setBookings(bs);
+		e.setTitle("Die Kassierer Konzert M�nster");
 		allEvents.add(e);
-
 		Event e2 = new Event();
 		e2.setEventID(2);
 		e2.setCity("M�nster");
@@ -56,45 +59,45 @@ public class MockEventService implements IEventService {
 		e2.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
 		e2.setStatus(EventStatus.PUBLISHED);
 		e2.setTitle("Test");
-		//e2.setCreator(us.login("admin@admin.de","admin"));
-		e2.setCreator(us.login("admin@admin.gws","admin"));
 		allEvents.add(e2);
 	}
+	
+
 
 	public List<Event> getAllActualEvents() {
-
-		return allEvents.stream().filter(e -> e.getStatus() == EventStatus.PUBLISHED && e.isAgo() == false)
-				.collect(Collectors.toList());
+		
+		return allEvents.stream().filter(e -> e.getStatus()==EventStatus.PUBLISHED && e.isAgo()==false).collect(Collectors.toList());
 	}
 
-	public Event getEventByID(int eventID) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override
+	public Event getEventByID(int eventID) {		
+		Event currentEvent = null;
+		for (Event event : allEvents) {
+			if (event.getEventID() == eventID) {
+				currentEvent = event;
+			}
+		}
+		return currentEvent;
 	}
 
 	public List<Event> searchAllActualEvents(String searchString) {
 		List<Event> events = getAllActualEvents();
-		return events.stream().filter(e -> (e.getTitle() + e.getDescription() + e.getCity() + e.getLocation())
-				.toUpperCase().contains(searchString.toUpperCase())).collect(Collectors.toList());
+		return events.stream().filter(e -> (e.getTitle()+e.getDescription()+e.getCity()+e.getLocation()).toUpperCase().contains(searchString.toUpperCase())).collect(Collectors.toList());
 	}
+
+
 
 	@Override
 	public List<Event> getAllActualEventsByActiveManager(User u) {
-		if (u.getManager()) {
-			List<Event> events = getAllActualEvents();
-			return events.stream().filter(e -> e.getCreator().getUserID() == u.getUserID())
-					.collect(Collectors.toList());
-		} else {
-			return null;
-		}
-
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+
 
 	@Override
 	public void addEvent(Event e) {
-		double i = Math.random()*100000000;
-		System.out.println((int)i);
-		e.setEventID((int)i);
-		allEvents.add(e);
+		// TODO Auto-generated method stub
+		
 	}
 }
