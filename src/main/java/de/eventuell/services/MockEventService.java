@@ -4,15 +4,11 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.FaceletContext;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Booking;
@@ -22,7 +18,7 @@ import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IEventService;
 import de.eventuell.services.interfaces.IUserService;
 
-@ManagedBean(name = "mockEventService")
+@Named
 @ApplicationScoped
 public class MockEventService implements IEventService {
 

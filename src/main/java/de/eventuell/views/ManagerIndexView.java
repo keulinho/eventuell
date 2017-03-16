@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventuell.exceptions.EventCreationFailedException;
 import de.eventuell.models.Event;
@@ -19,14 +19,14 @@ import de.eventuell.models.EventStatus;
 import de.eventuell.services.interfaces.IEventService;
 import de.eventuell.session.UserSession;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ManagerIndexView {
 	private List<Event> actualEvents;
 	private List<Event> createdEvents;
-	@ManagedProperty(value = "#{mockEventService}")
+	@Inject
 	private IEventService eventService;
-	@ManagedProperty(value = "#{userSession}")
+	@Inject
 	UserSession session;
 	private String title;
 	private String description;

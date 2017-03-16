@@ -3,9 +3,9 @@ package de.eventuell.views;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Booking;
@@ -14,8 +14,8 @@ import de.eventuell.services.MockEventService;
 import de.eventuell.services.interfaces.IBookingService;
 import de.eventuell.services.interfaces.IEventService;
 
-@ManagedBean
-@ViewScoped
+@Named
+@RequestScoped
 public class EventDetailView implements IBookingService{
 
 	private Event currentEvent;

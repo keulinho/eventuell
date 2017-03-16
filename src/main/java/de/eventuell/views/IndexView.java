@@ -3,20 +3,20 @@ package de.eventuell.views;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Event;
 import de.eventuell.services.interfaces.IEventService;
 
-@ManagedBean
-@ViewScoped
+@Named
+@RequestScoped
 public class IndexView {
 	private List<Event> actualEvents;
 	private String searchText;
-	@ManagedProperty(value = "#{mockEventService}")
+	@Inject
 	private IEventService eventService;
 	
 	
