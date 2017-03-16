@@ -4,12 +4,13 @@ package de.eventuell.views;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import de.eventuell.exceptions.EventCreationFailedException;
@@ -19,9 +20,10 @@ import de.eventuell.services.interfaces.IEventService;
 import de.eventuell.session.UserSession;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class ManagerIndexView {
 	private List<Event> actualEvents;
+	private List<Event> createdEvents;
 	@ManagedProperty(value = "#{mockEventService}")
 	private IEventService eventService;
 	@ManagedProperty(value = "#{userSession}")
@@ -39,6 +41,15 @@ public class ManagerIndexView {
 	private String hash;
 	
 	
+	
+	public List<Event> getCreatedEvents() {
+		return createdEvents;
+	}
+
+	public void setCreatedEvents(List<Event> createdEvents) {
+		this.createdEvents = createdEvents;
+	}
+
 	public String getHash() {
 		return hash;
 	}
@@ -158,8 +169,14 @@ public class ManagerIndexView {
 	@PostConstruct
 	public void populateVariables() {
 		getAllActualEventsByManager();
+		getAllNotPublishedEventsByManager();
 	}
 	
+	private void getAllNotPublishedEventsByManager() {
+		createdEvents=eventService.getAllNotPublishedEventsByManager(session.getUser());
+		
+	}
+
 	public void getAllActualEventsByManager() {
 		actualEvents=eventService.getAllActualEventsByActiveManager(session.getUser());
 	}
@@ -169,7 +186,9 @@ public class ManagerIndexView {
 		try {
 			e = createEventFromVariables();
 			eventService.addEvent(e);
-			return "managerIndex.jsf?faces-redirect=true#tab_not-published";
+			populateVariables();
+			hash = "tab-not-published";
+			return "managerIndex.jsf";
 		} catch (EventCreationFailedException e1) {
 			e1.printStackTrace();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Event konnte nicht angelegt werden. Bitte Füllen Sie alle Felder aus!", null);
@@ -208,6 +227,8 @@ public class ManagerIndexView {
 			e = createEventFromVariables();
 			e.setStatus(EventStatus.PUBLISHED);
 			eventService.addEvent(e);
+			hash = "tab-actual-events";
+			populateVariables();
 			return "managerIndex.jsf?faces-redirect=true";
 		} catch (EventCreationFailedException e1) {
 			e1.printStackTrace();
@@ -217,5 +238,24 @@ public class ManagerIndexView {
 			return "managerIndex.jsf";
 		}
 		
+	}
+	
+	public String publishCreatedEvent() {
+		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String id = urlParameter.get("id");
+		Event e = eventService.getEventByID(Integer.parseInt(id));
+		e.setStatus(EventStatus.PUBLISHED);
+		eventService.changeEvent(e);
+		hash = "tab-actual-events";
+		return "managerIndex.jsf?faces-redirect=true";
+	}
+	
+	public String deleteEvent() {
+		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String id = urlParameter.get("id");
+		eventService.deleteEventByID(Integer.parseInt(id));
+		populateVariables();
+		hash = "tab-not-published";
+		return "managerIndex.jsf";
 	}
 }

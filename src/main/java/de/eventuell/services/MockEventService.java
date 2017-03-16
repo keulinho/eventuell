@@ -5,6 +5,7 @@ import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -63,6 +64,19 @@ public class MockEventService implements IEventService {
 		e2.setPrice(145.55);
 		e2.setCreator(us.login("admin@admin.gws","admin"));
 		allEvents.add(e2);
+		
+		Event e3 = new Event();
+		e3.setEventID(3);
+		e3.setCity("Test");
+		e3.setDescription("Test Hammer Konzert");
+		e3.setLocation("Test");
+		e3.setMaxTickets(2000);
+		e3.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
+		e3.setStatus(EventStatus.CREATED);
+		e3.setTitle("Test");
+		e3.setPrice(145.55);
+		e3.setCreator(us.login("admin@admin.gws","admin"));
+		allEvents.add(e3);
 	}
 
 	public List<Event> getAllActualEvents() {
@@ -104,6 +118,33 @@ public class MockEventService implements IEventService {
 		double i = Math.random()*100000000;
 		e.setEventID((int)i);
 		allEvents.add(e);
+	}
+
+	@Override
+	public List<Event> getAllNotPublishedEventsByManager(User user) {
+		if (user.getManager()) {
+			return allEvents.stream().filter(e -> e.getCreator().getUserID() == user.getUserID() && e.getStatus()==EventStatus.CREATED)
+					.collect(Collectors.toList());
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public void changeEvent(Event e) {
+		Optional<Event> oldEvent = allEvents.stream().filter(ev -> ev.getEventID()==e.getEventID()).findFirst();
+		if (oldEvent.isPresent()) {
+			allEvents.remove(oldEvent.get());
+			allEvents.add(e);
+		}
+	}
+
+	@Override
+	public void deleteEventByID(int eventID) {
+		Optional<Event> oldEvent = allEvents.stream().filter(ev -> ev.getEventID()==eventID).findFirst();
+		if (oldEvent.isPresent()) {
+			allEvents.remove(oldEvent.get());
+		}
 	}
 
 }
