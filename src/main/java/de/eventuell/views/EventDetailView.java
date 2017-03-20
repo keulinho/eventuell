@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -13,6 +14,7 @@ import de.eventuell.models.Event;
 import de.eventuell.services.MockEventService;
 import de.eventuell.services.interfaces.IBookingService;
 import de.eventuell.services.interfaces.IEventService;
+import de.eventuell.session.UserSession;
 
 @ManagedBean
 @ViewScoped
@@ -24,6 +26,9 @@ public class EventDetailView implements IBookingService{
 	private int amount;
 	private double pricePerTicket;
 	private double overallPrice;
+	
+	@ManagedProperty(value = "#{userSession}")
+	UserSession session;
 	
 	public EventDetailView(){
 		try {
@@ -97,12 +102,41 @@ public class EventDetailView implements IBookingService{
 	@Override
 	public String conductBooking() {
 		// TODO Buchung persistieren
-		return null;
+		System.out.println("conductBooking");
+		Booking booking = new Booking();
+		booking.setBookingCode((int) (Math.random()*100000000));
+		System.out.println("BookingCode: " + booking.getBookingCode());
+		booking.setUser(session.getUser());
+		booking.setPrice(overallPrice);
+		System.out.println(overallPrice);
+		booking.setEvent(currentEvent);
+		System.out.println(currentEvent);
+		return "index.jsf";
 	}
 	
 	public double calculateOverallPrice(){
 		overallPrice = 0.0;
 		return overallPrice;
+	}
+
+
+	public double getOverallPrice() {
+		return overallPrice;
+	}
+
+
+	public void setOverallPrice(double overallPrice) {
+		this.overallPrice = overallPrice;
+	}
+
+
+	public UserSession getSession() {
+		return session;
+	}
+
+
+	public void setSession(UserSession session) {
+		this.session = session;
 	}
 
 	
