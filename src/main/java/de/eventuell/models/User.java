@@ -9,6 +9,10 @@ public class User {
 	private boolean manager;
 	
 	
+	public boolean evaluateCredentials(String email, String password) {
+		return (this.email.equals(email) && this.password.equals(password)) ? true : false;
+	}
+	
 	public int getUserID() {
 		return userID;
 	}
