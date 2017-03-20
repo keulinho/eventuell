@@ -1,21 +1,21 @@
 package de.eventuell.views;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IUserService;
 import de.eventuell.session.UserSession;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class RegistrationView {
 	
-	@ManagedProperty(value = "#{userSession}")
+	@Inject
 	private UserSession userSession;
 	
-	@ManagedProperty(value = "#{userService}")
+	@Inject
 	private IUserService userService;
 	
 	private String firstName;

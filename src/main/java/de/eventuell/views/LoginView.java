@@ -1,24 +1,24 @@
 package de.eventuell.views;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IUserService;
 import de.eventuell.session.UserSession;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class LoginView {
 	
-	@ManagedProperty(value = "#{userSession}")
+	@Inject
 	private UserSession userSession;
 	
-	@ManagedProperty(value = "#{userService}")
+	@Inject
 	private IUserService userService;
 	private String eMail;
 	private String password;

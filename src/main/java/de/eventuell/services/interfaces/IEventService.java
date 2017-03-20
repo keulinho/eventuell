@@ -11,4 +11,8 @@ public interface IEventService {
 	Event getEventByID(int eventID);
 	List<Event> searchAllActualEvents(String searchString);
 	List<Event> getAllActualEventsByActiveManager(User u);
+	void addEvent(Event e);
+	List<Event> getAllNotPublishedEventsByManager(User user);
+	void changeEvent(Event e);
+	void deleteEventByID(int eventID);
 }

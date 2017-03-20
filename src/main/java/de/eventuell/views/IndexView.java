@@ -3,27 +3,30 @@ package de.eventuell.views;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Event;
-import de.eventuell.services.MockEventService;
 import de.eventuell.services.interfaces.IEventService;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class IndexView {
 	private List<Event> actualEvents;
 	private String searchText;
+	@Inject
 	private IEventService eventService;
 	
 	
 	public IndexView() throws LoginFailedException {
-		eventService=new MockEventService();
 	}
 
-	
+	public IEventService getEventService() {
+		return eventService;
+	}
+
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
 	}
@@ -40,7 +43,7 @@ public class IndexView {
 	public List<Event> getActualEvents() {
 		return actualEvents;
 	}
-	public void setEventService(MockEventService eventService) {
+	public void setEventService(IEventService eventService) {
 		this.eventService = eventService;
 	}
 	

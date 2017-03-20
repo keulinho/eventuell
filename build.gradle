@@ -18,6 +18,8 @@ repositories {
 }
 
 dependencies {
-	providedCompile 'com.sun.faces:jsf-api:2.2.10'
+	compile 'com.sun.faces:jsf-api:2.2.10'
+	compile 'com.sun.faces:jsf-impl:2.2.10'
+	compile 'javax.enterprise:cdi-api:1.2'
 }
 

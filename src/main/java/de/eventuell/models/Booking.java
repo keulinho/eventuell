@@ -5,8 +5,15 @@ public class Booking {
 	private User user;
 	private Event event;
 	private int amount;
+	private double price;
 	
 	
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
 	public int getBookingCode() {
 		return bookingCode;
 	}
