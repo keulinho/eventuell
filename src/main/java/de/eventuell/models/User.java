@@ -1,6 +1,12 @@
 package de.eventuell.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -111473571501385550L;
 	private int userID;
 	private String email;
 	private String firstName;
