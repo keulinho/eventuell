@@ -45,12 +45,14 @@ public class BookingServiceMock implements IBookingService {
 		// TODO Buchung persistieren
 		System.out.println("conductBooking");
 		double overallPrice = amount * pricePerTicket;
+		System.out.println("overall: "+overallPrice);
+		System.out.println("amount: "+amount);
+		System.out.println("amount: "+pricePerTicket);
 		Booking booking = new Booking();
 		booking.setBookingCode((int) (Math.random()*100000000));
 		System.out.println("BookingCode: " + booking.getBookingCode());
 		booking.setUser(session.getUser());
 		booking.setPrice(overallPrice);
-		System.out.println(overallPrice);
 		booking.setEvent(currentEvent);
 		System.out.println(currentEvent);
 		return booking;
