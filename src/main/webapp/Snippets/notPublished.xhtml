@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<h:body>
+	<h3>Wählen Sie eine Veranstaltunhg aus, um diese zu bearbeiten</h3>
+	<ul class="list-group">
+		<ui:repeat var="event" value="#{managerIndexView.createdEvents}">
+			<li class="list-group-item container">
+				<div class="row">
+					<div class="container">
+						<b> <h:outputText value="#{event.title}">
+							</h:outputText>
+						</b>
+
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Information</h3>
+							</div>
+							<div class="panel-body">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-md-8">
+											<div class="container-fluid">
+												<div class="row">
+													<div class="col-md-4">Beschreibung:</div>
+													<div class="col-md-4">#{event.description}</div>
+												</div>
+												<div class="row">
+													<div class="col-md-4">Datum:</div>
+													<div class="col-md-4">
+														<h:outputText value="#{event.startDateTime}"
+															pattern="dd.MM.YYYY, HH:mm">
+															<f:converter converterId="localDateTimeConverterID" />
+														</h:outputText>
+														Uhr
+													</div>
+
+												</div>
+												<div class="row">
+													<div class="col-md-4">Location:</div>
+													<div class="col-md-4">#{event.location}</div>
+												</div>
+												<div class="row">
+													<div class="col-md-4">Ort:</div>
+													<div class="col-md-4">#{event.zipCode} #{event.city},
+														#{event.streetNumber}</div>
+												</div>
+												<div class="row">
+													<div class="col-md-4">Maximal Verfügbare Tickets:</div>
+													<div class="col-md-4">#{event.maxTickets}</div>
+												</div>
+												<div class="row">
+													<div class="col-md-4">Ticketpreis:</div>
+													<div class="col-md-4">
+														<h:outputText value="#{event.price}">
+															<f:convertNumber type="number" minFractionDigits="2" />
+														</h:outputText>
+														€
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="container-fluid">
+												<div class="row form-group">
+													<h:form>
+														<h:commandButton class="btn btn-primary btn-block"
+															action="#{managerIndexView.publishCreatedEvent}"
+															value="Event bearbeiten">
+															<f:param name="id" value="#{event.eventID}" />
+														</h:commandButton>
+													</h:form>
+												</div>
+												<div class="row form-group">
+													<h:form>
+														<h:commandButton class="btn btn-info btn-block"
+															action="#{managerIndexView.publishCreatedEvent}"
+															value="Event veröffentlichen">
+															<f:param name="id" value="#{event.eventID}" />
+														</h:commandButton>
+													</h:form>
+												</div>
+												<div class="row form-group">
+													<h:form>
+														<h:commandButton class="btn btn-default btn-block"
+															action="#{managerIndexView.deleteEvent}"
+															value="Event löschen">
+															<f:param name="id" value="#{event.eventID}" />
+														</h:commandButton>
+													</h:form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+
+		</ui:repeat>
+	</ul>
+</h:body>
+</html>
