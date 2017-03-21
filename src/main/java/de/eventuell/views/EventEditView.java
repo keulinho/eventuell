@@ -104,21 +104,21 @@ public class EventEditView {
 	}
 	
 	public String editEvent() {
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
-		LocalDateTime dateTime = LocalDateTime.parse(startDate+startTime, formatter);
-		event.setStartDateTime(dateTime);
-		eventService.changeEvent(event);
+		changeEvent(EventStatus.CREATED);
 		return "managerIndex.jsf?faces-redirect=true";
 	}
 	
 	public String publishEvent() {
+		changeEvent(EventStatus.PUBLISHED);
+		return "managerIndex.jsf?faces-redirect=true";
+	}
+
+	private void changeEvent(EventStatus status) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
 		LocalDateTime dateTime = LocalDateTime.parse(startDate+startTime, formatter);
 		event.setStartDateTime(dateTime);
-		event.setStatus(EventStatus.PUBLISHED);
+		event.setStatus(status);
 		eventService.changeEvent(event);
-		return "managerIndex.jsf?faces-redirect=true";
 	}
 
 	public String deleteEvent() {
