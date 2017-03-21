@@ -22,6 +22,7 @@ import de.eventuell.session.UserSession;
 public class EventDetailView{
 
 	private Event currentEvent;
+	@Inject
 	private IEventService eventService;
 	
 	private int amount;
@@ -34,21 +35,13 @@ public class EventDetailView{
 	IBookingService bookingService;
 	
 	public EventDetailView(){
-		try {
-			eventService = new MockEventService();
-		} catch (LoginFailedException e1) {
-			// TODO Fehlerseite f�r Loginfehler anzeigen
-			e1.printStackTrace();
-		}	
 
+	}
+	
+	public void populatePage() {
 		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = urlParameter.get("id");
-		try {
-			currentEvent = eventService.getEventByID(Integer.parseInt(id));
-		} catch (Exception e) {
-			//TODO: weiterleiten auf 404 page
-			currentEvent = null;
-		}	
+		currentEvent = eventService.getEventByID(Integer.parseInt(id));
 	}
 	
 	public String conductBooking(){
