@@ -33,8 +33,14 @@ public class EventEditView {
 	private String zipCode;
 	private String city;
 	private String streetNumber;
+	private boolean permissionOK = true;
 
 	
+	public boolean isPermissionOK() {
+		return permissionOK;
+	}
+
+
 	public int getEventID() {
 		return eventID;
 	}
@@ -151,20 +157,32 @@ public class EventEditView {
 	public void getCurrentEvent() {
 		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = urlParameter.get("id");
-		Event e = eventService.getEventByID(Integer.parseInt(id));
-		this.eventID = e.getEventID();
-		this.title = e.getTitle();
-		this.description = e.getDescription();
-		this.city = e.getCity();
-		this.location = e.getLocation();
-		this.maxTickets = e.getMaxTickets();
-		this.price = e.getPrice();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		this.startDate = e.getStartDateTime().format(dtf);
-		dtf = DateTimeFormatter.ofPattern("HH:mm");
-		this.startTime = e.getStartDateTime().format(dtf);
-		this.streetNumber = e.getStreetNumber();
-		this.zipCode = e.getZipCode();
+		//Wenn das parseInt fehlschlägt, weil kein Query-Parameter in der URL angezeigt wird, wird die Error Nachricht angezeigt
+		try {
+			Event e = eventService.getEventByID(Integer.parseInt(id));
+			if (session.getUser().getManager()&&session.getUser().getUserID()==e.getCreator().getUserID())
+			{
+				this.eventID = e.getEventID();
+				this.title = e.getTitle();
+				this.description = e.getDescription();
+				this.city = e.getCity();
+				this.location = e.getLocation();
+				this.maxTickets = e.getMaxTickets();
+				this.price = e.getPrice();
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				this.startDate = e.getStartDateTime().format(dtf);
+				dtf = DateTimeFormatter.ofPattern("HH:mm");
+				this.startTime = e.getStartDateTime().format(dtf);
+				this.streetNumber = e.getStreetNumber();
+				this.zipCode = e.getZipCode();
+			} else {
+				permissionOK = false;
+			}
+		} catch (NumberFormatException e) {
+			permissionOK = false;
+		}
+		
+		
 	}
 	
 	public String editEvent() {

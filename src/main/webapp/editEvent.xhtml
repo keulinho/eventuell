@@ -15,119 +15,127 @@
 
 	<ui:composition template="base.xhtml">
 		<ui:define name="content">
-			<h3>Veranstaltung bearbeiten</h3>
-			<div class="panel panel-primary">
-				<div class="panel-heading">Veranstaltung bearbeiten</div>
-				<div class="panel-body">
-					<form class="form-horizontal" jsf:id="create-form">
-						<h:messages class="alert alert-danger col-md-9 col-md-offset-3"
-							globalOnly="true" layout="table" errorClass="message-error"></h:messages>
-						<div class="form-group">
-							<label for="title" class="col-md-3 control-label">Titel:</label>
-							<div class="col-md-9">
-								<input type="text" class="form-control" id="title"
-									required="true" placeholder="Titel"
-									jsf:value="#{eventEditView.title}"></input>
+			<c:if test="#{eventEditView.permissionOK}">
+				<h3>Veranstaltung bearbeiten</h3>
+				<div class="panel panel-primary">
+					<div class="panel-heading">Veranstaltung bearbeiten</div>
+					<div class="panel-body">
+						<form class="form-horizontal" jsf:id="create-form">
+							<h:messages class="alert alert-danger col-md-9 col-md-offset-3"
+								globalOnly="true" layout="table" errorClass="message-error"></h:messages>
+							<div class="form-group">
+								<label for="title" class="col-md-3 control-label">Titel:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="title"
+										required="true" placeholder="Titel"
+										jsf:value="#{eventEditView.title}"></input>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="description" class="col-md-3 control-label">Beschreibung</label>
-							<div class="col-md-9">
-								<textarea class="form-control" id="description"
-									placeholder="Beschreibung" required="true"
-									jsf:value="#{eventEditView.description}"></textarea>
+							<div class="form-group">
+								<label for="description" class="col-md-3 control-label">Beschreibung</label>
+								<div class="col-md-9">
+									<textarea class="form-control" id="description"
+										placeholder="Beschreibung" required="true"
+										jsf:value="#{eventEditView.description}"></textarea>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="location" class="col-md-3 control-label">Veranstaltungsort:</label>
-							<div class="col-md-9">
-								<input type="text" class="form-control" id="location"
-									placeholder="Veranstaltungsort" required="true"
-									jsf:value="#{eventEditView.location}"></input>
+							<div class="form-group">
+								<label for="location" class="col-md-3 control-label">Veranstaltungsort:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="location"
+										placeholder="Veranstaltungsort" required="true"
+										jsf:value="#{eventEditView.location}"></input>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="city" class="col-md-3 control-label">Stadt:</label>
-							<div class="col-md-9">
-								<input type="text" class="form-control" id="city"
-									placeholder="Stadt" required="true"
-									jsf:value="#{eventEditView.city}"></input>
+							<div class="form-group">
+								<label for="city" class="col-md-3 control-label">Stadt:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="city"
+										placeholder="Stadt" required="true"
+										jsf:value="#{eventEditView.city}"></input>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="zip-code" class="col-md-3 control-label">PLZ:</label>
-							<div class="col-md-9">
-								<input type="text" class="form-control" id="zip-code"
-									placeholder="Postleitzahl" required="true"
-									jsf:value="#{eventEditView.zipCode}"></input>
+							<div class="form-group">
+								<label for="zip-code" class="col-md-3 control-label">PLZ:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="zip-code"
+										placeholder="Postleitzahl" required="true"
+										jsf:value="#{eventEditView.zipCode}"></input>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="street-number" class="col-md-3 control-label">Straße
-								und Hausnummer:</label>
-							<div class="col-md-9">
-								<input type="text" class="form-control" id="street-number"
-									placeholder="Straße und Hausnummer" required="true"
-									jsf:value="#{eventEditView.streetNumber}"></input>
+							<div class="form-group">
+								<label for="street-number" class="col-md-3 control-label">Straße
+									und Hausnummer:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="street-number"
+										placeholder="Straße und Hausnummer" required="true"
+										jsf:value="#{eventEditView.streetNumber}"></input>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="date" class="col-md-3 control-label" required="true">Datum:</label>
-							<div class="col-md-3">
-								<input type="date" class="form-control" id="date"
-									required="true" jsf:value="#{eventEditView.startDate}">
-								</input>
+							<div class="form-group">
+								<label for="date" class="col-md-3 control-label" required="true">Datum:</label>
+								<div class="col-md-3">
+									<input type="date" class="form-control" id="date"
+										required="true" jsf:value="#{eventEditView.startDate}">
+									</input>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="time" class="col-md-3 control-label" required="true">Zeit:</label>
-							<div class="col-md-3">
-								<input type="time" class="form-control" id="time"
-									required="true" jsf:value="#{eventEditView.startTime}">
-								</input>
+							<div class="form-group">
+								<label for="time" class="col-md-3 control-label" required="true">Zeit:</label>
+								<div class="col-md-3">
+									<input type="time" class="form-control" id="time"
+										required="true" jsf:value="#{eventEditView.startTime}">
+									</input>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="number" class="col-md-3 control-label">Verfügbare
-								Tickets:</label>
-							<div class="col-md-3">
-								<input type="number" placeholder="Anzahl Tickets"
-									class="form-control" id="number" required="true"
-									jsf:value="#{eventEditView.maxTickets}" min="1"></input>
-							</div>
+							<div class="form-group">
+								<label for="number" class="col-md-3 control-label">Verfügbare
+									Tickets:</label>
+								<div class="col-md-3">
+									<input type="number" placeholder="Anzahl Tickets"
+										class="form-control" id="number" required="true"
+										jsf:value="#{eventEditView.maxTickets}" min="1"></input>
+								</div>
 
-						</div>
-						<div class="form-group">
-							<label for="price" class="col-md-3 control-label">Preis
-								in €:</label>
-							<div class="col-md-3">
-								<input placeholder="Preis" type="number" class="form-control"
-									id="price" required="true" jsf:value="#{eventEditView.price}"
-									min="1" step="0.01"> </input>
 							</div>
+							<div class="form-group">
+								<label for="price" class="col-md-3 control-label">Preis
+									in €:</label>
+								<div class="col-md-3">
+									<input placeholder="Preis" type="number" class="form-control"
+										id="price" required="true" jsf:value="#{eventEditView.price}"
+										min="1" step="0.01"> </input>
+								</div>
 
-						</div>
-						<div class="form-group">
-							<div class="col-md-offset-3 col-md-9">
-								<input type="submit" jsf:action="#{eventEditView.editEvent}"
-									class="btn btn-primary" value="Veranstaltung ändern">
-									<f:param name="id" value="#{eventEditView.eventID}" />
-								</input>
-									
-								<input type="submit" jsf:action="#{eventEditView.publishEvent}"
-									class="btn btn-info" value="Veranstaltung veröffentlichen">
-									<f:param name="id" value="#{eventEditView.eventID}" />
-								</input>
-									
-								<input type="submit" jsf:action="#{eventEditView.deleteEvent}"
-									class="btn btn-default" value="Veranstaltung löschen">
-									<f:param name="id" value="#{eventEditView.eventID}" />
-								</input>
 							</div>
-						</div>
-					</form>
+							<div class="form-group">
+								<div class="col-md-offset-3 col-md-9">
+									<input type="submit" jsf:action="#{eventEditView.editEvent}"
+										class="btn btn-primary" value="Veranstaltung ändern">
+										<f:param name="id" value="#{eventEditView.eventID}" /> </input> <input
+										type="submit" jsf:action="#{eventEditView.publishEvent}"
+										class="btn btn-info" value="Veranstaltung veröffentlichen">
+										<f:param name="id" value="#{eventEditView.eventID}" /> </input> <input
+										type="submit" jsf:action="#{eventEditView.deleteEvent}"
+										class="btn btn-default" value="Veranstaltung löschen">
+										<f:param name="id" value="#{eventEditView.eventID}" /> </input>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
-			</div>
+			</c:if>
+			<c:if test="#{not eventEditView.permissionOK}">
+				<div class="alert alert-danger" role="alert">
+					<span>Sie haben nicht die nötigen Berechtigungen, um dieses Event zu bearbeiten.</span>
+					<h:form>
+						<h:link value="Zur Hauptseite"
+							outcome="index.jsf?faces-redirect=true"
+							class="btn btn-info" />
+					</h:form>
+				</div>
+
+			</c:if>
 		</ui:define>
 	</ui:composition>
 
