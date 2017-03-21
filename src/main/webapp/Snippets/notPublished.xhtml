@@ -71,11 +71,11 @@
 											<div class="container-fluid">
 												<div class="row form-group">
 													<h:form>
-														<h:commandButton class="btn btn-primary btn-block"
-															action="#{managerIndexView.publishCreatedEvent}"
+														<h:link class="btn btn-primary btn-block"
+															outcome="editEvent"
 															value="Event bearbeiten">
 															<f:param name="id" value="#{event.eventID}" />
-														</h:commandButton>
+														</h:link>
 													</h:form>
 												</div>
 												<div class="row form-group">
