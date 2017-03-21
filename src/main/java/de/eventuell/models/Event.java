@@ -1,6 +1,7 @@
 package de.eventuell.models;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Event {
@@ -32,6 +33,7 @@ public class Event {
 		this.streetNumber = eventBuilder.getStreetNumber();
 		double i = Math.random()*100000000;
 		this.eventID = (int)i;
+		this.bookings = new LinkedList<>();	
 	}
 	
 	public double getPrice() {
@@ -116,5 +118,14 @@ public class Event {
 		} else {
 			return false;
 		}
+	}
+	
+	public int availableTickets() {
+		int bookedTickets = this.bookings.stream().map(e -> e.getAmount()).reduce(0, (x, y) -> x + y);
+		return maxTickets-bookedTickets;
+	}
+	
+	public String availableTicketsAsString() {
+		return ""+availableTickets();
 	}
 }
