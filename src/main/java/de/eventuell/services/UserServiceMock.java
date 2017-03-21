@@ -70,5 +70,13 @@ public class UserServiceMock implements IUserService {
 		}
 		throw new LoginFailedException();
 	}
-
+	
+	public User getUserByMail(String mail) {
+		for (User user : users) {
+			if (user.getEmail().equals(mail)) {
+				return user;
+			}
+		}
+		return null;
+	}
 }
