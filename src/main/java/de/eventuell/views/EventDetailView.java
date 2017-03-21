@@ -1,29 +1,37 @@
 package de.eventuell.views;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.eventuell.exceptions.BookingFailedException;
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Booking;
 import de.eventuell.models.Event;
 import de.eventuell.services.MockEventService;
 import de.eventuell.services.interfaces.IBookingService;
 import de.eventuell.services.interfaces.IEventService;
+import de.eventuell.session.UserSession;
 
 @Named
 @RequestScoped
-public class EventDetailView implements IBookingService{
+public class EventDetailView{
 
 	private Event currentEvent;
 	private IEventService eventService;
 	
 	private int amount;
 	private double pricePerTicket;
-	private double overallPrice;
+		
+	@Inject
+	UserSession session;
+	
+	@Inject
+	IBookingService bookingService;
 	
 	public EventDetailView(){
 		try {
@@ -42,8 +50,45 @@ public class EventDetailView implements IBookingService{
 			currentEvent = null;
 		}	
 	}
+	
+	public String conductBooking(){
+		Booking booking;
+		try{
+			booking = bookingService.conductBooking(amount, pricePerTicket, currentEvent);
+		}catch(BookingFailedException bfe){
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Die Buchung konnte nicht durchgeführt werden!", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		
+		return "index.jsf?faces-redirect=true";
+	}
 
 	
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public double getPricePerTicket() {
+		return pricePerTicket;
+	}
+
+	public void setPricePerTicket(double pricePerTicket) {
+		this.pricePerTicket = pricePerTicket;
+	}
+
+	public IBookingService getBookingService() {
+		return bookingService;
+	}
+
+	public void setBookingService(IBookingService bookingService) {
+		this.bookingService = bookingService;
+	}
+
 	public IEventService getEventService() {
 		return eventService;
 	}
@@ -54,26 +99,7 @@ public class EventDetailView implements IBookingService{
 	}
 
 
-	public int getAmount() {
-		return amount;
-	}
-
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-
-	public double getPricePerTicket() {
-		return pricePerTicket;
-	}
-
-
-	public void setPricePerTicket(double pricePerTicket) {
-		this.pricePerTicket = pricePerTicket;
-	}
-
-
+	
 	public Event getCurrentEvent() {
 		return currentEvent;
 	}
@@ -82,27 +108,13 @@ public class EventDetailView implements IBookingService{
 		this.currentEvent = currentEvent;
 	}
 
-	@Override
-	public List<Booking> getAllBookings() {
-		// TODO Auto-generated method stub
-		return null;
+	public UserSession getSession() {
+		return session;
 	}
 
-	@Override
-	public Booking getBookingByBookingCode(int bookingCode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public String conductBooking() {
-		// TODO Buchung persistieren
-		return null;
-	}
-	
-	public double calculateOverallPrice(){
-		overallPrice = 0.0;
-		return overallPrice;
+	public void setSession(UserSession session) {
+		this.session = session;
 	}
 
 	
