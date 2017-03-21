@@ -2,6 +2,7 @@ package de.eventuell.views;
 
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -38,6 +39,7 @@ public class EventDetailView{
 
 	}
 	
+	@PostConstruct
 	public void populatePage() {
 		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = urlParameter.get("id");

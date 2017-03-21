@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -22,17 +23,9 @@ public class EventEditView {
 	private IEventService eventService;
 	@Inject
 	UserSession session;
-	private int eventID;
-	private String title;
-	private String description;
-	private int maxTickets;
-	private double price;
+	private Event event;
 	private String startDate;
 	private String startTime;
-	private String location;
-	private String zipCode;
-	private String city;
-	private String streetNumber;
 	private boolean permissionOK = true;
 
 	
@@ -41,30 +34,7 @@ public class EventEditView {
 	}
 
 
-	public int getEventID() {
-		return eventID;
-	}
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-
-	public void setMaxTickets(int maxTickets) {
-		this.maxTickets = maxTickets;
-	}
-
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
+	
 
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
@@ -75,30 +45,6 @@ public class EventEditView {
 		this.startTime = startTime;
 	}
 
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-
-	public void setStreetNumber(String streetNumber) {
-		this.streetNumber = streetNumber;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-	
 	public UserSession getSession() {
 		return session;
 	}
@@ -116,19 +62,6 @@ public class EventEditView {
 		return eventService;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public int getMaxTickets() {
-		return maxTickets;
-	}
-
-	
 
 	public String getStartDate() {
 		return startDate;
@@ -137,23 +70,16 @@ public class EventEditView {
 	public String getStartTime() {
 		return startTime;
 	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public String getZipCode() {
-		return zipCode;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public String getStreetNumber() {
-		return streetNumber;
-	}
 	
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	@PostConstruct
 	public void getCurrentEvent() {
 		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = urlParameter.get("id");
@@ -162,19 +88,11 @@ public class EventEditView {
 			Event e = eventService.getEventByID(Integer.parseInt(id));
 			if (session.getUser().getManager()&&session.getUser().getUserID()==e.getCreator().getUserID())
 			{
-				this.eventID = e.getEventID();
-				this.title = e.getTitle();
-				this.description = e.getDescription();
-				this.city = e.getCity();
-				this.location = e.getLocation();
-				this.maxTickets = e.getMaxTickets();
-				this.price = e.getPrice();
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				this.startDate = e.getStartDateTime().format(dtf);
 				dtf = DateTimeFormatter.ofPattern("HH:mm");
 				this.startTime = e.getStartDateTime().format(dtf);
-				this.streetNumber = e.getStreetNumber();
-				this.zipCode = e.getZipCode();
+				event = e;
 			} else {
 				permissionOK = false;
 			}
@@ -186,40 +104,22 @@ public class EventEditView {
 	}
 	
 	public String editEvent() {
-		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String id = urlParameter.get("id");
-		Event e = eventService.getEventByID(Integer.parseInt(id));
-		e = editEvent(e);
-		eventService.changeEvent(e);
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
+		LocalDateTime dateTime = LocalDateTime.parse(startDate+startTime, formatter);
+		event.setStartDateTime(dateTime);
+		eventService.changeEvent(event);
 		return "managerIndex.jsf?faces-redirect=true";
 	}
 	
 	public String publishEvent() {
-		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String id = urlParameter.get("id");
-		Event e = eventService.getEventByID(Integer.parseInt(id));
-		e = editEvent(e);
-		e.setStatus(EventStatus.PUBLISHED);
-		eventService.changeEvent(e);
-		return "managerIndex.jsf?faces-redirect=true";
-	}
-	
-	
-	private Event editEvent(Event e) {
-		e.setCity(city);
-		e.setDescription(description);
-		e.setLocation(location);
-		e.setMaxTickets(maxTickets);
-		e.setPrice(price);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
 		LocalDateTime dateTime = LocalDateTime.parse(startDate+startTime, formatter);
-		e.setStartDateTime(dateTime);
-		e.setStreetNumber(streetNumber);
-		e.setTitle(title);
-		e.setZipCode(zipCode);
-		return e;
+		event.setStartDateTime(dateTime);
+		event.setStatus(EventStatus.PUBLISHED);
+		eventService.changeEvent(event);
+		return "managerIndex.jsf?faces-redirect=true";
 	}
-
 
 	public String deleteEvent() {
 		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
