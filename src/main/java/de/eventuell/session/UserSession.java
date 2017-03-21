@@ -1,13 +1,20 @@
 package de.eventuell.session;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
 import de.eventuell.models.User;
 
-@ManagedBean
+@Named
 @SessionScoped
-public class UserSession {
+public class UserSession  implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5647571219555890780L;
 	private User user;
 	
 	public UserSession() {

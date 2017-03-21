@@ -2,15 +2,15 @@ package de.eventuell.services;
 
 import java.util.LinkedList;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IUserService;
 
+@Named
 @ApplicationScoped
-@ManagedBean(name="userService")
 public class UserServiceMock implements IUserService {
 // Dummy UserService bis wir in der Vorlesung weiter sind
 	
