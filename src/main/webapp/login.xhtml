@@ -3,7 +3,8 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core">
 <head>
 </head>
 <body>
@@ -20,7 +21,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							<h:messages globalOnly="true" layout="table" errorClass="message-error"></h:messages>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Email Adresse</label>
-								<input jsf:value="#{loginView.eMail}" type="email" class="form-control" placeholder="Email" />
+								<input jsf:value="#{loginView.user}" type="email" class="form-control" placeholder="Email">
+									<f:converter binding="#{userConverter}" />
+								</input>
 							</div>
 							<div class="form-group">
 								<label for="exampleInputPassword1">Passwort</label>
