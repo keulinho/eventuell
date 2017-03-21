@@ -8,9 +8,6 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-<f:metadata>
-	<f:viewAction action="#{eventDetailView.populatePage}" />
-</f:metadata>
 <h:body>
 	<ui:composition template="base.xhtml">
 		<ui:define name="content">
@@ -97,7 +94,9 @@
 														<td id="overallPrice"></td>
 														<td><h:form>
 																<h:commandButton value="Reservieren"
-																	action="#{eventDetailView.conductBooking}"></h:commandButton>
+																	action="#{eventDetailView.conductBooking}">
+																		<f:param name="id" value="#{eventDetailView.currentEvent.eventID}" />
+																	</h:commandButton>	
 															</h:form></td>
 													</tr>
 

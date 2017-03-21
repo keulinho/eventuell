@@ -8,9 +8,6 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pt="http://xmlns.jcp.org/jsf"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
-<f:metadata>
-	<f:viewAction action="#{eventEditView.getCurrentEvent}" />
-</f:metadata>
 <h:body>
 
 	<ui:composition template="base.xhtml">
@@ -28,7 +25,7 @@
 								<div class="col-md-9">
 									<input type="text" class="form-control" id="title"
 										required="true" placeholder="Titel"
-										jsf:value="#{eventEditView.title}"></input>
+										jsf:value="#{eventEditView.event.title}"></input>
 								</div>
 							</div>
 							<div class="form-group">
@@ -36,7 +33,7 @@
 								<div class="col-md-9">
 									<textarea class="form-control" id="description"
 										placeholder="Beschreibung" required="true"
-										jsf:value="#{eventEditView.description}"></textarea>
+										jsf:value="#{eventEditView.event.description}"></textarea>
 								</div>
 							</div>
 							<div class="form-group">
@@ -44,7 +41,7 @@
 								<div class="col-md-9">
 									<input type="text" class="form-control" id="location"
 										placeholder="Veranstaltungsort" required="true"
-										jsf:value="#{eventEditView.location}"></input>
+										jsf:value="#{eventEditView.event.location}"></input>
 								</div>
 							</div>
 							<div class="form-group">
@@ -52,7 +49,7 @@
 								<div class="col-md-9">
 									<input type="text" class="form-control" id="city"
 										placeholder="Stadt" required="true"
-										jsf:value="#{eventEditView.city}"></input>
+										jsf:value="#{eventEditView.event.city}"></input>
 								</div>
 							</div>
 							<div class="form-group">
@@ -60,7 +57,7 @@
 								<div class="col-md-9">
 									<input type="text" class="form-control" id="zip-code"
 										placeholder="Postleitzahl" required="true"
-										jsf:value="#{eventEditView.zipCode}"></input>
+										jsf:value="#{eventEditView.event.zipCode}"></input>
 								</div>
 							</div>
 							<div class="form-group">
@@ -69,7 +66,7 @@
 								<div class="col-md-9">
 									<input type="text" class="form-control" id="street-number"
 										placeholder="Straße und Hausnummer" required="true"
-										jsf:value="#{eventEditView.streetNumber}"></input>
+										jsf:value="#{eventEditView.event.streetNumber}"></input>
 								</div>
 							</div>
 							<div class="form-group">
@@ -94,7 +91,7 @@
 								<div class="col-md-3">
 									<input type="number" placeholder="Anzahl Tickets"
 										class="form-control" id="number" required="true"
-										jsf:value="#{eventEditView.maxTickets}" min="1"></input>
+										jsf:value="#{eventEditView.event.maxTickets}" min="1"></input>
 								</div>
 
 							</div>
@@ -103,7 +100,7 @@
 									in €:</label>
 								<div class="col-md-3">
 									<input placeholder="Preis" type="number" class="form-control"
-										id="price" required="true" jsf:value="#{eventEditView.price}"
+										id="price" required="true" jsf:value="#{eventEditView.event.price}"
 										min="1" step="0.01"> </input>
 								</div>
 
@@ -112,13 +109,13 @@
 								<div class="col-md-offset-3 col-md-9">
 									<input type="submit" jsf:action="#{eventEditView.editEvent}"
 										class="btn btn-primary" value="Veranstaltung ändern">
-										<f:param name="id" value="#{eventEditView.eventID}" /> </input> <input
+										<f:param name="id" value="#{eventEditView.event.eventID}" /> </input> <input
 										type="submit" jsf:action="#{eventEditView.publishEvent}"
 										class="btn btn-info" value="Veranstaltung veröffentlichen">
-										<f:param name="id" value="#{eventEditView.eventID}" /> </input> <input
+										<f:param name="id" value="#{eventEditView.event.eventID}" /> </input> <input
 										type="submit" jsf:action="#{eventEditView.deleteEvent}"
 										class="btn btn-default" value="Veranstaltung löschen">
-										<f:param name="id" value="#{eventEditView.eventID}" /> </input>
+										<f:param name="id" value="#{eventEditView.event.eventID}" /> </input>
 								</div>
 							</div>
 						</form>

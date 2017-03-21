@@ -33,6 +33,7 @@ public class Event {
 		double i = Math.random()*100000000;
 		this.eventID = (int)i;
 	}
+	
 	public double getPrice() {
 		return price;
 	}
