@@ -18,6 +18,21 @@ public class Event {
 	private List<Booking> bookings;
 	private double price;
 	
+	public Event(EventBuilder eventBuilder) {
+		this.price = eventBuilder.getPrice();
+		this.title = eventBuilder.getTitle();
+		this.description = eventBuilder.getDescription();
+		this.maxTickets = eventBuilder.getMaxTickets();
+		this.startDateTime = eventBuilder.getStartDateTime();
+		this.location = eventBuilder.getLocation();
+		this.zipCode = eventBuilder.getZipCode();
+		this.city = eventBuilder.getCity();
+		this.creator = eventBuilder.getCreator();
+		this.status = eventBuilder.getStatus();
+		this.streetNumber = eventBuilder.getStreetNumber();
+		double i = Math.random()*100000000;
+		this.eventID = (int)i;
+	}
 	public double getPrice() {
 		return price;
 	}
@@ -44,9 +59,6 @@ public class Event {
 	}
 	public int getEventID() {
 		return eventID;
-	}
-	public void setEventID(int eventID) {
-		this.eventID = eventID;
 	}
 	public String getTitle() {
 		return title;

@@ -13,6 +13,7 @@ import javax.inject.Named;
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Booking;
 import de.eventuell.models.Event;
+import de.eventuell.models.EventBuilder;
 import de.eventuell.models.EventStatus;
 import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IEventService;
@@ -26,53 +27,56 @@ public class MockEventService implements IEventService {
 
 	public MockEventService() throws LoginFailedException {
 		allEvents = new LinkedList<Event>();
-		Event e = new Event();
-		e.setEventID(1);
-		e.setCity("M�nster");
-		e.setDescription("Hammer Konzert");
-		e.setLocation("Halle M�nsterland");
-		e.setMaxTickets(2000);
-		e.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
-		e.setStatus(EventStatus.PUBLISHED);
-		e.setTitle("Die Kassierer Konzert M�nster");
+		EventBuilder e = new EventBuilder();
 		IUserService us = new UserServiceMock();
-		e.setCreator(us.login("admin@admin.gws","admin"));
-		e.setPrice(14560.50);
+		
+		Event event = e.setCity("Münster")
+				.setDescription("Hammer Konzert")
+				.setLocation("Halle Münsterland")
+				.setMaxTickets(2000)
+				.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
+				.setStatus(EventStatus.PUBLISHED)
+				.setTitle("Die Kassierer Konzert Münster")
+				.setCreator(us.login("admin@admin.gws","admin"))
+				.setPrice(14560.50)
+				.build();
+		
 		Booking b = new Booking();
 		b.setAmount(10);
 		b.setBookingCode(1);
-		b.setEvent(e);
+		b.setEvent(event);
 		b.setUser(us.login("admin@admin.gws","admin"));
 		List<Booking> bs = new LinkedList<Booking>();
 		bs.add(b);
-		e.setBookings(bs);
-		allEvents.add(e);
+		event.setBookings(bs);
+		allEvents.add(event);
 
-		Event e2 = new Event();
-		e2.setEventID(2);
-		e2.setCity("M�nster");
-		e2.setDescription("Hammer Konzert");
-		e2.setLocation("Halle M�nsterland");
-		e2.setMaxTickets(2000);
-		e2.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
-		e2.setStatus(EventStatus.PUBLISHED);
-		e2.setTitle("Test");
-		e2.setPrice(145.55);
-		e2.setCreator(us.login("admin@admin.gws","admin"));
+		
+		Event e2 = e.setCity("Münster")
+				.setDescription("Hammer Konzert")
+				.setLocation("Halle Münsterland")
+				.setMaxTickets(2000)
+				.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
+				.setStatus(EventStatus.PUBLISHED)
+				.setTitle("Test")
+				.setCreator(us.login("admin@admin.gws","admin"))
+				.setPrice(14560.50)
+				.build();
 		allEvents.add(e2);
 		
-		Event e3 = new Event();
-		e3.setEventID(3);
-		e3.setCity("Test");
-		e3.setDescription("Test Hammer Konzert");
-		e3.setLocation("Test");
-		e3.setMaxTickets(2000);
-		e3.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0));
-		e3.setStatus(EventStatus.CREATED);
-		e3.setTitle("Test");
-		e3.setPrice(145.55);
-		e3.setCreator(us.login("admin@admin.gws","admin"));
+		
+		Event e3 = e.setCity("Test")
+				.setDescription("Test Hammer Konzert")
+				.setLocation("Test")
+				.setMaxTickets(2000)
+				.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
+				.setStatus(EventStatus.CREATED)
+				.setTitle("Test")
+				.setCreator(us.login("admin@admin.gws","admin"))
+				.setPrice(145.55)
+				.build();
 		allEvents.add(e3);
+
 	}
 
 	public List<Event> getAllActualEvents() {
@@ -111,8 +115,6 @@ public class MockEventService implements IEventService {
 
 	@Override
 	public void addEvent(Event e) {
-		double i = Math.random()*100000000;
-		e.setEventID((int)i);
 		allEvents.add(e);
 	}
 

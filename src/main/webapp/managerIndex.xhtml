@@ -11,15 +11,48 @@
 	<ui:composition template="base.xhtml">
 		<ui:define name="content">
 			<c:if test="#{userSession.user.manager}">
-				<ui:include src="/adminIndex.xhtml" />
+				<h:outputScript target="body">
+		$( document ).ready(function() {
+	
+    		var id = "#{managerIndexView.hash}";
+    		if (id==="") {
+    			id = "tab-actual-event"
+    		} 
+    		$("#"+id).tab('show');
+		});
+	</h:outputScript>
+				<div class="container">
+					<ul class="nav nav-tabs">
+						<li><a id="tab-actual-event" data-toggle="tab"
+							href="#actual-events">Bevorstehende Veranstaltungen</a></li>
+						<li><a id="tab-not-published" data-toggle="tab"
+							href="#not-published">Nicht veröffentlichte Veranstaltungen</a></li>
+						<li><a data-toggle="tab" id="tab-new-event" href="#new-event">Neue
+								Veranstaltung erstellen <span class="badge">+</span>
+						</a></li>
+					</ul>
+					<div class="tab-content">
+						<div id="actual-events" class="tab-pane fade in active">
+							<ui:include src="/Snippets/actualEvents.xhtml" />
+						</div>
+						<div id="not-published" class="tab-pane fade">
+							<ui:include src="/Snippets/notPublished.xhtml" />
+						</div>
+						<div id="new-event" class="tab-pane fade">
+							<ui:include src="/Snippets/newEvent.xhtml" />
+						</div>
+					</div>
+				</div>
 			</c:if>
 			<c:if test="#{not userSession.user.manager}">
 				<div class="alert alert-danger" role="alert">
-					<span>Sie sind nicht als Manager eingeloggt und haben aus diesem Grund keinen Zugriff auf diese Seite.</span>
+					<span>Sie sind nicht als Manager eingeloggt und haben aus
+						diesem Grund keinen Zugriff auf diese Seite.</span>
 					<h:form>
-							<h:commandButton value="Zum Login" action="login?faces-redirect=true"
-								type="submit" class="btn btn-info" />
-						</h:form>
+						<h:commandButton value="Zum Login"
+							action="login?faces-redirect=true" type="submit"
+							class="btn btn-info" />
+					</h:form>
 				</div>
 			</c:if>
 		</ui:define>

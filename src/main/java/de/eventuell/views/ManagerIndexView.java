@@ -15,6 +15,7 @@ import javax.inject.Named;
 
 import de.eventuell.exceptions.EventCreationFailedException;
 import de.eventuell.models.Event;
+import de.eventuell.models.EventBuilder;
 import de.eventuell.models.EventStatus;
 import de.eventuell.services.interfaces.IEventService;
 import de.eventuell.session.UserSession;
@@ -203,18 +204,19 @@ public class ManagerIndexView {
 		{
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
 			LocalDateTime dateTime = LocalDateTime.parse(startDate+startTime, formatter);
-			Event e = new Event();
-			e.setTitle(title);
-			e.setCity(city);
-			e.setDescription(description);
-			e.setLocation(location);
-			e.setMaxTickets(maxTickets);
-			e.setStartDateTime(dateTime);
-			e.setStatus(EventStatus.CREATED);
-			e.setStreetNumber(streetNumber);
-			e.setZipCode(zipCode);
-			e.setPrice(price);
-			e.setCreator(session.getUser());
+			EventBuilder eb = new EventBuilder();
+			Event e = eb.setTitle(title)
+			.setCity(city)
+			.setDescription(description)
+			.setLocation(location)
+			.setMaxTickets(maxTickets)
+			.setStartDateTime(dateTime)
+			.setStatus(EventStatus.CREATED)
+			.setStreetNumber(streetNumber)
+			.setZipCode(zipCode)
+			.setPrice(price)
+			.setCreator(session.getUser())
+			.build();
 			return e;
 		} else {
 			throw new EventCreationFailedException();

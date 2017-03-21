@@ -1,6 +1,12 @@
 package de.eventuell.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -111473571501385550L;
 	private int userID;
 	private String email;
 	private String firstName;
@@ -8,6 +14,10 @@ public class User {
 	private String password;
 	private boolean manager;
 	
+	
+	public boolean evaluateCredentials(String email, String password) {
+		return (this.email.equals(email) && this.password.equals(password)) ? true : false;
+	}
 	
 	public int getUserID() {
 		return userID;
