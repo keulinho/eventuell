@@ -21,5 +21,8 @@ dependencies {
 	compile 'com.sun.faces:jsf-api:2.2.10'
 	compile 'com.sun.faces:jsf-impl:2.2.10'
 	compile 'javax.enterprise:cdi-api:1.2'
+	compile 'com.h2database:h2:1.4.193'
+	providedCompile 'org.eclipse.persistence:javax.persistence:2.1.0'
+	providedCompile 'javax.transaction:javax.transaction-api:1.2'
 }
 
