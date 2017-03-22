@@ -21,7 +21,7 @@ import de.eventuell.services.interfaces.IUserService;
 
 @Named
 @ApplicationScoped
-public class MockEventService implements IEventService {
+public class MockEventService { //implements IEventService {
 
 	private List<Event> allEvents;
 
@@ -85,7 +85,7 @@ public class MockEventService implements IEventService {
 				.collect(Collectors.toList());
 	}
 
-	@Override
+
 	public Event getEventByID(int eventID) {		
 		Event currentEvent = null;
 		for (Event event : allEvents) {
@@ -102,7 +102,7 @@ public class MockEventService implements IEventService {
 				.toUpperCase().contains(searchString.toUpperCase())).collect(Collectors.toList());
 	}
 
-	@Override
+
 	public List<Event> getAllActualEventsByActiveManager(User u) {
 		if (u.getManager()) {
 			List<Event> events = getAllActualEvents();
@@ -113,12 +113,12 @@ public class MockEventService implements IEventService {
 		}
 	}
 
-	@Override
+
 	public void addEvent(Event e) {
 		allEvents.add(e);
 	}
 
-	@Override
+
 	public List<Event> getAllNotPublishedEventsByManager(User user) {
 		if (user.getManager()) {
 			return allEvents.stream().filter(e -> e.getCreator().getUserID() == user.getUserID() && e.getStatus()==EventStatus.CREATED)
@@ -128,7 +128,7 @@ public class MockEventService implements IEventService {
 		}
 	}
 
-	@Override
+
 	public void changeEvent(Event e) {
 		Optional<Event> oldEvent = allEvents.stream().filter(ev -> ev.getEventID()==e.getEventID()).findFirst();
 		if (oldEvent.isPresent()) {
@@ -137,7 +137,7 @@ public class MockEventService implements IEventService {
 		}
 	}
 
-	@Override
+
 	public void deleteEventByID(int eventID) {
 		Optional<Event> oldEvent = allEvents.stream().filter(ev -> ev.getEventID()==eventID).findFirst();
 		if (oldEvent.isPresent()) {

@@ -1,19 +1,41 @@
 package de.eventuell.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+@Entity
 public class User implements Serializable{
 	/**
 	 * 
 	 */
+	@Transient
 	private static final long serialVersionUID = -111473571501385550L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable = false, nullable = false)
 	private int userID;
+	@Column
 	private String email;
+	@Column
 	private String firstName;
+	@Column
 	private String lastName;
+	@Column
 	private String password;
+	@Column
 	private boolean manager;
-	
+	@OneToMany(mappedBy="user")
+	private List<Booking> bookings;
+	@OneToMany(mappedBy="creator")
+	private List<Event> events;
 	
 	public boolean evaluateCredentials(String email, String password) {
 		return (this.email.equals(email) && this.password.equals(password)) ? true : false;

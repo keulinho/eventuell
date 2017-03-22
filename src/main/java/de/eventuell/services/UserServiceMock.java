@@ -26,7 +26,7 @@ public class UserServiceMock implements IUserService {
 		admin.setEmail("admin@admin.gws");
 		admin.setManager(true);
 		admin.setPassword("admin");
-		admin.setUserID(1);
+		admin.setUserID(0);
 		users.add(admin);
 		User admin2 = new User();
 		admin2.setFirstName("Sudo");
