@@ -105,20 +105,20 @@
 												</thead>
 												<tbody>
 													<tr>
-														<td>Standard</td>
-														<td id="pricePerTicket"
-															data-price="#{eventDetailView.currentEvent.price}">#{eventDetailView.currentEvent.price}</td>
-														<td><input id="amount" type="number" min="1"
-															jsf:value="#{eventDetailView.amount}"
-															onchange="calculate()"></input></td>
-														<td id="overallPrice"></td>
-														<td><h:form>
-																<h:commandButton value="Reservieren"
+														<h:form>
+															<td>Standard</td>
+															<td id="pricePerTicket"
+																data-price="#{eventDetailView.currentEvent.price}">#{eventDetailView.currentEvent.price}</td>
+															<td><h:inputText id="amount" pt:type="number" pt:min="0"
+																value="#{eventDetailView.amount}" pt:required="true"
+																onchange="calculate()"></h:inputText></td>
+															<td id="overallPrice"></td>
+															<td><h:commandButton value="Reservieren" class="btn btn-default"
 																	action="#{eventDetailView.conductBooking}">
 																	<f:param name="id"
 																		value="#{eventDetailView.currentEvent.eventID}" />
-																</h:commandButton>
-															</h:form></td>
+																</h:commandButton></td>
+														</h:form>
 													</tr>
 												</tbody>
 											</table>
@@ -126,26 +126,27 @@
 									</div>
 								</c:if>
 								<c:if test="#{empty userSession.user}">
-									<div class="alert alert-danger" role="alert">
+									<div class="alert alert-danger">
 										<span>Sie müssen eingeloggt sein, um Tickets für dieses
 											Event reservieren zu können.</span>
-										<h:form>
-											<h:commandButton value="Zum Login"
-												action="login?faces-redirect=true" type="submit"
-												class="btn btn-info" />
-										</h:form>
+										<div>
+											<h:link class="btn btn-info" value="Zum Login"
+												outcome="login.jsf">
+											</h:link>
+										</div>
 									</div>
 								</c:if>
 
 							</div>
 						</div>
 					</li>
-					<c:if test="Buchung durchgeführt und erfolgreich">
+					<c:if
+						test="#{eventDetailView.bookingSuccess = true and eventDetailView.currentBooking != null }">
 						<div id="booking-successful">
 							<ui:include src="/Snippets/bookingSuccessful.xhtml" />
 						</div>
 					</c:if>
-					<c:if test="Buchung nicht erfolgreich">
+					<c:if test="#{eventDetailView.bookingSuccess = false}">
 						<div id="booking-failed">
 							<ui:include src="/Snippets/bookingFailed.xhtml" />
 						</div>

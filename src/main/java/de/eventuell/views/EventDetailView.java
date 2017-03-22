@@ -23,11 +23,15 @@ import de.eventuell.session.UserSession;
 public class EventDetailView{
 
 	private Event currentEvent;
+	private Booking currentBooking = null;
+	
 	@Inject
 	private IEventService eventService;
 	
 	private int amount;
-	private double pricePerTicket;
+	private boolean bookingSuccess = true;
+	
+	
 		
 	@Inject
 	UserSession session;
@@ -47,16 +51,16 @@ public class EventDetailView{
 	}
 	
 	public String conductBooking(){
-		Booking booking;
 		try{
-			booking = bookingService.conductBooking(amount, currentEvent);
+			Booking booking = bookingService.conductBooking(amount, currentEvent);
+			setCurrentBooking(booking);
 		}catch(BookingFailedException bfe){
+			setBookingSuccess(false);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Die Buchung konnte nicht durchgeführt werden!", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		}
-		
-		return "?faces-redirect=true";
+		return "event.jsf";
 	}
 
 	
@@ -66,14 +70,6 @@ public class EventDetailView{
 
 	public void setAmount(int amount) {
 		this.amount = amount;
-	}
-
-	public double getPricePerTicket() {
-		return pricePerTicket;
-	}
-
-	public void setPricePerTicket(double pricePerTicket) {
-		this.pricePerTicket = pricePerTicket;
 	}
 
 	public IBookingService getBookingService() {
@@ -103,6 +99,15 @@ public class EventDetailView{
 		this.currentEvent = currentEvent;
 	}
 
+	
+	public Booking getCurrentBooking() {
+		return currentBooking;
+	}
+
+	public void setCurrentBooking(Booking currentBooking) {
+		this.currentBooking = currentBooking;
+	}
+
 	public UserSession getSession() {
 		return session;
 	}
@@ -112,5 +117,11 @@ public class EventDetailView{
 		this.session = session;
 	}
 
-	
+	public boolean isBookingSuccess() {
+		return bookingSuccess;
+	}
+
+	public void setBookingSuccess(boolean bookingSuccess) {
+		this.bookingSuccess = bookingSuccess;
+	}	
 }

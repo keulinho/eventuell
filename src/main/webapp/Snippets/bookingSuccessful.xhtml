@@ -19,7 +19,8 @@
 					<div class="row">
 						<h4>
 							<div class="col-md-2">Buchungscode:</div>
-							<div class="col-md-8">#{Buchungscode ermitteln}</div>
+							<div class="col-md-8">#{eventDetailView.currentBooking.getBookingCodeAsString()}</div>
+							
 						</h4>
 					</div>
 					<div class="row">
@@ -28,11 +29,11 @@
 					</div>
 					<div class="row">
 						<div class="col-md-2">Anzahl der Tickets:</div>
-						<div class="col-md-8">#{eventDetailView.currentEvent.maxTickets}</div>
+						<div class="col-md-8">#{eventDetailView.currentBooking.amount}</div>
 					</div>
 					<div class="row">
 						<div class="col-md-2">Gesamtpreis:</div>
-						<div class="col-md-8">#{eventDetailView.currentEvent.price}€</div>
+						<div class="col-md-8">#{eventDetailView.currentBooking.calculateOverallPriceAsString()}€</div>
 					</div>
 					<div class="row">
 						<div class="col-md-2">Datum:</div>

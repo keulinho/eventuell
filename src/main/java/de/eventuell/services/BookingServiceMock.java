@@ -17,7 +17,7 @@ import de.eventuell.session.UserSession;
 
 @Named
 @ApplicationScoped
-public class BookingServiceMock implements IBookingService {
+public class BookingServiceMock { //implements IBookingService {
 
 	private LinkedList<Booking> allBookings;
 	
@@ -30,19 +30,19 @@ public class BookingServiceMock implements IBookingService {
 		allBookings = new LinkedList<Booking>();
 		
 	}
-	@Override
+
 	public List<Booking> getAllBookings() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public Booking getBookingByBookingCode(int bookingCode) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public Booking conductBooking(int amount, Event currentEvent) throws BookingFailedException {
 		// TODO Buchung persistieren
 		System.out.println("conductBooking");
@@ -54,7 +54,6 @@ public class BookingServiceMock implements IBookingService {
 		booking.setBookingCode((int) (Math.random()*100000000));
 		System.out.println("BookingCode: " + booking.getBookingCode());
 		booking.setUser(session.getUser());
-		booking.setPrice(overallPrice);
 		booking.setEvent(currentEvent);
 		System.out.println(currentEvent);
 		return booking;

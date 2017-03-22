@@ -10,29 +10,24 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:body>
 	<li class="list-group-item container">
-		<div class="container">
-			<div class="panel panel-danger">
-				<div class="panel-heading">
-					<h3 class="panel-title">Buchung konnte nicht abgeschlossen
-						werden!</h3>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-md-12">Es tut uns leid! Anscheinend ist bei
-							der Buchung ein Fehler aufgetreten :-(</div>
-						<div class="col-md-12">Falls der Fehler wiederholt auftritt,
-							wenden Sie sich bitte an unseren Support.</div>
-					</div>
-					<div class="row">
-						<div class="col-md-2">
-							<h:commandButton value="Zur Startseite"
-								action="index.jsf">
-							</h:commandButton>
-						</div>
-					</div>
-				</div>
+		<div class="alert alert-danger">
+
+			<h3>Buchung konnte nicht abgeschlossen werden!</h3>
+
+
+			<div>Es tut uns leid! Anscheinend ist bei der Buchung ein
+				Fehler aufgetreten :-(</div>
+			<div>Falls der Fehler wiederholt auftritt, wenden Sie sich
+				bitte an unseren Support.</div>
+			<div>
+				<h:link class="btn btn-info" value="Zur Startseite"
+					outcome="index.jsf">
+				</h:link>
 			</div>
+
 		</div>
+
+
 	</li>
 </h:body>
 </html>
