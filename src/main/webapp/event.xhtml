@@ -52,7 +52,8 @@
 										</div>
 										<div class="row">
 											<div class="col-md-2">Veranstaltungsort:</div>
-											<div class="col-md-8">#{eventDetailView.currentEvent.zipCode} #{eventDetailView.currentEvent.location}</div>
+											<div class="col-md-8">#{eventDetailView.currentEvent.zipCode}
+												#{eventDetailView.currentEvent.location}</div>
 										</div>
 										<div class="row">
 											<div class="col-md-2">Adresse:</div>
@@ -68,7 +69,9 @@
 										</div>
 										<div class="row">
 											<div class="col-md-2">Verfügbare Tickets:</div>
-											<div class="col-md-8">#{eventDetailView.currentEvent.availableTickets}</div>
+											<div class="col-md-8" >
+												<h:outputText value="#{eventDetailView.currentEvent.availableTicketsAsString()}"></h:outputText>
+											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-2">Beschreibung:</div>
@@ -111,8 +114,9 @@
 														<td><h:form>
 																<h:commandButton value="Reservieren"
 																	action="#{eventDetailView.conductBooking}">
-																		<f:param name="id" value="#{eventDetailView.currentEvent.eventID}" />
-																	</h:commandButton>	
+																	<f:param name="id"
+																		value="#{eventDetailView.currentEvent.eventID}" />
+																</h:commandButton>
 															</h:form></td>
 													</tr>
 
