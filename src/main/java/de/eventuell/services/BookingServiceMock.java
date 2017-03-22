@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -41,13 +43,13 @@ public class BookingServiceMock implements IBookingService {
 	}
 
 	@Override
-	public Booking conductBooking(int amount, double pricePerTicket, Event currentEvent) throws BookingFailedException {
+	public Booking conductBooking(int amount, Event currentEvent) throws BookingFailedException {
 		// TODO Buchung persistieren
 		System.out.println("conductBooking");
-		double overallPrice = amount * pricePerTicket;
+		double overallPrice = amount * currentEvent.getPrice();
 		System.out.println("overall: "+overallPrice);
 		System.out.println("amount: "+amount);
-		System.out.println("amount: "+pricePerTicket);
+		System.out.println("pricePerTicket: "+currentEvent.getPrice());
 		Booking booking = new Booking();
 		booking.setBookingCode((int) (Math.random()*100000000));
 		System.out.println("BookingCode: " + booking.getBookingCode());

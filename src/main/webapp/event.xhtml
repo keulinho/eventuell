@@ -69,8 +69,9 @@
 										</div>
 										<div class="row">
 											<div class="col-md-2">Verfügbare Tickets:</div>
-											<div class="col-md-8" >
-												<h:outputText value="#{eventDetailView.currentEvent.availableTicketsAsString()}"></h:outputText>
+											<div class="col-md-8">
+												<h:outputText
+													value="#{eventDetailView.currentEvent.availableTicketsAsString()}"></h:outputText>
 											</div>
 										</div>
 										<div class="row">
@@ -119,7 +120,6 @@
 																</h:commandButton>
 															</h:form></td>
 													</tr>
-
 												</tbody>
 											</table>
 										</div>
@@ -136,12 +136,20 @@
 										</h:form>
 									</div>
 								</c:if>
+
 							</div>
 						</div>
 					</li>
-
-
-
+					<c:if test="Buchung durchgeführt und erfolgreich">
+						<div id="booking-successful">
+							<ui:include src="/Snippets/bookingSuccessful.xhtml" />
+						</div>
+					</c:if>
+					<c:if test="Buchung nicht erfolgreich">
+						<div id="booking-failed">
+							<ui:include src="/Snippets/bookingFailed.xhtml" />
+						</div>
+					</c:if>
 				</ul>
 			</div>
 		</ui:define>

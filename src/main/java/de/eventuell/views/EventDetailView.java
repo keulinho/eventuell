@@ -49,14 +49,14 @@ public class EventDetailView{
 	public String conductBooking(){
 		Booking booking;
 		try{
-			booking = bookingService.conductBooking(amount, pricePerTicket, currentEvent);
+			booking = bookingService.conductBooking(amount, currentEvent);
 		}catch(BookingFailedException bfe){
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Die Buchung konnte nicht durchgeführt werden!", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		}
 		
-		return "index.jsf?faces-redirect=true";
+		return "?faces-redirect=true";
 	}
 
 	
