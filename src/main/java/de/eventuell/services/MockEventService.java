@@ -28,7 +28,6 @@ public class MockEventService { //implements IEventService {
 	public MockEventService() throws LoginFailedException {
 		allEvents = new LinkedList<Event>();
 		EventBuilder e = new EventBuilder();
-		IUserService us = new UserServiceMock();
 		
 		Event event = e.setCity("Münster")
 				.setDescription("Hammer Konzert")
@@ -37,7 +36,6 @@ public class MockEventService { //implements IEventService {
 				.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
 				.setStatus(EventStatus.PUBLISHED)
 				.setTitle("Die Kassierer Konzert Münster")
-				.setCreator(us.login("admin@admin.gws","admin"))
 				.setPrice(14560.50)
 				.build();
 		
@@ -45,7 +43,6 @@ public class MockEventService { //implements IEventService {
 		b.setAmount(10);
 		b.setBookingCode(1);
 		b.setEvent(event);
-		b.setUser(us.login("admin@admin.gws","admin"));
 		List<Booking> bs = new LinkedList<Booking>();
 		bs.add(b);
 		event.setBookings(bs);
@@ -59,7 +56,6 @@ public class MockEventService { //implements IEventService {
 				.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
 				.setStatus(EventStatus.PUBLISHED)
 				.setTitle("Test")
-				.setCreator(us.login("admin@admin.gws","admin"))
 				.setPrice(14560.50)
 				.build();
 		allEvents.add(e2);
@@ -72,7 +68,6 @@ public class MockEventService { //implements IEventService {
 				.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
 				.setStatus(EventStatus.CREATED)
 				.setTitle("Test")
-				.setCreator(us.login("admin@admin.gws","admin"))
 				.setPrice(145.55)
 				.build();
 		allEvents.add(e3);

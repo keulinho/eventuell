@@ -11,7 +11,7 @@ import de.eventuell.services.interfaces.IUserService;
 
 @Named
 @ApplicationScoped
-public class UserServiceMock implements IUserService {
+public class UserServiceMock { //implements IUserService {
 // Dummy UserService bis wir in der Vorlesung weiter sind
 	
 	private LinkedList<User> users;

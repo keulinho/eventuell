@@ -36,14 +36,33 @@ public class EventService implements IEventService {
 		{
 			EventBuilder e = new EventBuilder();
 			em.getTransaction().begin();
+			User admin = new User();
+			admin.setFirstName("Sudo");
+			admin.setLastName("Admin");
+			admin.setEmail("admin@admin.gws");
+			admin.setManager(true);
+			admin.setPassword("admin");
+			admin.setUserID(0);
+			em.persist(admin);
+			User admin2 = new User();
+			admin2.setFirstName("Sudo");
+			admin2.setLastName("Admin");
+			admin2.setEmail("admin@admin.de");
+			admin2.setManager(true);
+			admin2.setPassword("admin");
+			admin2.setUserID(2);
+			em.persist(admin2);
 			User u = new User();
-			u.setEmail("admin@admin.gws");
-			u.setPassword("admin");
-			u.setManager(true);
+			u.setFirstName("Sudo");
+			u.setLastName("Admin");
+			u.setEmail("test@test.de");
+			u.setManager(false);
+			u.setPassword("test");
+			u.setUserID(3);
 			em.persist(u);
 			Event event = e.setCity("Münster").setDescription("Hammer Konzert").setLocation("Halle Münsterland")
 					.setMaxTickets(2000).setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
-					.setStatus(EventStatus.PUBLISHED).setTitle("Die Kassierer Konzert Münster").setCreator(u)
+					.setStatus(EventStatus.PUBLISHED).setTitle("Die Kassierer Konzert Münster").setCreator(admin)
 					.setPrice(14560.50).build();
 
 			Booking b = new Booking();
@@ -59,12 +78,12 @@ public class EventService implements IEventService {
 
 			Event e2 = e.setCity("Münster").setDescription("Hammer Konzert").setLocation("Halle Münsterland")
 					.setMaxTickets(2000).setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
-					.setStatus(EventStatus.PUBLISHED).setTitle("Test").setCreator(u).setPrice(14560.50).build();
+					.setStatus(EventStatus.PUBLISHED).setTitle("Test").setCreator(admin).setPrice(14560.50).build();
 			em.persist(e2);
 
 			Event e3 = e.setCity("Test").setDescription("Test Hammer Konzert").setLocation("Test").setMaxTickets(2000)
 					.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0)).setStatus(EventStatus.CREATED)
-					.setTitle("Test").setCreator(u).setPrice(145.55).build();
+					.setTitle("Test").setCreator(admin).setPrice(145.55).build();
 			em.persist(e3);
 			em.getTransaction().commit();
 		}
