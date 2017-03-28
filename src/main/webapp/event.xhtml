@@ -162,7 +162,7 @@
 					var amount = document.getElementById('amount').value;
 					var overallPrice = document.getElementById('overallPrice');
 					var myResult = pricePerTicket * amount;
-					overallPrice.innerHTML = myResult;
+					document.getElementById("overallPrice").innerHTML = myResult.toString();
 				}
 			</script>
 		</ui:define>
