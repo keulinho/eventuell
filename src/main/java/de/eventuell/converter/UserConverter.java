@@ -1,15 +1,15 @@
 package de.eventuell.converter;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IUserService;
 
-@ManagedBean
+@Named
 public class UserConverter implements Converter{
 
 	@Inject

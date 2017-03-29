@@ -38,8 +38,11 @@ public class EventService implements IEventService {
 
 	@PostConstruct
 	public void generateTestData() {
-		List<Event> eventList = (List<Event>) em.createQuery("SELECT e FROM Event e").getResultList();
-		if (eventList.size()<1)
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		cq.select(cb.count(cq.from(Event.class)));
+		Long events = em.createQuery(cq).getSingleResult();
+		if (events<1)
 		{
 			EventBuilder e = new EventBuilder();
 			em.getTransaction().begin();
@@ -48,7 +51,7 @@ public class EventService implements IEventService {
 			admin.setLastName("Admin");
 			admin.setEmail("admin@admin.gws");
 			admin.setManager(true);
-			admin.setPassword("admin");
+			admin.setPassword("8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918");
 			admin.setUserID(0);
 			em.persist(admin);
 			User admin2 = new User();
@@ -56,7 +59,7 @@ public class EventService implements IEventService {
 			admin2.setLastName("Admin");
 			admin2.setEmail("admin@admin.de");
 			admin2.setManager(true);
-			admin2.setPassword("admin");
+			admin2.setPassword("8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918");
 			admin2.setUserID(2);
 			em.persist(admin2);
 			User u = new User();
@@ -64,13 +67,13 @@ public class EventService implements IEventService {
 			u.setLastName("Admin");
 			u.setEmail("test@test.de");
 			u.setManager(false);
-			u.setPassword("test");
+			u.setPassword("9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08");
 			u.setUserID(3);
 			em.persist(u);
 			Event event = e.setCity("Münster").setDescription("Hammer Konzert").setLocation("Halle Münsterland")
 					.setMaxTickets(2000).setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
 					.setStatus(EventStatus.PUBLISHED).setTitle("Die Kassierer Konzert Münster").setCreator(admin)
-					.setPrice(14560.50).build();
+					.setPrice(14560.50).setStreetNumber("Testallee 3").setZipCode("1234").build();
 
 			Booking b = new Booking();
 			b.setAmount(10);
@@ -82,12 +85,12 @@ public class EventService implements IEventService {
 
 			Event e2 = e.setCity("Münster").setDescription("Hammer Konzert").setLocation("Halle Münsterland")
 					.setMaxTickets(2000).setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
-					.setStatus(EventStatus.PUBLISHED).setTitle("Test").setCreator(admin).setPrice(14560.50).build();
+					.setStatus(EventStatus.PUBLISHED).setTitle("Testaufführung").setCreator(admin).setPrice(14560.50).setStreetNumber("Testallee 3").setZipCode("1234").build();
 			em.persist(e2);
 
-			Event e3 = e.setCity("Test").setDescription("Test Hammer Konzert").setLocation("Test").setMaxTickets(2000)
+			Event e3 = e.setCity("Teststadt").setDescription("Test Hammer Konzert").setLocation("Testhalle").setMaxTickets(2000)
 					.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0)).setStatus(EventStatus.CREATED)
-					.setTitle("Test").setCreator(admin).setPrice(145.55).build();
+					.setTitle("Testkonzert").setCreator(admin).setPrice(145.55).setStreetNumber("Teststraße 42").setZipCode("12345").build();
 			em.persist(e3);
 			em.getTransaction().commit();
 		}

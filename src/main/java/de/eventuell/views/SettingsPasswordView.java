@@ -24,17 +24,13 @@ public class SettingsPasswordView {
 	}
 	
 	public String changePassword() {
-		System.out.println(" --> Passwort ändern: " + oldPasswd + " to " + newPasswd1 + " and " + newPasswd2);
 		User user = session.getUser();
 		if (!user.evaluateCredentials(oldPasswd)) {
 			// altes passwort falsch
-			System.out.println("alter Passwort war falsch");
 		} else if (!newPasswd1.equals(newPasswd2)) {
 			// neue Passwörter ungleich
-			System.out.println("Die Passwörter waren nicht identisch");
 		} else {
 			// neues Passwort setzen
-			System.out.println("Das Passwort wurde geändert");
 			user.setPassword(newPasswd1);
 		}
 		return "";
