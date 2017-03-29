@@ -41,7 +41,6 @@ public class BookingService  implements IBookingService {
 			currentEvent.addBooking(booking);
 			em.getTransaction().begin();
 			em.persist(booking);
-			
 			em.getTransaction().commit();
 			em.refresh(currentEvent);
 			return booking;

@@ -70,7 +70,7 @@ public class EventService implements IEventService {
 			Event event = e.setCity("Münster").setDescription("Hammer Konzert").setLocation("Halle Münsterland")
 					.setMaxTickets(2000).setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
 					.setStatus(EventStatus.PUBLISHED).setTitle("Die Kassierer Konzert Münster").setCreator(admin)
-					.setPrice(14560.50).build();
+					.setPrice(14560.50).setStreetNumber("Testallee 3").setZipCode("1234").build();
 
 			Booking b = new Booking();
 			b.setAmount(10);
@@ -82,12 +82,12 @@ public class EventService implements IEventService {
 
 			Event e2 = e.setCity("Münster").setDescription("Hammer Konzert").setLocation("Halle Münsterland")
 					.setMaxTickets(2000).setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0))
-					.setStatus(EventStatus.PUBLISHED).setTitle("Test").setCreator(admin).setPrice(14560.50).build();
+					.setStatus(EventStatus.PUBLISHED).setTitle("Testaufführung").setCreator(admin).setPrice(14560.50).setStreetNumber("Testallee 3").setZipCode("1234").build();
 			em.persist(e2);
 
-			Event e3 = e.setCity("Test").setDescription("Test Hammer Konzert").setLocation("Test").setMaxTickets(2000)
+			Event e3 = e.setCity("Teststadt").setDescription("Test Hammer Konzert").setLocation("Testhalle").setMaxTickets(2000)
 					.setStartDateTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 0)).setStatus(EventStatus.CREATED)
-					.setTitle("Test").setCreator(admin).setPrice(145.55).build();
+					.setTitle("Testkonzert").setCreator(admin).setPrice(145.55).setStreetNumber("Teststraße 42").setZipCode("12345").build();
 			em.persist(e3);
 			em.getTransaction().commit();
 		}
