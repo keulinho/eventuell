@@ -49,6 +49,7 @@ public class IndexView {
 	
 	@PostConstruct
 	public void populateVariables() {
+		System.out.println("---------PostConstruct");
 		getAllActualEvents();
 	}
 	
