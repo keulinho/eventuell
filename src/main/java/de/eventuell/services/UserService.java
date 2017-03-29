@@ -52,4 +52,16 @@ public class UserService implements IUserService {
 		throw new LoginFailedException();
 	}
 
+	@Override
+	public User getUserByMail(String value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isMailInUse(String value) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
