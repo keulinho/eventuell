@@ -43,6 +43,7 @@
 				<property name="eclipselink.ddl-generation" value="create-tables" />
 			-->
 			<property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+			<property name="eclipselink.logging.level" value="FINE"/>
 			
 	     	<!--
 				Zugangsdaten für die Datenbank-Verbindung ohne JTA-Datascource
