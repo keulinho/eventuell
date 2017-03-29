@@ -40,8 +40,10 @@ public class BookingService  implements IBookingService {
 			booking.setEvent(currentEvent);
 			currentEvent.addBooking(booking);
 			em.getTransaction().begin();
+			em.persist(booking);
 			em.merge(currentEvent);
 			em.getTransaction().commit();
+			
 			return booking;
 		}
 		throw new BookingFailedException();
