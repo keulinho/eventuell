@@ -51,7 +51,7 @@ public class EventService implements IEventService {
 			admin.setLastName("Admin");
 			admin.setEmail("admin@admin.gws");
 			admin.setManager(true);
-			admin.setPassword("admin");
+			admin.setPassword("8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918");
 			admin.setUserID(0);
 			em.persist(admin);
 			User admin2 = new User();
@@ -59,7 +59,7 @@ public class EventService implements IEventService {
 			admin2.setLastName("Admin");
 			admin2.setEmail("admin@admin.de");
 			admin2.setManager(true);
-			admin2.setPassword("admin");
+			admin2.setPassword("8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918");
 			admin2.setUserID(2);
 			em.persist(admin2);
 			User u = new User();
@@ -67,7 +67,7 @@ public class EventService implements IEventService {
 			u.setLastName("Admin");
 			u.setEmail("test@test.de");
 			u.setManager(false);
-			u.setPassword("test");
+			u.setPassword("9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08");
 			u.setUserID(3);
 			em.persist(u);
 			Event event = e.setCity("Münster").setDescription("Hammer Konzert").setLocation("Halle Münsterland")

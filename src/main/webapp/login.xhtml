@@ -27,7 +27,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputPassword1">Passwort</label>
-							    <input jsf:value="#{loginView.password}"  type="password" class="form-control" placeholder="Password" />
+							    <input jsf:value="#{loginView.password}"  type="password" class="form-control" placeholder="Password">
+									<f:converter binding="#{passwordConverter}" />
+								</input>
 							</div>
 							<input value="Login"  jsf:action="#{loginView.login}" type="submit" class="btn btn-default"/>
 						</form>
