@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<!--
+		transaction-type=[RESOURCE_LOCAL|JTA]: Der Transactions-Typ bestimmt, ob es sich um eine Container-Managed
+		oder eine JSE-Transaktion handelt
+		 
+		RESOURCE_LOCAL: SE-Transaktion. Es muss keine DataSource, konfiguriert sein,
+						dafür muss Treiber und Datenbank in der <persistence-unit> oder als-<non-jta-datasource> Konfiguriert sein.
+						Die Transaktion wird am Entity Manager erzeugt und beendet.
+		
+		JTA: 			Container- oder Bean-Managed-Transaktion.
+						Die Transaktion wird über die UserTransacation oder @Transactional gesteuert.
+ 	-->
+	<persistence-unit name="h2"	transaction-type="JTA">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		 
+		<!-- 
+        	Wenn der Transaktions-Typ = JTA und die Verbindung als DataSource konfiguriert ist,
+        	kann hier der JNDI Name der Datasource angegeben werden
+        	<jta-data-source>java:app/jdbc/h2</jta-data-source>
+       	-->
+        <jta-data-source>java:app/jdbc/h2</jta-data-source>
+        
+		
+		<!-- 
+       	Wenn der Transaktions-Typ = RESOURCE_LOCAL und die Verbindung als DataSource konfiguriert ist,
+       	kann hier der JNDI Name der Datasource angegeben werden
+		
+       	<non-jta-data-source>java:app/jdbc/h2</non-jta-data-source>
+       	-->
+       	        
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        
+		<properties>	
+			<property name="eclipselink.ddl-generation.output-mode" value="both"/>
+			<!--
+			eclipselink.ddl-generation 
+				Der Parameter bestimmt, ob bei Start der Anwendung die Datenbanktabellen neu erstellt werden oder nicht.
+				<property name="eclipselink.ddl-generation" value="create-tables" />
+			-->
+			<property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+			
+	     	<!--
+				Zugangsdaten für die Datenbank-Verbindung ohne JTA-Datascource
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/socnet;AUTO_SERVER=TRUE;MVCC=TRUE"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            -->
+	     	
+	    </properties>
+	    
+	   
+	    
+	</persistence-unit>
+</persistence>

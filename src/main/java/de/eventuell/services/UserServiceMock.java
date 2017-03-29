@@ -11,7 +11,7 @@ import de.eventuell.services.interfaces.IUserService;
 
 @Named
 @ApplicationScoped
-public class UserServiceMock implements IUserService {
+public class UserServiceMock { //implements IUserService {
 // Dummy UserService bis wir in der Vorlesung weiter sind
 	
 	private LinkedList<User> users;
@@ -26,7 +26,7 @@ public class UserServiceMock implements IUserService {
 		admin.setEmail("admin@admin.gws");
 		admin.setManager(true);
 		admin.setPassword("admin");
-		admin.setUserID(1);
+		admin.setUserID(0);
 		users.add(admin);
 		User admin2 = new User();
 		admin2.setFirstName("Sudo");
