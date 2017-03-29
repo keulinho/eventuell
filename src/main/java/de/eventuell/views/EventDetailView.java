@@ -61,8 +61,10 @@ public class EventDetailView{
 		try{
 			Booking booking = bookingService.conductBooking(amount, currentEvent);
 			setCurrentBooking(booking);
+			amount=0;
 		}catch(BookingFailedException bfe){
 			setBookingSuccess(false);
+			amount=0;
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Die Buchung konnte nicht durchgeführt werden!", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;

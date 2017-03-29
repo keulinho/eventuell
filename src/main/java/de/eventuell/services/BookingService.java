@@ -31,18 +31,22 @@ public class BookingService  implements IBookingService {
 
 	
 	public Booking conductBooking(int amount, Event currentEvent) throws BookingFailedException {
-		Booking booking = new Booking();
-		booking.setAmount(amount);
-		booking.setUser(session.getUser());
-		booking.setEvent(currentEvent);
-		addBooking(booking);
-		return booking;
-	}
-	
-	public void addBooking(Booking b){
-		em.getTransaction().begin();
-		em.persist(b);
-		em.getTransaction().commit();		
+		em.refresh(currentEvent);
+		if (currentEvent.availableTickets()>=amount)
+		{
+			Booking booking = new Booking();
+			booking.setAmount(amount);
+			booking.setUser(session.getUser());
+			booking.setEvent(currentEvent);
+			currentEvent.addBooking(booking);
+			em.getTransaction().begin();
+			em.persist(booking);
+			em.merge(currentEvent);
+			em.getTransaction().commit();
+			
+			return booking;
+		}
+		throw new BookingFailedException();
 	}
 	
 	public EntityManager getEm() {

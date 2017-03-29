@@ -2,6 +2,7 @@ package de.eventuell.services;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,12 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
@@ -71,9 +78,6 @@ public class EventService implements IEventService {
 			b.setEvent(event);
 			b.setUser(u);
 			em.persist(b);
-			// List<Booking> bs = new LinkedList<Booking>();
-			// bs.add(b);
-			// event.setBookings(bs);
 			em.persist(event);
 
 			Event e2 = e.setCity("Münster").setDescription("Hammer Konzert").setLocation("Halle Münsterland")
@@ -99,9 +103,15 @@ public class EventService implements IEventService {
 
 	@Override
 	public List<Event> getAllActualEvents() {
-		List<Event> eventList = (List<Event>) em.createQuery("SELECT e FROM Event e").getResultList();
-		return eventList.stream().filter(e -> e.getStatus() == EventStatus.PUBLISHED && e.isAgo() == false)
-				.collect(Collectors.toList());
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Event> q = cb.createQuery(Event.class);
+		Root<Event> e = q.from(Event.class);
+		Predicate p = cb.conjunction();
+		p = cb.and(p, cb.equal(e.get("status"), EventStatus.PUBLISHED));
+		p = cb.and(p, cb.greaterThanOrEqualTo(e.get("startDateTime"),LocalDateTime.now()));
+		q.where(p);
+		TypedQuery<Event> query = em.createQuery(q);
+		return query.getResultList();
 	}
 
 	@Override
@@ -111,17 +121,36 @@ public class EventService implements IEventService {
 
 	@Override
 	public List<Event> searchAllActualEvents(String searchString) {
-		List<Event> eventList = (List<Event>) em.createQuery("SELECT e FROM Event e").getResultList();
-		return eventList.stream().filter(e -> (e.getTitle() + e.getDescription() + e.getCity() + e.getLocation())
-				.toUpperCase().contains(searchString.toUpperCase())).collect(Collectors.toList());
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Event> q = cb.createQuery(Event.class);
+		Root<Event> e = q.from(Event.class);
+		Predicate p = cb.conjunction();
+		Predicate p2 = cb.disjunction();
+		p = cb.and(p, cb.equal(e.get("status"), EventStatus.PUBLISHED));
+		p = cb.and(p, cb.greaterThanOrEqualTo(e.get("startDateTime"),LocalDateTime.now()));
+		p2 = cb.or(p2, cb.like(cb.upper(e.get("title")), "%" + searchString.toUpperCase() + "%"));
+		p2 = cb.or(p2, cb.like(cb.upper(e.get("city")), "%" + searchString.toUpperCase() + "%"));
+		p2 = cb.or(p2, cb.like(cb.upper(e.get("location")), "%" + searchString.toUpperCase() + "%"));
+		p2 = cb.or(p2, cb.like(cb.upper(e.get("zipCode")), "%" + searchString.toUpperCase() + "%"));
+		p = cb.and(p, p2);
+		q.where(p);
+		TypedQuery<Event> query = em.createQuery(q);
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Event> getAllActualEventsByActiveManager(User u) {
 		if (u.getManager()) {
-			List<Event> events = getAllActualEvents();
-			return events.stream().filter(e -> e.getCreator().getUserID() == u.getUserID())
-					.collect(Collectors.toList());
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<Event> q = cb.createQuery(Event.class);
+			Root<Event> e = q.from(Event.class);
+			Predicate p = cb.conjunction();
+			p = cb.and(p, cb.equal(e.get("status"), EventStatus.PUBLISHED));
+			p = cb.and(p, cb.greaterThanOrEqualTo(e.get("startDateTime"),LocalDateTime.now()));
+			p = cb.and(p, cb.equal(e.get("creator"), u));
+			q.where(p);
+			TypedQuery<Event> query = em.createQuery(q);
+			return query.getResultList();
 		} else {
 			return null;
 		}
@@ -137,10 +166,15 @@ public class EventService implements IEventService {
 	@Override
 	public List<Event> getAllNotPublishedEventsByManager(User user) {
 		if (user.getManager()) {
-			List<Event> eventList = (List<Event>) em.createQuery("SELECT e FROM Event e").getResultList();
-			return eventList.stream()
-					.filter(e -> e.getCreator().getUserID() == user.getUserID() && e.getStatus() == EventStatus.CREATED)
-					.collect(Collectors.toList());
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<Event> q = cb.createQuery(Event.class);
+			Root<Event> e = q.from(Event.class);
+			Predicate p = cb.conjunction();
+			p = cb.and(p, cb.equal(e.get("status"), EventStatus.CREATED));
+			p = cb.and(p, cb.equal(e.get("creator"), user));
+			q.where(p);
+			TypedQuery<Event> query = em.createQuery(q);
+			return query.getResultList();
 		} else {
 			return null;
 		}

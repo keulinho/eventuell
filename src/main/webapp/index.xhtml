@@ -17,20 +17,19 @@
 				<span>...finden sie bei uns eine geniale Veranstaltung</span>
 			</div>
 			<c:if test="#{not empty indexView.searchText}">
-				<div class="container-fluid">
-					<div class="panel panel-default col-md-6">
-						<div class="panel-heading">
-							<h3 class="panel-title">Suchterm:</h3>
-						</div>
-						<div class="panel-body">
-							<h:form>
-								<h:commandLink action="#{indexView.removeSearch}">
-									<button class="btn btn-primary" type="button">
-										#{indexView.searchText} <span class="badge">X</span>
-									</button>
-								</h:commandLink>
-							</h:form>
-						</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Suchterm:</h3>
+					</div>
+					<div class="panel-body">
+						<h:form>
+							<h:commandLink action="#{indexView.removeSearch}">
+								<button class="btn btn-primary" type="button">
+									#{indexView.searchText} <span class="badge">X</span>
+								</button>
+							</h:commandLink>
+						</h:form>
 					</div>
 				</div>
 
@@ -62,12 +61,6 @@
 
 
 					</h:column>
-
-					<h:column>
-						<f:facet name="header">Bechreibung</f:facet>
-    				#{event.description}
-    			</h:column>
-
 					<h:column>
 						<f:facet name="header">Stadt</f:facet>
     				#{event.zipCode} #{event.city}
@@ -91,16 +84,16 @@
 							<f:converter converterId="localDateTimeConverterID" />
 						</h:outputText>
 					</h:column>
-					
-				<h:column>
-					<f:facet name="header">Preis</f:facet>
+
+					<h:column>
+						<f:facet name="header">Preis</f:facet>
     				#{event.price} €
     			</h:column>
-    			
-    			<h:column>
-					<f:facet name="header">Verfügbare Tickets</f:facet>
-    				<h:outputText value="#{event.availableTicketsAsString()}"></h:outputText>
-    			</h:column>
+
+					<h:column>
+						<f:facet name="header">Verfügbare Tickets</f:facet>
+						<h:outputText value="#{event.availableTicketsAsString()}"></h:outputText>
+					</h:column>
 				</h:dataTable>
 			</c:if>
 			<c:if test="#{empty indexView.actualEvents}">
