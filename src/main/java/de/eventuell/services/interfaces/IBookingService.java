@@ -10,5 +10,5 @@ public interface IBookingService {
 
 	List<Booking> getAllBookings();
 	Booking getBookingByBookingCode(int bookingCode);
-	Booking conductBooking(int amount, double pricePerTicket, Event currentEvent) throws BookingFailedException;
+	Booking conductBooking(int amount, Event currentEvent) throws BookingFailedException;
 }

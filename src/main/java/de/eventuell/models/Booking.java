@@ -22,22 +22,18 @@ public class Booking {
 	private Event event;
 	@Column
 	private int amount;
-	@Column
-	private double price;
 	
-	
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
 	public int getBookingCode() {
 		return bookingCode;
 	}
 	public void setBookingCode(int bookingCode) {
 		this.bookingCode = bookingCode;
 	}
+	
+	public String getBookingCodeAsString(){
+		return String.valueOf(bookingCode);
+	}
+	
 	public User getUser() {
 		return user;
 	}
@@ -56,6 +52,15 @@ public class Booking {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	
+	public double calculateOverallPrice(){
+		return amount * event.getPrice();
+	}
+	
+	public String calculateOverallPriceAsString(){
+		return String.valueOf(calculateOverallPrice());
+	}
+	
 	
 	
 }
