@@ -86,69 +86,74 @@
 								</div>
 							</div>
 						</li>
+						<c:if test="#{eventDetailView.isEventExpired() == false}">
+							<li class="list-group-item container">
+								<div class="row">
+									<div class="container">
+										<c:if test="#{not empty userSession.user}">
+											<div class="panel panel-primary">
+												<div class="panel-heading">
+													<h3 class="panel-title">Tickets reservieren</h3>
+												</div>
+												<div class="panel-body">
+													<table class="table table-bordered table-hover">
+														<thead class="table-header">
+															<tr>
+																<td>Ticketart</td>
+																<td>Preis pro Ticket</td>
+																<td>Anzahl</td>
+																<td>Gesamtpreis</td>
+																<td></td>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<h:form>
+																	<td>Standard</td>
+																	<td id="pricePerTicket"
+																		data-price="#{eventDetailView.currentEvent.price}">#{eventDetailView.currentEvent.price}€</td>
+																	<td><input id="amount" type="number" min="0"
+																		jsf:value="#{eventDetailView.amount}" required="true"
+																		onchange="calculate()"></input></td>
+																	<td id="overallPrice"></td>
+																	<td><h:commandButton value="Reservieren"
+																			class="btn btn-default"
+																			action="#{eventDetailView.conductBooking}">
+																			<f:param name="id"
+																				value="#{eventDetailView.currentEvent.eventID}" />
+																		</h:commandButton></td>
+																</h:form>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</c:if>
+										<c:if test="#{empty userSession.user}">
+											<div class="alert alert-danger">
+												<span>Sie müssen eingeloggt sein, um Tickets für
+													dieses Event reservieren zu können.</span>
+												<div>
+													<h:link class="btn btn-info" value="Zum Login"
+														outcome="login.jsf">
+													</h:link>
+													<h:link class="btn btn-info" value="Zur Registrierung"
+														outcome="registration.jsf">
+													</h:link>
+												</div>
+											</div>
+										</c:if>
 
-						<li class="list-group-item container">
-							<div class="row">
-								<div class="container">
-									<c:if test="#{not empty userSession.user}">
-										<div class="panel panel-primary">
-											<div class="panel-heading">
-												<h3 class="panel-title">Tickets reservieren</h3>
-											</div>
-											<div class="panel-body">
-												<table class="table table-bordered table-hover">
-													<thead class="table-header">
-														<tr>
-															<td>Ticketart</td>
-															<td>Preis pro Ticket</td>
-															<td>Anzahl</td>
-															<td>Gesamtpreis</td>
-															<td></td>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<h:form>
-																<td>Standard</td>
-																<td id="pricePerTicket"
-																	data-price="#{eventDetailView.currentEvent.price}">#{eventDetailView.currentEvent.price}€</td>
-																<td><input id="amount" type="number" min="0"
-																	jsf:value="#{eventDetailView.amount}" required="true"
-																	onchange="calculate()"></input></td>
-																<td id="overallPrice"></td>
-																<td><h:commandButton value="Reservieren"
-																		class="btn btn-default"
-																		action="#{eventDetailView.conductBooking}">
-																		<f:param name="id"
-																			value="#{eventDetailView.currentEvent.eventID}" />
-																	</h:commandButton></td>
-															</h:form>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</c:if>
-									<c:if test="#{empty userSession.user}">
-										<div class="alert alert-danger">
-											<span>Sie müssen eingeloggt sein, um Tickets für
-												dieses Event reservieren zu können.</span>
-											<div>
-												<h:link class="btn btn-info" value="Zum Login"
-													outcome="login.jsf">
-												</h:link>
-												<h:link class="btn btn-info" value="Zur Registrierung"
-													outcome="registration.jsf">
-												</h:link>
-											</div>
-										</div>
-									</c:if>
-
+									</div>
 								</div>
+							</li>
+						</c:if>
+						<c:if test="#{eventDetailView.isEventExpired() == true}">
+							<div id="event-expired">
+								<ui:include src="/Snippets/eventExpired.xhtml" />
 							</div>
-						</li>
-						<c:if
-							test="#{eventDetailView.bookingSuccess == true and eventDetailView.currentBooking != null }">
+						</c:if>
+						<c:if test="#{eventDetailView.bookingSuccess == true and eventDetailView.currentBooking != null }">
 							<div id="booking-successful">
 								<ui:include src="/Snippets/bookingSuccessful.xhtml" />
 							</div>

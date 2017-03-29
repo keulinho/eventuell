@@ -1,5 +1,6 @@
 package de.eventuell.views;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -54,7 +55,7 @@ public class EventDetailView{
 
 	public String conductBooking(){
 		try{
-			Booking booking = bookingService.conductBooking(amount, currentEvent);
+			Booking booking = bookingService.persistBooking(amount, currentEvent);
 			setCurrentBooking(booking);
 			amount=0;
 		}catch(BookingFailedException bfe){
@@ -67,6 +68,13 @@ public class EventDetailView{
 		return "event.jsf";
 	}
 
+	public boolean isEventExpired(){
+		if(currentEvent.getStartDateTime().isBefore(LocalDateTime.now())){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	public int getAmount() {
 		return amount;
