@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
+Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+<head>
+</head>
+<body>
+	<ui:composition template="base.xhtml">
+		<ui:define name="head">
+			<title>EVENTuell - Settings</title>
+		</ui:define>
+		<ui:define name="content">
+			<div class="container-fluid">
+				<div class="row">
+					<h1>Einstellungen</h1>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div>
+							<!-- Nav tabs -->
+							<ul class="nav nav-tabs" role="tablist">
+						    	<li role="presentation" class="active"><a href="#passwd" aria-controls="passwd" role="tab" data-toggle="tab">Passwort ändern</a></li>
+						    	<li role="presentation"><a href="#email" aria-controls="email" role="tab" data-toggle="tab">E-Mail ändern</a></li>
+						    </ul>
+						    <!-- Tab panes -->
+							<div class="tab-content">
+						    	<div role="tabpanel" class="tab-pane active container-fluid" id="passwd">
+						    		<div class="row">
+						    			<div class="col-md-4">
+						    				<form jsf:id="form">
+												<div class="form-group">
+													<label for="old-password">Altes Passwort</label>
+												    <input jsf:value="#{settingsPasswordView.oldPasswd}"  type="password" class="form-control" placeholder="Altes Passwort" id="old-password" required="true"/>
+												</div>
+												<div class="form-group">
+													<label for="new-password1">Neues Passwort</label>
+												    <input jsf:value="#{settingsPasswordView.newPasswd1}"  type="password" class="form-control" placeholder="Neues Passwort" id="new-password1" required="true" pattern=".{6,}" title="Das Passwort muss mindestens 6 Zeichen lang sein."/>
+												</div>
+												<div class="form-group">
+													<label for="new-password2">Neues Passwort</label>
+												    <input jsf:value="#{settingsPasswordView.newPasswd2}"  type="password" class="form-control" placeholder="Neues Passwort" id="new-password2" required="true" pattern=".{6,}" title="Das Passwort muss mindestens 6 Zeichen lang sein."/>
+												</div>
+												<input value="Passwort ändern"  jsf:action="#{settingsPasswordView.changePassword}" type="submit" class="btn btn-default"/>
+											</form>
+						    			</div>
+						    		</div>
+						    	</div>
+						    	<div role="tabpanel" class="tab-pane container-fluid" id="email">
+						    		<div class="row">
+						    			<div class="col-md-4">
+						    				<form jsf:id="mail-form">
+												<div class="form-group">
+													<label for="new-mail">Neue E-Mail</label>
+												    <input jsf:value="#{settingsMailView.newMail}"  type="mail" class="form-control" placeholder="Neue E-Mail" id="new-mail" required="true"/>
+												</div>
+												<input value="E-Mail ändern"  jsf:action="#{settingsMailView.changeMail}" type="submit" class="btn btn-default"/>
+											</form>
+						    			</div>
+						    		</div>
+						    	</div>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
