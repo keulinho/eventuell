@@ -11,148 +11,160 @@
 <h:body>
 	<ui:composition template="base.xhtml">
 		<ui:define name="content">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-12">
-						<h1>#{eventDetailView.currentEvent.title}</h1>
+			<c:if test="#{eventDetailView.currentEvent != null}">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<h1>#{eventDetailView.currentEvent.title}</h1>
+						</div>
 					</div>
-				</div>
-				<ul class="list-group">
-					<li class="list-group-item container">
-						<div class="row">
-							<div class="container">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h3 class="panel-title">Informationen zum Event</h3>
-									</div>
-									<div class="panel-body">
-										<div class="row">
-											<div class="col-md-2">Datum:</div>
-											<div class="col-md-8">
-												<h:outputText
-													value="#{eventDetailView.currentEvent.startDateTime}"
-													pattern="dd.MM.YYYY">
-													<f:converter converterId="localDateTimeConverterID" />
-												</h:outputText>
+					<ul class="list-group">
+						<li class="list-group-item container">
+							<div class="row">
+								<div class="container">
+									<div class="panel panel-primary">
+										<div class="panel-heading">
+											<h3 class="panel-title">Informationen zum Event</h3>
+										</div>
+										<div class="panel-body">
+											<div class="row">
+												<div class="col-md-2">Datum:</div>
+												<div class="col-md-8">
+													<h:outputText
+														value="#{eventDetailView.currentEvent.startDateTime}"
+														pattern="dd.MM.YYYY">
+														<f:converter converterId="localDateTimeConverterID" />
+													</h:outputText>
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-2">Startzeit:</div>
-											<div class="col-md-8">
-												<h:outputText
-													value="#{eventDetailView.currentEvent.startDateTime}"
-													pattern="HH:mm">
-													<f:converter converterId="localDateTimeConverterID" />
-												</h:outputText>
+											<div class="row">
+												<div class="col-md-2">Startzeit:</div>
+												<div class="col-md-8">
+													<h:outputText
+														value="#{eventDetailView.currentEvent.startDateTime}"
+														pattern="HH:mm">
+														<f:converter converterId="localDateTimeConverterID" />
+													</h:outputText>
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-2">Stadt:</div>
-											<div class="col-md-8">#{eventDetailView.currentEvent.city}</div>
-										</div>
-										<div class="row">
-											<div class="col-md-2">Veranstaltungsort:</div>
-											<div class="col-md-8">#{eventDetailView.currentEvent.zipCode}
-												#{eventDetailView.currentEvent.location}</div>
-										</div>
-										<div class="row">
-											<div class="col-md-2">Adresse:</div>
-											<div class="col-md-8">#{eventDetailView.currentEvent.streetNumber}</div>
-										</div>
-										<div class="row">
-											<div class="col-md-2">Preis pro Ticket:</div>
-											<div class="col-md-8">#{eventDetailView.currentEvent.price}€</div>
-										</div>
-										<div class="row">
-											<div class="col-md-2">Anzahl Tickets:</div>
-											<div class="col-md-8">#{eventDetailView.currentEvent.maxTickets}</div>
-										</div>
-										<div class="row">
-											<div class="col-md-2">Verfügbare Tickets:</div>
-											<div class="col-md-8">
-												<h:outputText
-													value="#{eventDetailView.currentEvent.availableTicketsAsString()}"></h:outputText>
+											<div class="row">
+												<div class="col-md-2">Stadt:</div>
+												<div class="col-md-8">#{eventDetailView.currentEvent.city}</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-2">Beschreibung:</div>
-											<div class="col-md-8">#{eventDetailView.currentEvent.description}</div>
+											<div class="row">
+												<div class="col-md-2">Veranstaltungsort:</div>
+												<div class="col-md-8">#{eventDetailView.currentEvent.zipCode}
+													#{eventDetailView.currentEvent.location}</div>
+											</div>
+											<div class="row">
+												<div class="col-md-2">Adresse:</div>
+												<div class="col-md-8">#{eventDetailView.currentEvent.streetNumber}</div>
+											</div>
+											<div class="row">
+												<div class="col-md-2">Preis pro Ticket:</div>
+												<div class="col-md-8">#{eventDetailView.currentEvent.price}€</div>
+											</div>
+											<div class="row">
+												<div class="col-md-2">Anzahl Tickets:</div>
+												<div class="col-md-8">#{eventDetailView.currentEvent.maxTickets}</div>
+											</div>
+											<div class="row">
+												<div class="col-md-2">Verfügbare Tickets:</div>
+												<div class="col-md-8">
+													<h:outputText
+														value="#{eventDetailView.currentEvent.availableTicketsAsString()}"></h:outputText>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-2">Beschreibung:</div>
+												<div class="col-md-8">#{eventDetailView.currentEvent.description}</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</li>
+						</li>
 
-					<li class="list-group-item container">
-						<div class="row">
-							<div class="container">
-								<c:if test="#{not empty userSession.user}">
-									<div class="panel panel-primary">
-										<div class="panel-heading">
-											<h3 class="panel-title">Tickets reservieren</h3>
+						<li class="list-group-item container">
+							<div class="row">
+								<div class="container">
+									<c:if test="#{not empty userSession.user}">
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<h3 class="panel-title">Tickets reservieren</h3>
+											</div>
+											<div class="panel-body">
+												<table class="table table-bordered table-hover">
+													<thead class="table-header">
+														<tr>
+															<td>Ticketart</td>
+															<td>Preis pro Ticket</td>
+															<td>Anzahl</td>
+															<td>Gesamtpreis</td>
+															<td></td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<h:form>
+																<td>Standard</td>
+																<td id="pricePerTicket"
+																	data-price="#{eventDetailView.currentEvent.price}">#{eventDetailView.currentEvent.price}</td>
+																<td><input id="amount" type="number" min="0"
+																	jsf:value="#{eventDetailView.amount}" required="true"
+																	onchange="calculate()"></input></td>
+																<td id="overallPrice"></td>
+																<td><h:commandButton value="Reservieren"
+																		class="btn btn-default"
+																		action="#{eventDetailView.conductBooking}">
+																		<f:param name="id"
+																			value="#{eventDetailView.currentEvent.eventID}" />
+																	</h:commandButton></td>
+															</h:form>
+														</tr>
+													</tbody>
+												</table>
+											</div>
 										</div>
-										<div class="panel-body">
-											<table class="table table-bordered table-hover">
-												<thead class="table-header">
-													<tr>
-														<td>Ticketart</td>
-														<td>Preis pro Ticket</td>
-														<td>Anzahl</td>
-														<td>Gesamtpreis</td>
-														<td></td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<h:form>
-															<td>Standard</td>
-															<td id="pricePerTicket"
-																data-price="#{eventDetailView.currentEvent.price}">#{eventDetailView.currentEvent.price}</td>
-															<td><input id="amount" type="number" min="0"
-																jsf:value="#{eventDetailView.amount}" required="true"
-																onchange="calculate()"></input></td>
-															<td id="overallPrice"></td>
-															<td><h:commandButton value="Reservieren" class="btn btn-default"
-																	action="#{eventDetailView.conductBooking}">
-																	<f:param name="id"
-																		value="#{eventDetailView.currentEvent.eventID}" />
-																</h:commandButton></td>
-														</h:form>
-													</tr>
-												</tbody>
-											</table>
+									</c:if>
+									<c:if test="#{empty userSession.user}">
+										<div class="alert alert-danger">
+											<span>Sie müssen eingeloggt sein, um Tickets für
+												dieses Event reservieren zu können.</span>
+											<div>
+												<h:link class="btn btn-info" value="Zum Login"
+													outcome="login.jsf">
+												</h:link>
+											</div>
 										</div>
-									</div>
-								</c:if>
-								<c:if test="#{empty userSession.user}">
-									<div class="alert alert-danger">
-										<span>Sie müssen eingeloggt sein, um Tickets für dieses
-											Event reservieren zu können.</span>
-										<div>
-											<h:link class="btn btn-info" value="Zum Login"
-												outcome="login.jsf">
-											</h:link>
-										</div>
-									</div>
-								</c:if>
+									</c:if>
 
+								</div>
 							</div>
-						</div>
-					</li>
-					<c:if
-						test="#{eventDetailView.bookingSuccess == true and eventDetailView.currentBooking != null }">
-						<div id="booking-successful">
-							<ui:include src="/Snippets/bookingSuccessful.xhtml" />
-						</div>
-					</c:if>
-					<c:if test="#{eventDetailView.bookingSuccess == false}">
-						<div id="booking-failed">
-							<ui:include src="/Snippets/bookingFailed.xhtml" />
-						</div>
-					</c:if>
-				</ul>
-			</div>
+						</li>
+						<c:if
+							test="#{eventDetailView.bookingSuccess == true and eventDetailView.currentBooking != null }">
+							<div id="booking-successful">
+								<ui:include src="/Snippets/bookingSuccessful.xhtml" />
+							</div>
+						</c:if>
+						<c:if test="#{eventDetailView.bookingSuccess == false}">
+							<div id="booking-failed">
+								<ui:include src="/Snippets/bookingFailed.xhtml" />
+							</div>
+						</c:if>
+					</ul>
+				</div>
+			</c:if>
+			<c:if test="#{eventDetailView.currentEvent == null}">
+				<div class="alert alert-danger">
+					<span>Das Event, dass Sie versuchen aufzurufen existiert leider nicht.</span>
+					<div>
+						<h:link class="btn btn-info" value="Zur Startseite" outcome="index.jsf">
+						</h:link>
+					</div>
+				</div>
+			</c:if>
 		</ui:define>
 		<ui:define name="js">
 			<script>
@@ -162,10 +174,12 @@
 					var amount = document.getElementById('amount').value;
 					var overallPrice = document.getElementById('overallPrice');
 					var myResult = pricePerTicket * amount;
-					document.getElementById("overallPrice").innerHTML = myResult.toString() + "€";
+					document.getElementById("overallPrice").innerHTML = myResult
+							.toString()
+							+ "€";
 				}
-				$( document ).ready(function() {
-				    calculate();
+				$(document).ready(function() {
+					calculate();
 				});
 			</script>
 		</ui:define>

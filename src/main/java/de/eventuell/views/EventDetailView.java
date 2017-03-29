@@ -10,6 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.omg.CORBA.Request;
+
 import de.eventuell.exceptions.BookingFailedException;
 import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Booking;
@@ -25,39 +27,36 @@ public class EventDetailView{
 
 	private Event currentEvent;
 	private Booking currentBooking = null;
-	
+
 	@Inject
 	private IEventService eventService;
-	
+
 	private int amount;
 	private boolean bookingSuccess = true;
-	
-	
-		
+
+
+
 	@Inject
 	UserSession session;
-	
+
 	@Inject
 	IBookingService bookingService;
-	
+
 	public EventDetailView(){
 
 	}
-	
+
 	@PostConstruct
-	public void populatePage() {
+	public void populatePage() {			
 		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = urlParameter.get("id");
+
 		if(id != null){
 			currentEvent = eventService.getEventByID(Integer.parseInt(id));	
-		}else{
-			
 		}
-		
-		
-		
-	}
-	
+	}	
+
+
 	public String conductBooking(){
 		try{
 			Booking booking = bookingService.conductBooking(amount, currentEvent);
@@ -71,7 +70,7 @@ public class EventDetailView{
 		return "event.jsf";
 	}
 
-	
+
 	public int getAmount() {
 		return amount;
 	}
@@ -98,7 +97,7 @@ public class EventDetailView{
 	}
 
 
-	
+
 	public Event getCurrentEvent() {
 		return currentEvent;
 	}
@@ -107,7 +106,7 @@ public class EventDetailView{
 		this.currentEvent = currentEvent;
 	}
 
-	
+
 	public Booking getCurrentBooking() {
 		return currentBooking;
 	}
