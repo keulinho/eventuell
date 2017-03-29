@@ -52,4 +52,24 @@ public class UserService implements IUserService {
 		throw new LoginFailedException();
 	}
 
+	@Override
+	public User getUserByMail(String mail) {
+		List<User> users = (List<User>) em.createQuery("SELECT u FROM User u WHERE u.email=:mail")
+				.setParameter("mail", mail).getResultList();
+		for (User user : users) {
+			return user;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean isMailInUse(String mail) {
+		List<User> users = (List<User>) em.createQuery("SELECT u FROM User u WHERE u.email=:mail")
+				.setParameter("mail", mail).getResultList();
+		if (users.size() > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }
