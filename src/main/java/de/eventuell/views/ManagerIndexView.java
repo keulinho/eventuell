@@ -133,8 +133,6 @@ public class ManagerIndexView {
 		return maxTickets;
 	}
 
-	
-
 	public String getStartDate() {
 		return startDate;
 	}

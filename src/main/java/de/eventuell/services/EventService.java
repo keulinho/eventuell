@@ -126,7 +126,7 @@ public class EventService implements IEventService {
 			return null;
 		}
 	}
-
+	
 	@Override
 	public void addEvent(Event e) {
 		em.getTransaction().begin();
