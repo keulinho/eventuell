@@ -1,7 +1,6 @@
 package de.eventuell.views;
 
 import java.util.Map;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -10,13 +9,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.omg.CORBA.Request;
-
 import de.eventuell.exceptions.BookingFailedException;
-import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Booking;
 import de.eventuell.models.Event;
-import de.eventuell.services.MockEventService;
 import de.eventuell.services.interfaces.IBookingService;
 import de.eventuell.services.interfaces.IEventService;
 import de.eventuell.session.UserSession;

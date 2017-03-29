@@ -1,7 +1,5 @@
 package de.eventuell.services;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -18,13 +16,7 @@ public class BookingService  implements IBookingService {
 	
 	@Inject
 	UserSession session;
-		
-	public List<Booking> getAllBookings() {
-		List<Booking> bookingList = (List<Booking>) em.createQuery("SELECT b FROM Booking b").getResultList();
-		return bookingList;
-	}
 
-	
 	public Booking getBookingByBookingCode(int bookingCode) {
 		return em.find(Booking.class, bookingCode);
 	}
@@ -32,7 +24,7 @@ public class BookingService  implements IBookingService {
 	
 	public Booking conductBooking(int amount, Event currentEvent) throws BookingFailedException {
 		em.refresh(currentEvent);
-		if (currentEvent.availableTickets()>=amount)
+		if (currentEvent.availableTickets()>=amount && amount > 0)
 		{
 			Booking booking = new Booking();
 			booking.setAmount(amount);
