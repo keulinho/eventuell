@@ -1,6 +1,7 @@
 package de.eventuell.views;
 
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -47,7 +48,14 @@ public class EventDetailView{
 	public void populatePage() {
 		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = urlParameter.get("id");
-		currentEvent = eventService.getEventByID(Integer.parseInt(id));
+		if(id != null){
+			currentEvent = eventService.getEventByID(Integer.parseInt(id));	
+		}else{
+			
+		}
+		
+		
+		
 	}
 	
 	public String conductBooking(){

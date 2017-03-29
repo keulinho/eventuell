@@ -109,9 +109,9 @@
 															<td>Standard</td>
 															<td id="pricePerTicket"
 																data-price="#{eventDetailView.currentEvent.price}">#{eventDetailView.currentEvent.price}</td>
-															<td><h:inputText id="amount" pt:type="number" pt:min="0"
-																value="#{eventDetailView.amount}" pt:required="true"
-																onchange="calculate()"></h:inputText></td>
+															<td><input id="amount" type="number" min="0"
+																jsf:value="#{eventDetailView.amount}" required="true"
+																onchange="calculate()"></input></td>
 															<td id="overallPrice"></td>
 															<td><h:commandButton value="Reservieren" class="btn btn-default"
 																	action="#{eventDetailView.conductBooking}">
@@ -141,12 +141,12 @@
 						</div>
 					</li>
 					<c:if
-						test="#{eventDetailView.bookingSuccess = true and eventDetailView.currentBooking != null }">
+						test="#{eventDetailView.bookingSuccess == true and eventDetailView.currentBooking != null }">
 						<div id="booking-successful">
 							<ui:include src="/Snippets/bookingSuccessful.xhtml" />
 						</div>
 					</c:if>
-					<c:if test="#{eventDetailView.bookingSuccess = false}">
+					<c:if test="#{eventDetailView.bookingSuccess == false}">
 						<div id="booking-failed">
 							<ui:include src="/Snippets/bookingFailed.xhtml" />
 						</div>
@@ -162,8 +162,11 @@
 					var amount = document.getElementById('amount').value;
 					var overallPrice = document.getElementById('overallPrice');
 					var myResult = pricePerTicket * amount;
-					document.getElementById("overallPrice").innerHTML = myResult.toString();
+					document.getElementById("overallPrice").innerHTML = myResult.toString() + "€";
 				}
+				$( document ).ready(function() {
+				    calculate();
+				});
 			</script>
 		</ui:define>
 	</ui:composition>
