@@ -165,7 +165,12 @@ public class Event {
 	public void setStatus(EventStatus status) {
 		this.status = status;
 	}
-
+	
+	public void addBooking(Booking b)
+	{
+		bookings.add(b);
+	}
+	
 	public boolean isAgo() {
 		if (this.startDateTime.compareTo(LocalDateTime.now()) < 0) {
 			return true;
@@ -175,6 +180,7 @@ public class Event {
 	}
 
 	public int availableTickets() {
+		
 		int bookedTickets = this.bookings.stream().map(e -> e.getAmount()).reduce(0, (x, y) -> x + y);
 		return maxTickets - bookedTickets;
 	}
