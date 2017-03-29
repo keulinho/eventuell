@@ -49,8 +49,12 @@
 											#{event.streetNumber}</div>
 									</div>
 									<div class="row">
-										<div class="col-md-4">Maximal Verfügbare Tickets:</div>
+										<div class="col-md-4">Maximale Anzahl Tickets:</div>
 										<div class="col-md-8">#{event.maxTickets}</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">Verfügbare Tickets:</div>
+										<div class="col-md-8">#{event.availableTicketsAsString()}</div>
 									</div>
 									<div class="row">
 										<div class="col-md-4">Ticketpreis:</div>
