@@ -28,12 +28,10 @@ public class LoginView {
 	}
 
 	public String login() {
-		System.out.println(this.user);
 		if (user != null && user.evaluateCredentials(this.password)) {
 			userSession.setUser(user);
 			return "index.jsf?faces-redirect=true";
 		} else {
-			System.out.println("----> Login Failed, but where is the message?");
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail und Paswort sind nicht gültig!", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return "login.jsf";

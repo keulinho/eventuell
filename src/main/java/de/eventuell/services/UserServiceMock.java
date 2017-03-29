@@ -79,4 +79,13 @@ public class UserServiceMock implements IUserService {
 		}
 		return null;
 	}
+
+	public boolean isMailInUse(String mail) {
+		for (User user : users) {
+			if (user.getEmail().equals(mail)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

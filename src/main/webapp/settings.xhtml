@@ -47,7 +47,19 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						    			</div>
 						    		</div>
 						    	</div>
-						    	<div role="tabpanel" class="tab-pane" id="email">email</div>
+						    	<div role="tabpanel" class="tab-pane container-fluid" id="email">
+						    		<div class="row">
+						    			<div class="col-md-4">
+						    				<form jsf:id="mail-form">
+												<div class="form-group">
+													<label for="new-mail">Neue E-Mail</label>
+												    <input jsf:value="#{settingsMailView.newMail}"  type="mail" class="form-control" placeholder="Neue E-Mail" id="new-mail" required="true"/>
+												</div>
+												<input value="E-Mail ändern"  jsf:action="#{settingsMailView.changeMail}" type="submit" class="btn btn-default"/>
+											</form>
+						    			</div>
+						    		</div>
+						    	</div>
 						    </div>
 						</div>
 					</div>

@@ -26,8 +26,6 @@ public class SettingsPasswordView {
 	public String changePassword() {
 		System.out.println(" --> Passwort ändern: " + oldPasswd + " to " + newPasswd1 + " and " + newPasswd2);
 		User user = session.getUser();
-		System.out.println(user);
-		System.out.println(user.getLastName());
 		if (!user.evaluateCredentials(oldPasswd)) {
 			// altes passwort falsch
 			System.out.println("alter Passwort war falsch");
