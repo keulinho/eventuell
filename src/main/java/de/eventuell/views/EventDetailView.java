@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,7 +18,7 @@ import de.eventuell.session.UserSession;
 
 @Named
 @RequestScoped
-public class EventDetailView{
+public class EventDetailView {
 
 	private Event currentEvent;
 	private Booking currentBooking = null;
@@ -30,48 +29,44 @@ public class EventDetailView{
 	private int amount;
 	private boolean bookingSuccess = true;
 
-
-
 	@Inject
 	UserSession session;
 
 	@Inject
 	IBookingService bookingService;
 
-	public EventDetailView(){
+	public EventDetailView() {
 
 	}
 
 	@PostConstruct
-	public void populatePage() {			
-		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+	public void populatePage() {
+		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap();
 		String id = urlParameter.get("id");
 
-		if(id != null){
-			currentEvent = eventService.getEventByID(Integer.parseInt(id));	
+		if (id != null) {
+			currentEvent = eventService.getEventByID(Integer.parseInt(id));
 		}
-	}	
+	}
 
-
-	public String conductBooking(){
-		try{
+	public String conductBooking() {
+		try {
 			Booking booking = bookingService.persistBooking(amount, currentEvent);
 			setCurrentBooking(booking);
-			amount=0;
-		}catch(BookingFailedException bfe){
+			amount = 0;
+		} catch (BookingFailedException bfe) {
 			setBookingSuccess(false);
-			amount=0;
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Die Buchung konnte nicht durchgeführt werden!", null);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			amount = 0;
 			return null;
 		}
 		return "event.jsf";
 	}
 
-	public boolean isEventExpired(){
-		if(currentEvent.getStartDateTime().isBefore(LocalDateTime.now())){
+	public boolean isEventExpired() {
+		if (currentEvent.getStartDateTime().isBefore(LocalDateTime.now())) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -96,12 +91,9 @@ public class EventDetailView{
 		return eventService;
 	}
 
-
 	public void setEventService(IEventService eventService) {
 		this.eventService = eventService;
 	}
-
-
 
 	public Event getCurrentEvent() {
 		return currentEvent;
@@ -110,7 +102,6 @@ public class EventDetailView{
 	public void setCurrentEvent(Event currentEvent) {
 		this.currentEvent = currentEvent;
 	}
-
 
 	public Booking getCurrentBooking() {
 		return currentBooking;
@@ -124,7 +115,6 @@ public class EventDetailView{
 		return session;
 	}
 
-
 	public void setSession(UserSession session) {
 		this.session = session;
 	}
@@ -135,5 +125,5 @@ public class EventDetailView{
 
 	public void setBookingSuccess(boolean bookingSuccess) {
 		this.bookingSuccess = bookingSuccess;
-	}	
+	}
 }
