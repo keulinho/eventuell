@@ -32,7 +32,7 @@ public class LoginView {
 			userSession.setUser(user);
 			return "index.jsf?faces-redirect=true";
 		} else {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail und Paswort sind nicht gültig!", null);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail und Passwort sind nicht gültig!", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return "login.jsf";
 		}
