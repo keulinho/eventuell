@@ -38,8 +38,11 @@ public class EventService implements IEventService {
 
 	@PostConstruct
 	public void generateTestData() {
-		List<Event> eventList = (List<Event>) em.createQuery("SELECT e FROM Event e").getResultList();
-		if (eventList.size()<1)
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		cq.select(cb.count(cq.from(Event.class)));
+		Long events = em.createQuery(cq).getSingleResult();
+		if (events<1)
 		{
 			EventBuilder e = new EventBuilder();
 			em.getTransaction().begin();
