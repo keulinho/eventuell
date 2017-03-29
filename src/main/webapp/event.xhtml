@@ -11,6 +11,7 @@
 <h:body>
 	<ui:composition template="base.xhtml">
 		<ui:define name="content">
+		<c:if test="#{eventDetailView.currentEvent != null}">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-12">
@@ -153,6 +154,8 @@
 					</c:if>
 				</ul>
 			</div>
+		</c:if>
+			
 		</ui:define>
 		<ui:define name="js">
 			<script>
