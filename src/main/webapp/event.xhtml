@@ -13,9 +13,11 @@
 		<ui:define name="content">
 			<c:if test="#{eventDetailView.currentEvent != null}">
 				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-12">
-							<h1>#{eventDetailView.currentEvent.title}</h1>
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<h1>#{eventDetailView.currentEvent.title}</h1>
+							</div>
 						</div>
 					</div>
 					<ul class="list-group">
@@ -135,6 +137,9 @@
 												<h:link class="btn btn-info" value="Zum Login"
 													outcome="login.jsf">
 												</h:link>
+												<h:link class="btn btn-info" value="Zur Registrierung"
+													outcome="registration.jsf">
+												</h:link>
 											</div>
 										</div>
 									</c:if>
@@ -158,9 +163,11 @@
 			</c:if>
 			<c:if test="#{eventDetailView.currentEvent == null}">
 				<div class="alert alert-danger">
-					<span>Das Event, dass Sie versuchen aufzurufen existiert leider nicht.</span>
+					<span>Das Event, dass Sie versuchen aufzurufen existiert
+						leider nicht.</span>
 					<div>
-						<h:link class="btn btn-info" value="Zur Startseite" outcome="index.jsf">
+						<h:link class="btn btn-info" value="Zur Startseite"
+							outcome="index.jsf">
 						</h:link>
 					</div>
 				</div>

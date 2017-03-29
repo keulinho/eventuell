@@ -60,9 +60,9 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			</ul>
 			<!-- navbar-right -->
 			<ul class="nav navbar-nav navbar-right">
-				<li><h:link value="login" outcome="login"
+				<li><h:link value="Login" outcome="login"
 						rendered="#{userSession.user eq null}"></h:link></li>
-				<li><h:link value="registrieren" outcome="registration"
+				<li><h:link value="Registrieren" outcome="registration"
 						rendered="#{userSession.user eq null}"></h:link></li>
 			</ul>
 			<h:form class="navbar-form navbar-right"
@@ -71,7 +71,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					type="submit" class="btn btn-info" />
 			</h:form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><h:link value="einstellungen" outcome="settings"
+				<li><h:link value="Einstellungen" outcome="settings"
 						rendered="#{userSession.user ne null}"></h:link></li>
 			</ul>
 		</div>
