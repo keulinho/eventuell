@@ -2,33 +2,25 @@ package de.eventuell.services;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
-import javax.transaction.Transactional.TxType;
 
-import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Booking;
 import de.eventuell.models.Event;
 import de.eventuell.models.EventBuilder;
 import de.eventuell.models.EventStatus;
 import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IEventService;
-import de.eventuell.services.interfaces.IUserService;
 
 @Named
 @ApplicationScoped

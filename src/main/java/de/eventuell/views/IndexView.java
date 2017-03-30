@@ -7,7 +7,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.Event;
 import de.eventuell.services.interfaces.IEventService;
 
@@ -20,7 +19,7 @@ public class IndexView {
 	private IEventService eventService;
 	
 	
-	public IndexView() throws LoginFailedException {
+	public IndexView(){
 	}
 
 	public IEventService getEventService() {

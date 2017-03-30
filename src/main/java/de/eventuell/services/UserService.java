@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import de.eventuell.exceptions.LoginFailedException;
 import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IUserService;
 
