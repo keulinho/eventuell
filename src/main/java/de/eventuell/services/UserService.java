@@ -41,18 +41,6 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public User login(String mail, String password) throws LoginFailedException {
-		List<User> users = (List<User>) em.createQuery("SELECT u FROM User u WHERE u.email=:mail")
-				.setParameter("mail", mail).getResultList();
-		for (User user : users) {
-			if (user.getPassword().equals(password)) {
-				return user;
-			}
-		}
-		throw new LoginFailedException();
-	}
-
-	@Override
 	public User getUserByMail(String mail) {
 		List<User> users = (List<User>) em.createQuery("SELECT u FROM User u WHERE u.email=:mail")
 				.setParameter("mail", mail).getResultList();
