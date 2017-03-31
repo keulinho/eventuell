@@ -24,7 +24,7 @@ public class BookingService  implements IBookingService {
 	
 	public Booking persistBooking(int amount, Event currentEvent) throws BookingFailedException {
 		em.refresh(currentEvent);
-		if (currentEvent.availableTickets()>=amount && amount > 0)
+		if (currentEvent.availableTickets() >= amount && amount > 0 && !(amount < 1) )
 		{
 			Booking booking = new Booking();
 			booking.setAmount(amount);
