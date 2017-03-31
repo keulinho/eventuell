@@ -39,6 +39,8 @@ public class ManagerIndexView {
 	private String zipCode;
 	private String city;
 	private String streetNumber;
+	//wird für die navigation im Reiter des Managerbereiches benötigt
+	//clientseitige (javascript) auswertung welches Tab active ist
 	private String hash;
 	
 	
@@ -167,6 +169,7 @@ public class ManagerIndexView {
 
 	@PostConstruct
 	public void populateVariables() {
+		//Initialisiert alle Klassenvariablen, damit die Templates auf diese zugreifen können
 		getAllActualEventsByManager();
 		getAllNotPublishedEventsByManager();
 	}

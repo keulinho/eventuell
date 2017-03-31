@@ -1,4 +1,4 @@
-package de.eventuell.converter;
+package de.eventuell.utils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

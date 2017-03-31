@@ -58,6 +58,7 @@ public class Booking {
 	}
 	
 	public String calculateOverallPriceAsString(){
+		//nötig da die Templates nur String-Rückgabewerte rendern können
 		return String.valueOf(calculateOverallPrice());
 	}
 	
