@@ -33,7 +33,6 @@ public class RegistrationView {
 	}
 	
 	public String register() {
-		System.out.println("----- hier wird sich regisitriert");
 		if (passwd1.length() < 6 || firstName.isEmpty() || name.isEmpty() || eMail.isEmpty() || !isValidEmailAddress(eMail) || !checkPasswdEquality()) {
 			return "register.jsf";
 		} else {
@@ -41,10 +40,8 @@ public class RegistrationView {
 			try {
 				User user = userService.register(firstName, name, passwd1, eMail, manager);
 				userSession.setUser(user);
-				System.out.println("---- regisiriert");
 				return "index.jsf?faces-redirect=true";
 			} catch (RegistrationFailedException e) {
-				System.out.println("---- registriereiung fehlgeschlagen");
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail ist nicht mehr verfügbar!", null);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return "register.jsf";
