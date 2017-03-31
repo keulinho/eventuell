@@ -28,8 +28,6 @@ public class UserService implements IUserService {
 
 	@Override
 	public User register(String firstName, String lastName, String password, String mail, boolean isManager) throws RegistrationFailedException {
-		System.out.println("-----!!!!!!!!----------");
-		System.out.println("--------> " + this.isMailInUse(mail));
 		if (this.isMailInUse(mail)) {
 			throw new RegistrationFailedException();
 		} else {
@@ -60,7 +58,6 @@ public class UserService implements IUserService {
 	public boolean isMailInUse(String mail) {
 		List<User> users = (List<User>) em.createQuery("SELECT u FROM User u WHERE u.email=:mail")  // eigentlich ne Exists-Query
 				.setParameter("mail", mail).getResultList();
-		System.out.println("---- Size: " + users.size());
 		if (users.size() > 0) {
 			return true;
 		}
