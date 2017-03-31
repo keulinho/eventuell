@@ -1,9 +1,12 @@
 package de.eventuell.views;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.eventuell.exceptions.RegistrationFailedException;
 import de.eventuell.models.User;
 import de.eventuell.services.interfaces.IUserService;
 import de.eventuell.session.UserSession;
@@ -30,12 +33,22 @@ public class RegistrationView {
 	}
 	
 	public String register() {
+		System.out.println("----- hier wird sich regisitriert");
 		if (passwd1.length() < 6 || firstName.isEmpty() || name.isEmpty() || eMail.isEmpty() || !isValidEmailAddress(eMail) || !checkPasswdEquality()) {
 			return "register.jsf";
 		} else {
-			User user = userService.register(firstName, name, passwd1, eMail, manager);
-			userSession.setUser(user);
-			return "index.jsf?faces-redirect=true";
+			System.out.println("Bullshit");
+			try {
+				User user = userService.register(firstName, name, passwd1, eMail, manager);
+				userSession.setUser(user);
+				System.out.println("---- regisiriert");
+				return "index.jsf?faces-redirect=true";
+			} catch (RegistrationFailedException e) {
+				System.out.println("---- registriereiung fehlgeschlagen");
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail ist nicht mehr verfügbar!", null);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return "register.jsf";
+			}
 		}
 	}
 	

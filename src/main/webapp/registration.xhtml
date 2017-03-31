@@ -13,6 +13,7 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<ui:composition template="base.xhtml">
 		<ui:define name="head">
 			<title>EVENTuell - Registrierung</title>
+			<h:outputStylesheet name="css/login-style.css" />
 		</ui:define>
 		<ui:define name="content">
 			<div class="container-fluid">
@@ -23,7 +24,8 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				</div>
 			    <div class="row">
 			        <div class="col-md-4">
-			        	<form jsf:id="form">	
+			        	<form jsf:id="form">
+			        		<h:messages globalOnly="true" layout="table" errorClass="message-error"></h:messages>	
 							<div class="form-group">
 								<label for="firstName">Vorname</label>
 								<input jsf:value="#{registrationView.firstName}" type="input" class="form-control" id="firstName" placeholder="Vorname" required="true" />
