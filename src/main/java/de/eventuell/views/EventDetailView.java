@@ -39,6 +39,9 @@ public class EventDetailView {
 
 	}
 
+	/**
+	 * Auslesen des id-Parameters aus der URL und holen des entsprechenden Events aus der Datenbank.
+	 */
 	@PostConstruct
 	public void populatePage() {
 		Map<String, String> urlParameter = FacesContext.getCurrentInstance().getExternalContext()
