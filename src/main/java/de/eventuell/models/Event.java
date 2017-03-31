@@ -186,6 +186,7 @@ public class Event {
 	}
 
 	public String availableTicketsAsString() {
+		//nötig da die Templates nur String-Rückgabewerte rendern können
 		return "" + availableTickets();
 	}
 }

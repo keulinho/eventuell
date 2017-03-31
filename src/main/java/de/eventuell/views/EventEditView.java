@@ -88,6 +88,7 @@ public class EventEditView {
 			Event e = eventService.getEventByID(Integer.parseInt(id));
 			if (session.getUser().getManager()&&session.getUser().getUserID()==e.getCreator().getUserID())
 			{
+				//muss extra formatiert werden, weil HTML kein DateTime als Input kann
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				this.startDate = e.getStartDateTime().format(dtf);
 				dtf = DateTimeFormatter.ofPattern("HH:mm");
@@ -114,6 +115,7 @@ public class EventEditView {
 	}
 
 	private void changeEvent(EventStatus status) {
+		//Rückformatierung der Strings mit der Zeit und dem Datum zum LocaleDateTime
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm");
 		LocalDateTime dateTime = LocalDateTime.parse(startDate+startTime, formatter);
 		event.setStartDateTime(dateTime);

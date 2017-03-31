@@ -34,6 +34,7 @@ public class EventService implements IEventService {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		cq.select(cb.count(cq.from(Event.class)));
 		Long events = em.createQuery(cq).getSingleResult();
+		//Testdaten werden eingefügt wenn noch kein Event besteht
 		if (events<1)
 		{
 			EventBuilder e = new EventBuilder();
@@ -128,6 +129,8 @@ public class EventService implements IEventService {
 		p2 = cb.or(p2, cb.like(cb.upper(e.get("location")), "%" + searchString.toUpperCase() + "%"));
 		p2 = cb.or(p2, cb.like(cb.upper(e.get("zipCode")), "%" + searchString.toUpperCase() + "%"));
 		p = cb.and(p, p2);
+		//Where: (((STATUS = ?) AND (STARTDATETIME >= ?)) AND (((UPPER(TITLE) LIKE ? OR UPPER(CITY) LIKE ?) OR UPPER(LOCATION) LIKE ?) OR UPPER(ZIPCODE) LIKE ?))
+		//verschiedene Predicates für die richtige Klammerung nötig
 		q.where(p);
 		TypedQuery<Event> query = em.createQuery(q);
 		return query.getResultList();

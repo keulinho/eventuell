@@ -1,4 +1,4 @@
-package de.eventuell.converter;
+package de.eventuell.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -16,6 +16,7 @@ public class PasswordConverter implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null && !value.isEmpty()) {
 			try {
+				
 				// SHA-256-Verschlüsselung
 				MessageDigest digest = MessageDigest.getInstance("SHA-256");
 				byte[] hash = digest.digest(value.getBytes("UTF-8"));
